@@ -21,6 +21,7 @@ public class ForGCDEx1 {
 		int num1 = scan.nextInt();
 		System.out.print("두번째 정수를 입력하세요 : ");
 		int num2 = scan.nextInt();
+		scan.close();
 		for(int i = 1;i<=num1;i++) {
 			if(num1%i==0)
 				if(num2%i==0)

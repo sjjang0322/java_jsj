@@ -12,6 +12,7 @@ public class ForPrimeNumEx1 {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("정수를 입력하세요 : ");
 		int num = scan.nextInt();
+		scan.close();
 		int cnt = 0;
 		for(int i = 1;i <= num ; i++) {
 			if(num%i==0) {
