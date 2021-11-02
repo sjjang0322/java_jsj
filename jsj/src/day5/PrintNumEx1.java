@@ -18,6 +18,18 @@ public class PrintNumEx1 {
 			System.out.println();
 		}
 		
+		System.out.println("--------------");
+		
+		
+		int num2=num*num;
+		
+		for(int i=1;i<=num2;i++) {
+			System.out.print(i + " ");
+			if(i%num==0) {
+				System.out.println();
+			}
+		}
+		
 	}
 
 }
