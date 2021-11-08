@@ -33,7 +33,21 @@ public class ClassScoreEx1 {
 		for(int i=0;i<size;i++) {
 			std[i].printInfo();
 		}
-		
+		int sumK=0;
+		for(int i=0;i<size;i++) {
+			sumK+=std[i].getScoreK();
+		}
+		System.out.println("국어 평균 : " + sumK/size);
+		int sumE=0;
+		for(int i=0;i<size;i++) {
+			sumE+=std[i].getScoreE();
+		}
+		System.out.println("영어 평균 : " + sumE/size);
+		int sumM=0;
+		for(int i=0;i<size;i++) {
+			sumM+=std[i].getScoreM();
+		}
+		System.out.println("수학 평균 : " + sumM/size);
 		scan.close();
 	}
 
