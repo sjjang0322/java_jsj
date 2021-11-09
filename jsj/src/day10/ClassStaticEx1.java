@@ -1,5 +1,7 @@
 package day10;
 
+import java.util.Random;
+
 public class ClassStaticEx1 {
 
 	public static void main(String[] args) {
@@ -21,6 +23,9 @@ public class ClassStaticEx1 {
 		System.out.println(Math.E);
 		System.out.println(Math.PI);
 		System.out.println(Math.random());
+		
+		Random r = new Random();
+		System.out.println(r.nextInt(10));
 	}
 
 }
