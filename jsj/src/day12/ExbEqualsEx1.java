@@ -10,7 +10,9 @@ public class ExbEqualsEx1 {
 		} else {
 			System.out.println("두 객체의 멤버 변수값이 다릅니다.");
 		}
-		System.out.println(a1.toString());
+		System.out.println(a1);
+		ExbTestB b = new ExbTestB(1,2);
+		System.out.println(b);
 	}
 
 }
@@ -76,6 +78,9 @@ class ExbTestB{
 			return false;
 		return true;
 	}
-	
+	@Override
+	public String toString() {
+		return "ExbTestB [num1 : " + num1 + " , " + "num2 : " + num2 + "]";
+	}
 	
 }
