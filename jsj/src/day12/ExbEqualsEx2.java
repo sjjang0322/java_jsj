@@ -1,6 +1,6 @@
 package day12;
 
-public class ExvEqualsEx2 {
+public class ExbEqualsEx2 {
 
 	public static void main(String[] args) {
 		//문자열 비교해보기
