@@ -36,6 +36,8 @@ public class ExaShape {
 	public void setBottom(int bottom) {
 		this.bottom = bottom;
 	}
+	public ExaShape() {}
+	
 	//도형을 그릴 때 대각선점 2개가 필요
 	public ExaShape(int x1, int y1, int x2, int y2) {
 		left  = x1 < x2 ? x1 : x2;

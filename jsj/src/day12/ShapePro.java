@@ -3,20 +3,21 @@ package day12;
 import java.util.Scanner;
 
 
-public class Shape {
+public class ShapePro {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		ShapeManager sm = new ShapeManager(scan);
 		int menu;
 		do {
 			menu = menu(scan);
 			switch(menu) {
-			case 1: draw(scan);
+			case 1: sm.draw(scan);
 				break;
-			case 2:
+			case 2:	sm.redo();
 				break;
-			case 3:
+			case 3: sm.undo();
 				break;
-			case 4:
+			case 4: sm.print();
 				break;
 			case 5:
 				System.out.println("프로그램 종료");
@@ -42,14 +43,7 @@ public class Shape {
 		return menu;
 	}
 	//1번 메뉴 실행
-	public static void draw(Scanner scan) {
-		int shape;
-		System.out.print("그릴 도형을 선택하세요(1.사각형, 2.타원) : ");
-		shape = scan.nextInt();
-		switch(shape) {
-		
-		}
-	}
+	
 }
 
 

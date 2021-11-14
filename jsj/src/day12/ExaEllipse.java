@@ -10,8 +10,8 @@ public class ExaEllipse extends ExaShape{
 	@Override
 	public void print() {
 		System.out.println("------타원형----------");
-		System.out.println("최상점 : " + (left+right)/2.0 + ", " + top);
-		System.out.println("최우점 : " + right + ", " + (bottom+top)/2.0);
+		System.out.println("좌상점 : " + left + ", " + top);
+		System.out.println("우하점 : " + right + ", " + bottom);
 		System.out.println("너비 : " + getWidth());
 		System.out.println("높이 : " + getHeight());
 		
