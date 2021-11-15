@@ -19,6 +19,10 @@ public class ExbMathEx1 {
 		 */
 		System.out.println("3.1의 내림 : " + Math.floor(3.1));
 		System.out.println("-3.1의 내림 : " + Math.floor(-3.1));
+		/* int max(int a, int b) : a와 b중 큰 수를 알려줌
+		 */
+		System.out.println("1과 5중 큰 수 : " + Math.max(1, 5));
+		System.out.println("1과 5중 큰 수 : " + max(1, 5));
 		
 		
 	}
@@ -28,4 +32,8 @@ public class ExbMathEx1 {
 	public static int abs(int a) {
 		return a >= 0 ? a : -a;
 	}
+	public static int max(int a, int b) {
+		return a>b ? a : b;
+	}
+	
 }
