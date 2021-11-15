@@ -7,7 +7,6 @@ public class ExaStringEx2 {
 		 */
 		
 		String name[] = new String[] {"홍길동", "안중근", "홍길동이", "김홍길동", "홍진호"};
-		String search[] = new String[5];
 		int count=0;
 		for(String tmp : name) {
 			if(tmp == "홍길동") {
