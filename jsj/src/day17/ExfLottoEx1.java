@@ -23,8 +23,7 @@ public class ExfLottoEx1 {
 			List<Integer> user = new ArrayList<Integer>();
 
 			//번호 입력
-			System.out.print((i+1) + "번째 ");
-			inputNum(scan, user, count);
+			inputNum(scan, user, count, i);
 			userList.add(user);
 			//System.out.println(user);
 		}
@@ -35,26 +34,26 @@ public class ExfLottoEx1 {
 		}
 	}
 	
-	public static boolean inputUser(Scanner scan,List<Integer> user, int count) {
+	public static boolean inputUser(Scanner scan,List<Integer> user, int count, int i1) {
 		Set<Integer> userSet = new HashSet<Integer>();
-		
-		System.out.print("숫자 " + (count - 1) + "개를 입력하세요 : ");
+		user.clear();
+		System.out.print((i1+1) + "번째 숫자 " + (count - 1) + "개를 입력하세요 : ");
 				
 		for(int i=0;i<6;i++) {
 			int num = scan.nextInt();
 			userSet.add(num);
 			user.add(num);
-			if(userSet.size() != user.size()) {
-				System.out.println("중복된 숫자를 입력했습니다!!!!!!");
-				return false;
-			}
+		}
+		if(userSet.size() != user.size()) {
+			System.out.println("중복된 숫자를 입력했습니다!!!!!!");
+			return false;
 		}
 		return true;
 	}
 	
-	public static void inputNum(Scanner scan, List<Integer> user, int count) {
+	public static void inputNum(Scanner scan, List<Integer> user, int count, int i1) {
 		for(;;) {
-			if(inputUser(scan, user, count)) {
+			if(inputUser(scan, user, count, i1)) {
 				break;
 			}
 		}
