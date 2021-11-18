@@ -2,7 +2,10 @@ package day16;
 
 public class ExbStudent {
 	//private으로 설정 : 외부에서 멤버변수에 직접 접근하지 못하게 하기 위해서
-		private int kor,eng,math,grade,classNum,num;
+		private int kor,eng,math;
+		int grade;
+		int classNum;
+		int num;
 		private String name;
 		//생성자를 추가 : 멤버 변수를 쉽게 초기화 하기 위해서 
 		public ExbStudent(int kor, int eng, int math, int grade, int classNum, int num, String name) {
