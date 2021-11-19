@@ -46,6 +46,5 @@ public class StudentScoreProgram {
 	
 	public static void add(Scanner scan,ArrayList<ExbStudent> stdList) {
 		ExbStudent std = new ExbStudent();
-		ExaListEx1.ipStd(scan, stdList);
 	}
 }
