@@ -6,6 +6,9 @@ public class ExbScore {
 	private int term;
 	private int point;
 	
+	public ExbScore() {
+	}
+
 	public ExbScore(String sbjectTitle, int grade, int term, int point) {
 		this.sbjectTitle = sbjectTitle;
 		this.grade = grade;
