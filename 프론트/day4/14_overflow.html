@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>overflow 예제</title>
+	<style>
+		.box{
+			/* overflow 값을 hidden, visible, scroll, auto로 변경하면서 테스트 */
+			overflow: auto; height: 300px; border: 1px solid black;
+			-ms-overflow-style: none; /* IE and Edge에서 스크롤을 안보이게함 */
+			scrollbar-width: none;	/* Firefox에서 스크롤을 안보이게함 */
+		}
+		/* Chrome, Safari, Opera 에서 스크롤을 안보이게 함 */
+		.box::-webkit-scrollbar{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">안녕</div>
+	<div class="box">
+		50대 여성을 살해하고 시신 유기를 도운 공범까지 살해한 인천 연쇄 살인범의 신상 공개가 추진됩니다.
+
+인천경찰청은 강도살인과 살인, 사체유기 혐의를 받는 50대 남성 A 씨의 신상 공개를 검토하고 있습니다.
+
+경찰 관계자는 A 씨가 2명을 살해하는 중대한 범행을 저질렀고 전과가 여럿 있는 점 등을 고려해 신상 공개가 필요하다고 보고 있다고 설명했습니다.
+
+A 씨는 지난 4일 인천 미추홀구에 있는 건물에서 50대 여성 B 씨를 살해한 뒤 시신을 차량 트렁크에 실어 유기하고, B 씨의 카드를 훔쳐 수백만 원을 인출한 혐의를 받습니다.
+
+A 씨는 또, B 씨의 시신 유기를 도운 공범 40대 C 씨를 둔기를 이용해 살해한 혐의도 있습니다.
+
+A 씨는 인천 을왕리해수욕장 인근 야산에서 B 씨의 시신을 유기하려고 C 씨와 함께 땅을 판 뒤 그 자리에서 C 씨를 살해해 매장한 것으로 조사됐습니다.
+
+A 씨는 경찰 조사에서 우발적으로 범행했다고 진술했지만, 경찰은 금전적인 문제로 피해자들을 살해한 것으로 보고 정확한 범행 동기를 조사하고 있습니다.
+
+※ '당신의 제보가 뉴스가 됩니다' YTN은 여러분의 소중한 제보를 기다립니다.
+[카카오톡] YTN을 검색해 채널 추가 [전화] 02-398-8585 [메일] social@ytn.co.kr [온라인 제보] www.ytn.co.kr
+	</div>
+</body>
+</html>
