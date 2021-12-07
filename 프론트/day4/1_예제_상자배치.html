@@ -7,25 +7,38 @@
 	<title>상자배치예제</title>
 	<style>
 		.box1{
-			border-color: red;
-			border-style: solid;
-			
-			height: 500px;
-			
-
+			border: 2px solid red;
+			box-sizing: border-box;
+			height: 300px;
+			padding: 10px;
+		}
+		.box1-1{
+			border: 5px solid blue;
+			height: 100%;
+			box-sizing: border-box;
 		}
 		.box2{
-			border-style: solid;
-			border-color: blue;
-			height: 475px;
+			border: 2px solid red;
+			box-sizing: border-box;
+			height: 300px;
+		}
+		.box2-1{
+			border: 5px solid blue;
+			/* 500px- 20px - 4px */
+			height: calc(100% - 20px);
 			margin: 10px;
+			box-sizing: border-box;
 		}
 	</style>
 </head>
 <body>
+	<!-- padding을 이용하여 배치 -->
 	<div class="box1">
-		<div class="box2"></div>
+		<div class="box1-1"></div>
 	</div>
-	
+	<!--	margin을 이용하여 배치	-->
+	<div class="box2">
+		<div class="box2-1"></div>
+	</div>
 </body>
 </html>
