@@ -8,21 +8,28 @@
 	<link rel="stylesheet" href="10_mobile.css" media="screen and (max-width:800px)">
 	<link rel="stylesheet" href="10_pc.css" media="screen and (min-width:800px)">
 	<style>
-		*{ padding: 0px; margin: 0px;}
+		* { padding: 0; margin: 0;}
+		ul{ list-style: none;}
+		a { color: #000; text-decoration: none;}
 		
-
-		@media screen and (max-width:800px) {
-
+		.menu-link{ 
+			width: 100%; height: 100%; text-align: center; display: block;
+			line-height: 48px;
 		}
-
 	</style>
 </head>
 <body>
-	<div class="menu">
-		<div class="menu-item menu1"><a href="#" class="menu-link">메뉴1</a></div>
-		<div class="menu-item menu2"><a href="#" class="menu-link">메뉴2</a></div>
-		<div class="menu-item menu3"><a href="#" class="menu-link">메뉴3</a></div>
-	</div>
+	<ul class="menu">
+		<li class="menu-item">
+			<a href="#" class="menu-link">메뉴1</a>
+		</li>
+		<li class="menu-item">
+			<a href="#" class="menu-link">메뉴3</a>
+		</li>
+		<li class="menu-item">
+			<a href="#" class="menu-link">메뉴4</a>
+		</li>
+	</ul>
 	<div class="contents"></div>
 </body>
 </html>

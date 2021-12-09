@@ -1,29 +1,12 @@
-@charset "utf-8"
+@charset "utf-8";
 
-.menu{
-	float: left;
+.menu{ display: flex;}
+.menu-item{ 
+	width: 100%; height: 50px; box-sizing: border-box; overflow: hidden;
+	border: 1px solid red; border-right: none;
 }
-.menu-item {
-	border: 2px solid black;
-	width: calc(800px / 3); height: 50px;
-	box-sizing: border-box;
-	display: block;
-	border-top: none;
-}		
-.menu-link{
-	width: 100%; height: 100%; text-decoration: none;
-	color: black; display: block; text-align: center;
-	line-height: 46px;
-}
-.menu1{
-	border-top: 2px solid black;
-}
-.menu-item:hover {
-	background: skyblue;
-}
+.menu-item:last-child{ border-right: 1px solid red;}
 .contents{
-		height: 500px; border: 2px solid skyblue;
-		box-sizing: border-box;
-		width: calc(100% - 300px - 10px);
-		float: right;
+	height: 500px; margin-top: 10px;box-sizing: border-box;
+	border: 2px solid skyblue;
 }

@@ -1,0 +1,92 @@
+@charset "utf-8";
+*{
+	padding: 0; margin: 0; list-style: none;
+	text-decoration: none; color: black;
+}
+/* 공통 */
+.container{
+	width: 1190px; margin: 0 auto; padding: 0 30px;
+	box-sizing: border-box;
+}
+.container-fluid{
+	min-width: 1190px;
+}
+
+/* 네이버 웨일 박스 */
+.whale-box{
+	height: 49px;
+	background: #f3f1ff;
+}
+/* 검색창 박스 */
+.search-box{
+	height: 160px;
+	position: relative;
+}
+/* 검색 로고 박스 */
+.logo-box{
+	width: 222px; height: 52px;
+	top: calc((100% - 64px) / 2); left: 21px;
+	position: absolute; overflow: hidden;
+}
+/* 로고 */
+.logo{
+	display: block; width: 100%; height: 100%; 
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
+	background-size: 444px 439px;
+	background-position: 0 -158px;
+}
+/* 검색 입력 박스  */
+.search-input-box{
+	width: 586px; height: 56px;
+	border: 2px solid #19ce60;
+	left: 268px;	top: calc((100% - 56px) / 2);
+	position: absolute;
+	box-sizing: border-box;
+}
+/* 검색 마지막 박스 */
+.search-last-box{
+	float: left;
+	border: 2px solid green; width: 474px; height: 52px;
+	box-sizing: border-box;
+	
+}
+/* 검색 */
+.search{
+	width: 444px; height: 24px;
+	border: 2px solid purple;
+	position: absolute;
+	top: calc(50% - 12px);
+	left: 14px;
+	box-sizing: border-box;
+}
+/* 셀렉트 */
+.search-select{
+	float: left;
+	height: 52px; width: 58px; background: black;
+}
+/* 검색버튼 */
+search-button{
+	float: left;
+	width: 56px; height: 56px;	
+	
+}
+/* 검색 a태그 */
+search-start{
+	width: 100%; height: 100%;	background: skyblue;
+}
+/* 중간 메뉴 박스 */
+.menu-box{
+	height: 52px;
+	background: #0f0;
+}
+/* 컨텐츠 박스 */
+.content-box{
+	min-height: 1000px;
+	background: #00f;
+}
+/* 푸터 박스 */
+.footer-box{
+	height: 423px;
+	background: plum;
+}
+

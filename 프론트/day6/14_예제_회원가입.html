@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>회원가입 예제</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		.form{
+			border: 1px solid red;
+			height: 100%; width: 500px;
+			margin: 0 auto;
+			box-sizing: border-box;
+		}
+		.head{
+			margin-left: 50px; color: red;
+		}
+		.form-control{
+			border: 1px solid red;
+			border-left: none; border-right: none;
+		}
+		.btn-submit{
+			border: 1px solid red;
+			width: 100%; background: white; color: red;
+			border-left: none; border-right: none;
+			margin-top: 40px; margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<form action="/action_page.php" class="form">
+		<h2 class="head">회원가입</h2>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="아이디" id="id">
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" placeholder="비밀번호" id="pwd">
+		</div>		
+		<button type="submit" class="btn btn-primary btn-submit">회원가입</button>
+	</form>	
+
+</body>
+</html>

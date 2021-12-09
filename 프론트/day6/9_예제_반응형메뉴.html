@@ -6,62 +6,55 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>반응형 메뉴 예제</title>
 	<style>
-		*{ padding: 0px; margin: 0px;}
-		.menu{
-			float: left;
-		}
-		.menu-item {
-			border: 2px solid black;
-			width: calc(800px / 3); height: 50px;
-			box-sizing: border-box;
-			display: block;
-			border-top: none;
-		}		
-		.menu-link{
-			width: 100%; height: 100%; text-decoration: none;
-			color: black; display: block; text-align: center;
-			line-height: 46px;
-		}
-		.menu1{
-			border-top: 2px solid black;
-		}
-		.menu-item:hover {
-			background: skyblue;
-		}
-		.contents{
-				height: 500px; border: 2px solid skyblue;
-				box-sizing: border-box;
-				width: calc(100% - 300px - 10px);
-				float: right;
-		}
-
-		@media screen and (max-width:800px) {
-			.menu-item {
-				width: calc((100% - 6px) / 3);
-				float: left;
-				border: 2px solid black;
-				border-left: none;
+		* { padding: 0; margin: 0;}
+		ul{ list-style: none;}
+		a { color: #000; text-decoration: none;}
+		@media screen and (min-width: 800px){
+			.menu{ 
+				width: 300px; float: left;
 			}
-			.menu1{
-				border-left: 2px solid black;
+			.menu-item{
+				height: 50px; box-sizing: border-box; overflow: hidden;
+				border: 1px solid red; border-bottom: none;
 			}
-			.menu::after{
-			clear: both; content: ''; display: block;
+			.menu-item:last-child{
+				border-bottom: 1px solid red;
 			}
 			.contents{
-				height: 500px; margin-top: 10px; border: 2px solid skyblue;
-				box-sizing: border-box; width: 100%; float: none;
+				height: 500px; border: 2px solid skyblue; box-sizing: border-box;
+				width: calc(100% - 300px - 10px); float: right;
 			}
 		}
-
+		@media screen and (max-width : 800px){
+			.menu{ display: flex;}
+			.menu-item{ 
+				width: 100%; height: 50px; box-sizing: border-box; overflow: hidden;
+				border: 1px solid red; border-right: none;
+			}
+			.menu-item:last-child{ border-right: 1px solid red;}
+			.contents{
+				height: 500px; margin-top: 10px;box-sizing: border-box;
+				border: 2px solid skyblue;
+			}
+		}
+		.menu-link{ 
+			width: 100%; height: 100%; text-align: center; display: block;
+			line-height: 48px;
+		}
 	</style>
 </head>
 <body>
-	<div class="menu">
-		<div class="menu-item menu1"><a href="#" class="menu-link">메뉴1</a></div>
-		<div class="menu-item menu2"><a href="#" class="menu-link">메뉴2</a></div>
-		<div class="menu-item menu3"><a href="#" class="menu-link">메뉴3</a></div>
-	</div>
+	<ul class="menu">
+		<li class="menu-item">
+			<a href="#" class="menu-link">메뉴1</a>
+		</li>
+		<li class="menu-item">
+			<a href="#" class="menu-link">메뉴3</a>
+		</li>
+		<li class="menu-item">
+			<a href="#" class="menu-link">메뉴4</a>
+		</li>
+	</ul>
 	<div class="contents"></div>
 </body>
 </html>
