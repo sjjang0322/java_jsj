@@ -81,6 +81,7 @@
 	height: 52px;
 	border-top: 1px solid #e4e8eb;
 	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
+	position: relative;
 }
 /* 메뉴 컨테이너 박스 */
 .menu-container-box{
@@ -187,6 +188,20 @@
 	display: inline-block;
 	content: '';
 }
+/* 더보기 박스 */
+.menu-box .more-box{
+	position: absolute;	top: 52px; right: 0; left: 0; display: none;
+	height: 500px;
+	padding: 20px 30px 22px; border-top: 1px solid #e4e8eb;
+	box-shadow: 0 4px 4px 0 rgb(0, 0, 0 / 12%);
+	z-index: 4; background: #fff;
+
+	background: grey;
+}
+/* 서비스 컨테이너 */
+
+/* 서비스 리스트 */
+
 /* 컨텐츠 박스 */
 .content-box{
 	min-height: 1000px;
