@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>햄버거메뉴 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		*{padding: 0; margin: 0; text-decoration: none; list-style: none;}
+		.after{
+			content: ''; display: block; clear: both;
+		}
+		.top-box{
+			height: 50px; padding: 8px 0; box-sizing: border-box;
+
+			background: skyblue;
+		}
+		.ham-menu{
+			width: 34px; float: right; margin-right: 20px; height: 100%;
+			content: '';
+		}
+		.ham-menu>.btn-open{
+			width: 100%; height: 100%; display: block;
+			cursor: pointer;
+
+		}
+		.ham-menu>.btn-open>.icon-ham{
+			background-image: url(../img/3592857_burger_general_ham_list_menu_icon.png);
+			background-size: 34px; height: 34px;
+			display: block; 
+		}
+		.menu-container{
+			width: 300px; height: 100%; 
+			position: fixed; top: 0; right: 0;
+			background: turquoise;
+			/* display: none; */
+		}
+		.menu-container .top{
+			height: 59px; box-sizing: border-box;
+			padding: 16px; border-bottom: 1px solid #d0d7de;			
+		}
+		.menu-container .top .btn-close{
+			width: 24px; height: 24px; float: right;
+			cursor: pointer;
+		}
+		.menu-container .top .btn-close .icon-x{
+			height: 24px;
+			background-image: url(../img/2561505_x_icon.png);
+			background-size: 24px; 
+			display: block;
+		}
+		.menu-container .menu-list{
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="top-box after">
+		<div class="ham-menu">
+			<div class="btn-open">
+				<a class="icon-ham"></a>
+			</div>
+		</div>
+	</div>
+	<div class="menu-container">
+		<div class="top after">
+			<div class="btn-close">
+				<a class="icon-x"></a>
+			</div>
+		</div>
+		<ul class="menu-list">
+			<li class="menu-item"></li>
+			<li class="menu-item"></li>
+			<li class="menu-item"></li>
+			<li class="menu-item"></li>
+			<li class="menu-item"></li>
+			<li class="menu-item"></li>
+		</ul>
+		<div class="bottom"></div>
+	</div>
+	<script>
+
+	</script>
+</body>
+</html>

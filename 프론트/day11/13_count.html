@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>count 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+	<button class="minus">-</button>
+	<span class="count">0</span>
+	<button class="plus">+</button>
+	<script>
+		$('.minus').click(function(){
+			//화면에 적힌 숫자를 문자열로 읽어옴
+			var count = $('.count').text()
+			var res = parseInt(count) - 1;
+			$('.count').text(res);
+		})
+		$('.plus').click(function(){
+			var count = $('.count').text();
+			var res = parseInt(count) + 1;
+			$('.count').text(res);
+		})
+		// $('button').click(function(){
+		// 	var num = $('.count').text();
+		// 	num = parseInt(num);
+		// 	if($(this).text()=='-'){
+		// 		count--;
+		// 	}else{
+		// 		count++;
+		// 	}
+		// 	$('.count').text(count);
+		// })
+	</script>
+</body>
+</html>

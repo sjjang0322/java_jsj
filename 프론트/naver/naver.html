@@ -556,6 +556,13 @@
 	<script>
 		$('.menu-box .btn_more').click(function(){
 			$('.menu-box .more-box').toggle();
+			var text = $('.menu-box .btn_more').text();
+			console.log(text);
+			if(text == '더보기'){
+				$('.menu-box .btn_more').text('접기');
+			}else{
+				$('.menu-box .btn_more').text('더보기');
+			}
 		});
 	</script>
 </body>
