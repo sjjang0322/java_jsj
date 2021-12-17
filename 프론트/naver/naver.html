@@ -45,8 +45,7 @@
 					<div class="nav book"><a href="#" class="nav_link">책</a></div>
 					<div class="nav webtoon"><a href="#" class="nav_link">웹툰</a></div>
 				</div>
-				<a href="#" class="btn_more">더보기</a>
-				
+				<a href="#" class="btn_more">더보기</a>				
 			</div>
 		</div>
 		<div class="more-box">
@@ -554,14 +553,56 @@
 	</div>
 	<footer class="footer-box container"></footer>
 	<script>
-		$('.menu-box .btn_more').click(function(){
+		// menu-container의 더보기 버튼을 누르면 더보기 메뉴가 나왔다가 다시 누르면 접힘
+		$('.menu-box .btn_more').click(function(e){
+			e.preventDefault();
 			$('.menu-box .more-box').toggle();
-			var text = $('.menu-box .btn_more').text();
-			console.log(text);
-			if(text == '더보기'){
+			if(!$(this).hasClass('on')){
 				$('.menu-box .btn_more').text('접기');
+				$('.menu-box .btn_more').addClass('on');
 			}else{
 				$('.menu-box .btn_more').text('더보기');
+				$('.menu-box .btn_more').removeClass('on');
+			}
+		});
+		
+		// content-l-box3의 주제를 누르면 해당주제 배경색이 바뀌고 나머지는 흰색이됨
+		$('.content-l-box3 .category-link').click(function(e){
+			e.preventDefault();
+			$('.content-l-box3 .category-link').removeClass('sel');
+			$(this).addClass('sel');
+		});
+		$('.content-l-box3 .btn-left').click(function(e){
+			e.preventDefault();			
+		})
+		$('.content-l-box3 .btn-right').click(function(e){
+			e.preventDefault();
+		})
+		// 왼쪽 오른쪽 버튼을 누르면 주제리스트가 변경됨		
+		var categoryMin = 0;
+		var categoryMax = 3;
+		var categoryNum = categoryMin;
+		var categoryMargin = $('.content-l-box3 .group-category').width();
+		console.log(categoryMargin);
+		$('.group-container .btn-left').click(function(e){
+			if(categoryNum>categoryMin){
+				categoryNum--;
+				console.log(categoryNum);
+				console.log(categoryMargin);
+				var marginLeft = categoryNum * categoryMargin;
+				console.log(marginLeft);
+				$('.main-category').animate({marginLeft: -marginLeft});
+			}
+		});
+		$('.group-container .btn-right').click(function(e){
+
+			if(categoryNum<categoryMax){
+				categoryNum++;
+				console.log(categoryNum);
+				console.log(categoryMargin);
+				var marginLeft = categoryNum * categoryMargin;
+				console.log(marginLeft);
+				$('.main-category').animate({marginLeft: -marginLeft});
 			}
 		});
 	</script>
