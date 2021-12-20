@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>더보기 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+	<img src="../img/day1_2_cat.jfif"class="img1"><br>
+	<button class="more-before">더보기</button>
+	<button class="more-after">더보기</button>
+	<script>		
+		var num = 1
+		$('.more-before').click(function(){		
+			num++;
+			var html = '<img src="../img/day1_2_cat.jfif"class="img' + num + '"><br>'
+			$('.more-before').before(html);
+		})
+		$('.more-after').click(function(){		
+			num++;
+			var html = '<br><img src="../img/day1_2_cat.jfif"class="img' + num + '">'
+			$('.img'+(num - 1)).after(html);
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>버튼추가</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+	<div class="btn-container">
+		<button class="btn">버튼</button>
+	</div>	
+	<script>
+		// $('.btn').click(function(){
+		// 	var html = '<button class="btn">버튼</button>'
+		// 	$('.btn-container').append(html);
+		// });
+		$(document).on('click','.btn',function(){
+			$('.btn-container').append('<button class="btn">버튼</button>')
+		});
+	</script>
+</body>
+</html>
