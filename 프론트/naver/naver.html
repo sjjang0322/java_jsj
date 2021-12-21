@@ -691,8 +691,7 @@
 				$('.group-container .category-link.sel').parent().prev().click();				
 			}else{				
 				if($('.group-container .category-link.sel').parents('.category-list').prev().length == 1){					
-					$('.group-container .category-link.sel').parents('.category-list').prev().children('.category-item').last().click();					
-					// marginLeft 값을 제대로 잡아야됨 다음버튼도*********
+					$('.group-container .category-link.sel').parents('.category-list').prev().children('.category-item').last().click();										
 					var marginLeft = - (($('.group-container .category-link.sel').parents('.category-list').prevAll().length))*750
 					console.log(marginLeft);
 					$('.main-category').animate({
