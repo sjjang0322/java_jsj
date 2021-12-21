@@ -592,7 +592,8 @@
 }
 /* 그룹 카테고리 */
 .theme-title .group-category{
-	width: 750px; overflow: hidden; 
+	width: 750px; 
+	overflow: hidden; 
 }
 /* 메인 카테고리 */
 .theme-title .main-category{
@@ -803,8 +804,14 @@
 	width: 40px; height: 40px; display: inline-block;
 	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
 	background-size: 444px 439px; vertical-align: top;
-	background-position: -86px -352px;
-	
+	background-position: -86px -352px;	
+}
+/* 테마 컨테이너 */
+.theme-cast-container .theme-container .box{
+	display: none;
+}
+.theme-cast-container .theme-container .box.sel{
+	display: block;
 }
 /* 컨텐츠 오른쪽 박스 */
 .content-r-box{

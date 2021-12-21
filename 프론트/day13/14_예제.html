@@ -8,17 +8,35 @@
 	<script src="../js/jquery.min.js"></script>
 	<style>
 		*{padding: 0; margin: 0; text-decoration: none; list-style: none; color: black;}
+		.menu-box{
+			margin: 30px;
+			overflow: hidden;
+			margin-left: 29px;			
+		}
+		.margin-box{
+			margin-left: 1px;
+		}
+		.menu-container{
+			height: 50px;
+			width: 200%;
+			margin-left: 1px;
+		}
 		.menu-list{
 			height: 50px;
-			position: relative;			
-			display: flex;
-			margin: 30px;			
+			position: relative;
+			display: flex;			
+		}
+		.menu-list::after{
+			display: block; content: ''; clear: both;
 		}
 		.menu-item{
 			width: 100%; height: 100%;
 			border: 1px solid red;
 			margin-left: -1px;
+			box-sizing: border-box;			
+			float: left;
 		}
+
 		.btn{
 			position: absolute;
 			border-radius: 30px;
@@ -36,7 +54,7 @@
 		}
 		.menu-link{
 			width: 100%; height: 100%; display: block;
-			text-align: center; line-height: 50px; font-size: 30px;
+			text-align: center; line-height: 48px; font-size: 30px;
 			color: red;
 		}
 		.menu-item.sel{
@@ -59,35 +77,61 @@
 		.contents-box>.sel{
 			display: block;
 		}
+		/* .test-list{
+			border: 1px solid black;
+			height: 50px;
+		}
+		.test-item{
+			float: left;
+		} */
+		
 	</style>
 </head>
 <body>
-	<ul class="menu-list">
-		<li class="menu-item sel"  data-target="#contents1">
-			<a href="#" class="menu-link">1</a>
-			
-		</li>
-		<li class="menu-item" data-target=" #contents2">
-			<a href="#" class="menu-link">2</a>
-			
-		</li>
-		<li class="menu-item" data-target=" #contents3">
-			<a href="#" class="menu-link">3</a>
-			
-		</li>
-		<li class="menu-item" data-target=" #contents4">
-			<a href="#" class="menu-link">4</a>
-			
-		</li>
-		<li class="menu-item" data-target=" #contents5">
-			<a href="#" class="menu-link">5</a>
-			
-		</li>
-		<li class="menu-item" data-target=" #contents6">
-			<a href="#" class="menu-link">6</a>
-			
-		</li>
-	</ul>
+	<div class="menu-box">
+		<div class="margin-box">
+			<div class="menu-container">
+				<ul class="menu-list">
+					<li class="menu-item sel"  data-target="#contents1">
+						<a href="#" class="menu-link">1</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents2">
+						<a href="#" class="menu-link">2</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents3">
+						<a href="#" class="menu-link">3</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents4">
+						<a href="#" class="menu-link">4</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents5">
+						<a href="#" class="menu-link">5</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents6">
+						<a href="#" class="menu-link">6</a>			
+					</li>
+					<li class="menu-item"  data-target="#contents7">
+						<a href="#" class="menu-link">7</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents8">
+						<a href="#" class="menu-link">8</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents9">
+						<a href="#" class="menu-link">9</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents10">
+						<a href="#" class="menu-link">10</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents11">
+						<a href="#" class="menu-link">11</a>			
+					</li>
+					<li class="menu-item" data-target=" #contents12">
+						<a href="#" class="menu-link">12</a>			
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 	<button class="btn prev"><</button>
 	<button class="btn next">></button>
 	<div class="contents-box">
@@ -97,8 +141,27 @@
 		<div id="contents4">4</div>
 		<div id="contents5">5</div>
 		<div id="contents6">6</div>
+		<div id="contents7">7</div>
+		<div id="contents8">8</div>
+		<div id="contents9">9</div>
+		<div id="contents10">10</div>
+		<div id="contents11">11</div>
+		<div id="contents12">12</div>
 	</div>
+	<!-- <ul class="test-list">
+		<li class="test-item">1</li>
+		<li class="test-item">2</li>
+		<li class="test-item">3</li>
+		<li class="test-item">4</li>
+	</ul> -->
 	<script>
+		if($('.menu-item:first-child').hasClass('sel')){
+			$('.prev').hide();
+		};
+		if($('.menu-item:last-child').hasClass('sel')){
+			$('.next').hide();
+		};
+		// 메뉴 클릭
 		$('.menu-item').on('click',function(e){
 			e.preventDefault;
 			$('.menu-item').removeClass('sel');
@@ -107,7 +170,38 @@
 			$('.contents-box>div').removeClass('sel');
 			console.log(target);
 			$(target).addClass('sel');
+			// 이전/다음 버튼 처리
+			$('.prev').show();
+			$('.next').show();
+			// 메뉴1이 클릭된 경우 이전 메뉴가 없기 때문에 이전 버튼을 감춤
+			if($('.menu-item.sel').prev().length == 0){
+				$('.prev').hide();
+			}
+			if($('.menu-item.sel').next().length == 0){
+				$('.next').hide();
+			}
+			// 메뉴 6이 클릭 될 경우 맨 윗줄을 보여줌
+			if($('.menu-item.sel').prevAll().length < 6){
+				$('.menu-container').animate({
+					marginLeft : '0px'
+				})
+			}else{
+				$('.menu-container').animate({
+					marginLeft : '-100%'
+				})
+			}
+			// if($('.menu-item:first-child').hasClass('sel')){
+			// 	$('.prev').hide();
+			// } else {
+			// 	$('.prev').show();
+			// }
+			// if($('.menu-item:last-child').hasClass('sel')){
+			// 	$('.next').hide();
+			// } else {
+			// 	$('.next').show();
+			// }			
 		});
+		// 버튼 클릭
 		// $('.prev').on('click',function(e){
 		// 	e.preventDefault;
 		// 	$('.menu-list').children('.sel').prev().addClass('sel');
@@ -118,18 +212,31 @@
 		// 	$('.menu-list').children('.sel').next().addClass('sel');
 		// 	$('.menu-list').children('.sel').prev().removeClass('sel');
 		// })
+		// $('.prev').on('click',function(e){
+		// 	e.preventDefault;
+		// 	if($('.menu-item.sel').prev().length == 1){
+		// 		$('.sel').removeClass('sel').prev().addClass('sel');
+		// 	}
+		// })
+		// $('.next').on('click',function(e){
+		// 	e.preventDefault;
+		// 	if($('.menu-item.sel').next().length == 1){
+		// 		$('.sel').removeClass('sel').next().addClass('sel');
+		// 	}
+		// })
 		$('.prev').on('click',function(e){
 			e.preventDefault;
 			if($('.menu-item.sel').prev().length == 1){
-				$('.sel').removeClass('sel').prev().addClass('sel');
+				$('.menu-item.sel').prev().click();
 			}
 		})
 		$('.next').on('click',function(e){
 			e.preventDefault;
 			if($('.menu-item.sel').next().length == 1){
-				$('.sel').removeClass('sel').next().addClass('sel');
+				$('.menu-item.sel').next().click();
 			}
 		})
+
 	</script>
 </body>
 </html>

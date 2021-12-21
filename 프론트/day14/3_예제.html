@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.contents-container::after{
+			content: ''; clear: both; display: block;
+		}
+		.content-item{
+			height: 50px; width: 150px;
+			border: 1px solid red;
+			float: left;
+			margin-left: 10px;
+			box-sizing: border-box;
+			margin-top: 10px;
+			line-height: 50px;
+			font-size: 30px;
+			text-align: center;
+		}		
+	</style>
+</head>
+<body>
+	<div class="contents-container">
+		<div class="content-item item0"></div>
+		<div class="content-item item1"></div>
+		<div class="content-item item2"></div>		
+	</div>
+	<div class="check-container">
+		<div class="check-box">
+			<label>
+				<input type="checkbox" class="ch" value="사과">사과
+			</label>
+		</div>
+		<div class="check-box">
+			<label>
+				<input type="checkbox" class="ch" value="배">배
+			</label>
+		</div>
+		<div class="check-box">
+			<label>
+				<input type="checkbox" class="ch" value="바나나">바나나
+			</label>
+		</div>
+		<div class="check-box">
+			<label>
+				<input type="checkbox" class="ch" value="키위">키위
+			</label>
+		</div>
+		<div class="check-box">
+			<label>
+				<input type="checkbox" class="ch" value="딸기">딸기
+			</label>
+		</div>		
+	</div>
+
+	<script>
+		var arr = new Array;
+		$('.ch').click(function(){
+			var value = $(this).val();
+			if($(this).prop('checked')){
+				if(arr.length != 3){
+					arr.push(value);				
+				}else{
+					alert("3개까지만");
+					$(this).prop('checked',false);
+				}
+				
+			}else{
+				var index =arr.indexOf(value);
+				arr.splice(index,1);				
+			}
+			for(var i=0;i<4;i++){
+				var item = '.item'
+				$(item+i).text('');
+				$(item+i).css({
+					border : '1px solid red',
+					width : '150px',
+					height : '50px'
+				});
+			}
+			for(var i=0;i<arr.length;i++){
+				var text = arr[i];
+				var item = '.item'
+				$(item+i).text(text);
+				$(item+i).css({
+					border : 'none'
+					// width : 'auto',
+					// height : 'auto'
+				});				
+			}
+		});
+	</script>
+</body>
+</html>
