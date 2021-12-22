@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>타이머 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.timer-box{
+			border: 1px solid black;
+			height: 50px; line-height: 50px; width: 200px;
+			text-align: center; padding: 10px;
+			margin-bottom: 5px;
+		}
+		.record-box{
+			border: 1px solid black;
+			width: 200px;
+			text-align: center; padding: 10px;
+			margin-top: 5px;
+		}
+	</style>
+</head>
+<body>
+
+	<!--
+		hh:MM:ss mmm
+		00:00:00 000
+	-->
+	<div class="timer-box">
+		00:00:00 00
+	</div>
+	<button class="btn-start">시작</button>
+	<button class="btn-stop">중지</button>
+	<button class="btn-record">기록</button>
+	<button class="btn-reset">리셋</button>
+	<div class="record-box"></div>
+	<script>
+		var hh = 00,MM = 00 ,ss = 00, mmm = 00;
+		$('.btn-stop').hide();
+		
+		var timer;				
+		$(function(){	
+			$('.btn-start').click(function(){				
+				timer = setInterval(() => {								
+				
+					mmm++;
+					if(mmm==100){
+						mmm=0;
+						ss++;
+					}
+					if(ss==60){
+						ss=0;
+						MM++;
+					}
+					if(MM==60){
+						MM=0
+						hh++;					
+					}				
+					$('.timer-box').text(addZero(hh)+':'+addZero(MM)+':'+addZero(ss)+' '+addZero(mmm));
+				}, 10);
+				$('.btn-stop').show();
+				$('.btn-start').hide();			
+			})
+			$('.btn-stop').click(function(){
+				clearInterval(timer);
+				$('.btn-stop').hide();
+				$('.btn-start').show();			
+			})
+			function addZero(num){
+				return num < 10 ? '0'+num : num;
+			}
+			function addZerom(num){
+				return num > 100 ? num : num > 10 ? '0' + num : '00' + num;
+			}
+			$('.btn-reset').click(function(){
+				$('.btn-stop').click();
+				hh = 00,MM = 00 ,ss = 00, mmm = 00;
+				$('.timer-box').text(addZero(hh)+':'+addZero(MM)+':'+addZero(ss)+' '+addZero(mmm));
+			})
+			$('.btn-record').click(function(){
+				var text = $('.record-box').text();
+				console.log(text);
+				var textnew = addZero(hh)+':'+addZero(MM)+':'+addZero(ss)+' '+addZero(mmm);
+				console.log(textnew);
+				$('.record-box').text(text + textnew);
+			})
+		})
+
+	</script>
+</body>
+</html>

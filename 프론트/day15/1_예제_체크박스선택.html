@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>체크박스선택 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.contents-container::after{
+			content: ''; clear: both; display: block;
+		}
+		.content-item{
+			height: 50px; width: 150px;
+			display: block;
+			float: left;
+			margin-left: 10px;
+			box-sizing: border-box;
+			margin-top: 10px;
+			line-height: 50px;
+			font-size: 30px;
+			text-align: center;
+			
+		}		
+		.reset, .save{
+			display: none;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="contents-container">
+		<div class="content-item item0">사과</div>
+		<div class="content-item item1">배</div>
+		<div class="content-item item2">바나나</div>		
+		<div class="content-item item3">키위</div>		
+	</div>
+	<div class="check-container">
+		<div class="box">사과</div>
+		<div class="box">배</div>
+		<div class="box">바나나</div>
+		<div class="box">키위</div>
+		<div class="box">딸기</div>
+	</div>
+	<button class="select">선택</button>
+	<button class="reset">초기화</button>
+	<button class="save">저장</button>
+	<script>
+		
+		// $('.ch').click(function(){
+		// 	var value = $(this).val();
+		// 	if($(this).prop('checked')){
+		// 		if(arr.length != 3){
+		// 			arr.push(value);				
+		// 		}else{
+		// 			alert("3개까지만");
+		// 			$(this).prop('checked',false);
+		// 		}
+				
+		// 	}else{
+		// 		var index =arr.indexOf(value);
+		// 		arr.splice(index,1);				
+		// 	}
+		// 	for(var i=0;i<3;i++){
+		// 		var item = '.item'
+		// 		$(item+i).text('');
+		// 		$(item+i).css({
+		// 			border : '1px solid red',
+		// 			width : '150px',
+		// 			height : '50px'
+		// 		});
+		// 	}
+		// 	for(var i=0;i<arr.length;i++){
+		// 		var text = arr[i];
+		// 		var item = '.item'
+		// 		$(item+i).text(text);
+		// 		$(item+i).css({
+		// 			border : 'none'
+		// 			// width : 'auto',
+		// 			// height : 'auto'
+		// 		});				
+		// 	}
+		// });
+		$('.select').click(function(){
+			arr = [];
+			$('.contents-container').html(
+				'<div class="content-item item0 sel"></div>		<div class="content-item item1"></div>		<div class="content-item item2"></div>'
+			)
+			$('.check-container').html(
+				'<div class="check-box">			<label>				<input type="checkbox" class="ch" value="사과">사과			</label>		</div>		<div class="check-box">			<label>				<input type="checkbox" class="ch" value="배">배			</label>		</div>		<div class="check-box">			<label>				<input type="checkbox" class="ch" value="바나나">바나나			</label>		</div>		<div class="check-box">			<label>				<input type="checkbox" class="ch" value="키위">키위			</label>		</div>		<div class="check-box">			<label>				<input type="checkbox" class="ch" value="딸기">딸기			</label>		</div>'			)
+			$('.content-item').css({
+				border : '1px solid red'
+			})
+			$('.item'+arr.length).css({
+				border : '1px solid blue'
+			})
+			// $('.content-item.sel').css({
+			// 	border : '1px solid blue'
+			// })
+			$('.reset, .save').show();
+			$(this).hide();
+		})
+
+		$('.reset').click(function(){
+			$('.contents-container').html('			<div class="content-item item0">사과</div>		<div class="content-item item1">배</div>		<div class="content-item item2">바나나</div>				<div class="content-item item3">키위</div>					')
+			$('.check-container').html('		<div class="box">사과</div>		<div class="box">배</div>		<div class="box">바나나</div>		<div class="box">키위</div>		<div class="box">딸기</div>')
+			$('.reset, .save').hide();
+			$('.select').show();			
+			alert('초기화면으로 돌아갑니다.');
+		})
+
+		$('.save').click(function(){
+			$('.reset, .save').hide();
+			$('.select').show();
+			$('.check-container').html(
+				'<div class="box">사과</div>		<div class="box">배</div>		<div class="box">바나나</div>		<div class="box">키위</div>		<div class="box">딸기</div>'
+			)
+			for(var i=arr.length;i<3;i++){
+				$('.item' + i).hide();
+			}
+			if(arr.length == 0){
+				alert('선택된 과일이 없습니다. 초기화면으로 돌아갑니다.')
+				$('.contents-container').html('			<div class="content-item item0">사과</div>		<div class="content-item item1">배</div>		<div class="content-item item2">바나나</div>				<div class="content-item item3">키위</div>					')
+				$('.check-container').html('		<div class="box">사과</div>		<div class="box">배</div>		<div class="box">바나나</div>		<div class="box">키위</div>		<div class="box">딸기</div>')			}
+		})
+		var arr = new Array;
+		$(document).on('click','.ch',function(){
+			var value = $(this).val();
+			
+			if($(this).prop('checked')){
+				if(arr.length != 3){
+					arr.push(value);
+				}else{
+					alert("3개까지만");
+					$(this).prop('checked',false);
+				}
+				
+			}else{
+				var index =arr.indexOf(value);
+				arr.splice(index,1);
+			}
+			for(var i=0;i<3;i++){
+				var item = '.item'
+				$(item+i).text('');
+				$(item+i).css({
+					border : '1px solid red',
+					width : '150px',
+					height : '50px'
+				});
+				$('.item'+arr.length).css({
+				border : '1px solid blue'
+				})
+			}
+			for(var i=0;i<arr.length;i++){
+				var text = arr[i];
+				var item = '.item'
+				$(item+i).text(text);
+				$(item+i).css({
+					border : 'none'
+					// width : 'auto',
+					// height : 'auto'
+				});				
+			}
+		});
+	</script>
+</body>
+</html>
