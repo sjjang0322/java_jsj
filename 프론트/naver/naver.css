@@ -202,12 +202,48 @@
 	padding: 20px 30px 22px; border-top: 1px solid #e4e8eb;
 	box-shadow: 0 4px 4px 0 rgb(0, 0, 0 / 12%);
 	z-index: 4; background: #fff;
-
-	background: grey;
+	background: white;
 }
 /* 서비스 컨테이너 */
-
+.menu-box .more-box .service-container{
+	position: absolute; top: 52px; right: 0; left: 0;
+	padding: 20px 30px 22px;
+	background-color: #fff;
+	border-top: 1px solid #e4e8eb;
+	box-shadow: 0 4px 4px 0 rgb(0 0 0 / 12%);
+	z-index: 1;
+}
+/* 서비스 박스 */
+.menu-box .more-box .service-container .service-box{
+	overflow: hidden;
+	width: 1128px; margin: 0 auto;
+	border: 1px solid #e4e8eb;
+	border-width: 0 1px;
+}
 /* 서비스 리스트 */
+.menu-box .more-box .service-container .service-list{
+	float: left;
+	border-left: 1px solid #e4e8eb;
+	padding: 0 14px 0 15px;
+	margin: 0;
+}
+/* 서비스 타이틀 */
+.menu-box .more-box .service-container .service-list .service-title{
+	font-size: 13px;
+	line-height: 26px;
+	font-weight: 700;
+	margin-bottom: 3px;
+}
+/* 서비스 데이터 */
+.menu-box .more-box .service-container .service-list .service-data{
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;	
+	font-size: 13px;
+	line-height: 26px;
+	color: #202020;
+	
+}
+
+
 
 /* 컨텐츠 박스 */
 .content-box{

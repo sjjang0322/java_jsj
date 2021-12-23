@@ -7,17 +7,22 @@
 	<title>타이머 예제</title>
 	<script src="../js/jquery.min.js"></script>
 	<style>
-		.timer-box{
+		.box{
 			border: 1px solid black;
-			height: 50px; line-height: 50px; width: 200px;
+			line-height: 50px; width: 200px;
 			text-align: center; padding: 10px;
 			margin-bottom: 5px;
 		}
 		.record-box{
-			border: 1px solid black;
-			width: 200px;
-			text-align: center; padding: 10px;
-			margin-top: 5px;
+			max-height: 250px;			
+			text-align: center;
+			overflow: auto;
+		}
+		.record{
+			color: blue;
+		}
+		.record:first-child{
+			color: red;
 		}
 	</style>
 </head>
@@ -27,14 +32,17 @@
 		hh:MM:ss mmm
 		00:00:00 000
 	-->
-	<div class="timer-box">
-		00:00:00 00
+	<div class="box">
+		<div class="timer-box">
+			00:00:00 00		
+		</div>
+		<div class="record-box"></div>
 	</div>
 	<button class="btn-start">시작</button>
 	<button class="btn-stop">중지</button>
 	<button class="btn-record">기록</button>
 	<button class="btn-reset">리셋</button>
-	<div class="record-box"></div>
+	
 	<script>
 		var hh = 00,MM = 00 ,ss = 00, mmm = 00;
 		$('.btn-stop').hide();
@@ -77,13 +85,14 @@
 				$('.btn-stop').click();
 				hh = 00,MM = 00 ,ss = 00, mmm = 00;
 				$('.timer-box').text(addZero(hh)+':'+addZero(MM)+':'+addZero(ss)+' '+addZero(mmm));
+				$('.record-box').html('');
 			})
 			$('.btn-record').click(function(){
-				var text = $('.record-box').text();
-				console.log(text);
+				var html = $('.record-box').html();				
 				var textnew = addZero(hh)+':'+addZero(MM)+':'+addZero(ss)+' '+addZero(mmm);
-				console.log(textnew);
-				$('.record-box').text(text + textnew);
+				var htmlnew = '<div class="record">' + textnew + '</div>'
+				console.log(htmlnew);
+				$('.record-box').prepend(htmlnew);				
 			})
 		})
 

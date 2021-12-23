@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>롤링 예제(왼쪽으로)</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.container{			
+			height: 50px; border: 1px solid black;
+			overflow: hidden;
+			position: relative;
+		}
+		.wrap-box{
+			width: 300%;
+			margin-left: -100%;
+		}
+		.wrap-box::after{
+			content: ''; clear: both; display: block;
+		}
+		.box{
+			height: 50px; line-height: 50px;
+			width: calc((100% / 3));
+			float: left;
+		}		
+		.box.box1{background: yellow;}
+		.box.box2{background: grey;}
+		.box.box3{background: #0f0;}
+		.btn-box{
+			position: absolute;
+			right: 10px; top : 10px;
+		}
+		.btn{
+			width: 30px; height: 30px;
+			line-height: 28px;
+			box-sizing: border-box;
+			text-align: center;
+			cursor: pointer;
+			border: 1px solid black;
+			background: white;			
+			text-decoration: none;
+			color: black;
+			float: left;
+		}
+		.btn-right{
+			margin-left: -1px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="wrap-box">
+			<div class="box box1">1</div>
+			<div class="box box2">2</div>
+			<div class="box box3">3</div>
+		</div>
+		<div class="btn-box">
+			<a href="#" class="btn btn-left"><</a>
+			<a href="#" class="btn btn-right">></a>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			var roll;
+			roll = startRolling();
+			$('.container').hover(function(){
+				clearInterval(roll);
+			},function(){
+				roll = startRolling();
+			});
+			function startRolling(){
+				return setInterval(function(){
+					if(!$('.box').first().is(':animated')){
+						$('.box').first().animate({marginLeft:'-100%'},1000,function(){
+							$(this).removeAttr('style');
+							$('.box').first().detach().appendTo('.wrap-box');
+						});
+					}
+				}, 1500);				
+			}
+			$('.btn-right').click(function(e){
+				e.preventDefault();
+				if(!$('.box').first().is(':animated')){
+					var width = $('.box').width();
+					$('.box').first().animate({marginLeft:-width},1000,function(){
+						$(this).removeAttr('style');
+						$('.box').first().detach().appendTo('.wrap-box');
+					});
+				}else{
+					$('.box').first().stop();
+					$('.box').first().removeAttr('style');
+					$('.box').first().detach().appendTo('.wrap-box');
+				}
+			})
+			$('.btn-left').click(function(e){
+				e.preventDefault();
+				if(!$('.box').first().is(':animated')){
+					var width = $('.box').width();
+					$('.box').first().animate({marginLeft:width},1000,function(){
+						$(this).removeAttr('style');
+						$('.box').last().detach().prependTo('.wrap-box');
+					});
+				}else{
+					$('.box').first().stop();
+					$('.box').first().removeAttr('style');
+					$('.box').last().detach().prependTo('.wrap-box');
+				}
+			})
+		});
+	</script>
+</body>
+</html>

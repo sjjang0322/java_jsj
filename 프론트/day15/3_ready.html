@@ -6,16 +6,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ready() 예제</title>
 	<script src="../js/jquery.min.js"></script>
+	<script>
+		$(function(){
+			$('.box').each(function(){
+				console.log($(this).text());
+			});
+		});
+		
+	</script>
 </head>
 <body>
 	<div class="box">1</div>
 	<div class="box">2</div>
 	<div class="box">3</div>
 	<div class="box">4</div>
-	<script>
-		$('.box').each(function(){
-			console.log($(this).text());
-		})
-	</script>
 </body>
 </html>

@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 	<link rel="stylesheet" href="naver.css">
 	<script src="../js/jquery.min.js"></script>
+	<script src="../js/rolling.js"></script>
 </head>
 <body>
 	<div class="whale-box container-fluid"></div>
@@ -49,49 +50,181 @@
 			</div>
 		</div>
 		<div class="more-box">
-			<table class="service-container">
-				<dl class="service-list">
-					<dt class="service-title"></dt>
-					<dd class="service-data">
-						<a href="#" id="weather"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="mycar"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="ngame"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="booking"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="premium"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="plus"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="news"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="datalab"></a>
-					</dd>
-					<dd class="service-data">
-						<a href="#" id="memo"></a>
-					</dd>
-				</dl>
-				<dl class="service-list">
-					<dt class="service-title"></dt>
-					<dd class="service-data">
-						<a href="#" id=""></a>
-					</dd>
-				</dl>
-				<dl class="service-list"></dl>
-				<dl class="service-list"></dl>
-				<dl class="service-list"></dl>
-				<dl class="service-list"></dl>
-				<dl class="service-list"></dl>
-			</table>
+			<div class="service-container float-after">
+				<div class="service-box">
+					<dl class="service-list">
+						<dt class="service-title">ㄱ-ㅁ</dt>
+						<dd class="service-data">						
+							<input type="checkbox" id="weather">날씨
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="mycar">네이버 MY CAR
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="ngame">네이버 게임
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="booking">네이버 예약
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="premium">네이버 프리미엄콘텐츠
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="plus">네이버플러스 멤버십
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="news">뉴스
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="datalab">데이터랩
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="memo">메모
+						</dd>
+					</dl>
+					<dl class="service-list">
+						<dt class="service-title">ㅂ-ㅅ</dt>
+						<dd class="service-data">						
+							<input type="checkbox" id="band">밴드
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="immobility">부동산
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="bookmark">북마크
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="sports">스포츠
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="series">시리즈
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="serieson">시리즈온
+						</dd>
+					</dl>
+					<dl class="service-list">
+						<dt class="service-title">ㅇ</dt>
+						<dd class="service-data">						
+							<input type="checkbox" id="expert">엑스퍼트
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="movie">영화
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="audioclip">오디오클립
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="office">오피스
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="whale">웨일
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="webnovel">웹소설
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="webtoon">웹툰
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="influencer">인플루언서 검색
+						</dd>
+					</dl>
+					<dl class="service-list">
+						<dt class="service-title">ㅈ-ㅊ</dt>
+						<dd class="service-data">						
+							<input type="checkbox" id="car">자동차
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="addressbook">주소록
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="stock">증권
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="map">지도
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="encyclopedia">지식백과
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="book">책
+						</dd>
+					</dl>
+					<dl class="service-list">
+						<dt class="service-title">ㅋ-ㅎ</dt>
+						<dd class="service-data">						
+							<input type="checkbox" id="calendar">캘린더
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="dubbing">클로바더빙
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="papago">파파고
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="post">포스트
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="scholar">학술정보
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="plane">항공권
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="hotel">호텔
+						</dd>
+					</dl>
+					<dl class="service-list">
+						<dt class="service-title">A-Z</dt>
+						<dd class="service-data">						
+							<input type="checkbox" id="keep">keep
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="modoo">modoo!
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="mybox">MYBOX
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="mysubscription">MY구독
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="tv">TV연예
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="vlive">V LIVE
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="vibe">VIBE
+						</dd>
+					</dl>
+					<dl class="service-list">
+						<dt class="service-title">사전</dt>
+						<dd class="service-data">						
+							<input type="checkbox" id="dictionary">사전
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="kordic">국어사전
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="engdic">영어/영영사전
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="japdic">일본어사전
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="chidic">중국어사전
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="handic">한자사전
+						</dd>
+						<dd class="service-data">
+							<input type="checkbox" id="moredic">사전 더보기
+						</dd>
+					</dl>
+				</div>
+			</div>
 		</div>
 	</form>
 	<div class="content-box container">
@@ -104,6 +237,18 @@
 			<div class="content-l-s-box">
 				<div class="group-issue float-after">
 					<ul class="issue-area">
+						<li>
+							<div class="link-media">동아일보</div>
+							<a href="#" class="link-issue">교촌 이어 bhc도 치킨값 올렸다…치킨 한마리 2만원 시대</a>
+						</li>
+						<li>
+							<div class="link-media">동아일보</div>
+							<a href="#" class="link-issue">교촌 이어 bhc도 치킨값 올렸다…치킨 한마리 2만원 시대</a>
+						</li>
+						<li>
+							<div class="link-media">동아일보</div>
+							<a href="#" class="link-issue">교촌 이어 bhc도 치킨값 올렸다…치킨 한마리 2만원 시대</a>
+						</li>
 						<li>
 							<div class="link-media">동아일보</div>
 							<a href="#" class="link-issue">교촌 이어 bhc도 치킨값 올렸다…치킨 한마리 2만원 시대</a>
@@ -561,12 +706,27 @@
 						<li class="contents-item">
 							<a href="#" class="contents-link float-after" id="issue">
 								<i class="icon-issue">이슈</i>
-								<span class="title-issue">코로나바이러스감염증-19 현황</span>
+								<span class="title-issue">코로나바이러스감염증-19 현황1</span>
 							</a>
 						</li>
 						<li class="contents-item">
-							<a href="#" class="contents-link">2</a>
+							<a href="#" class="contents-link float-after" id="issue">
+								<i class="icon-issue">이슈</i>
+								<span class="title-issue">코로나바이러스감염증-19 현황2</span>
+							</a>
 						</li>
+						<li class="contents-item">
+							<a href="#" class="contents-link float-after" id="issue">
+								<i class="icon-issue">이슈</i>
+								<span class="title-issue">코로나바이러스감염증-19 현황3</span>
+							</a>
+						</li>
+						<li class="contents-item">
+							<a href="#" class="contents-link float-after" id="issue">
+								<i class="icon-issue">이슈</i>
+								<span class="title-issue">코로나바이러스감염증-19 현황4</span>
+							</a>
+						</li>						
 					</ul>
 				</div>
 				<a href="#" class="content-r-s-rb">
@@ -720,6 +880,60 @@
 		});
 		// 제일 처음 카테고리 클릭
 		$('.content-l-box3 .group-container .group-category .main-category #webtoon').click();
+		
+		$(function(){
+			$('a').click(function(e){
+				e.preventDefault();
+			})
+			// 뉴스박스 롤링
+			var newsRollId;			
+			// newsRollId = startRollingNews();
+			newsRollId = rollingToTop('.content-l-s-box .issue-area','li',3000,1000);
+			$('.content-l-s-box .issue-area').hover(function(){
+				clearInterval(newsRollId);	
+			},function(){
+				newsRollId = rollingToTop('.content-l-s-box .issue-area','li',3000,1000);
+			});
+			
+			// 이슈박스 롤링
+			var issueRollId;
+			issueRollId = rollingToLeft('.content-r-s-box .contents-list','li',4000,1000);
+			$('.content-r-s-box .contents-list').hover(function(){
+				clearInterval(issueRollId);	
+			},function(){
+				issueRollId = rollingToLeft('.content-r-s-box .contents-list','li',4000,1000);
+			});
+
+			// 이슈박스 버튼
+			$('.content-r-s-box .content-r-s-rb').click(function(e){
+				e.preventDefault();
+				if(!$('.content-r-s-box .contents-item').first().is(':animated')){
+					var width = $('.content-r-s-box .contents-item').width();
+					$('.content-r-s-box .contents-item').first().animate({marginLeft:-width},1000,function(){
+						$(this).removeAttr('style');
+						$('.content-r-s-box .contents-item').first().detach().appendTo('.content-r-s-box .contents-list');
+					});
+				}else{
+					$('.content-r-s-box .contents-item').first().stop();
+					$('.content-r-s-box .contents-item').first().removeAttr('style');
+					$('.content-r-s-box .contents-item').first().detach().appendTo('.content-r-s-box .contents-list');
+				}
+			})
+			$('.content-r-s-box .content-r-s-lb').click(function(e){
+				e.preventDefault();
+				if(!$('.content-r-s-box .contents-item').first().is(':animated')){
+					var width = $('.content-r-s-box .contents-item').width();
+					$('.content-r-s-box .contents-item').last().detach().prependTo('.content-r-s-box .contents-list').css({marginLeft:-width});
+					$('.content-r-s-box .contents-item').first().animate({marginLeft:0},1000,function(){
+						$('.content-r-s-box .contents-item').removeAttr('style');						
+					});
+				}else{
+					$('.content-r-s-box .contents-item').first().stop();
+					$('.content-r-s-box .contents-item').first().removeAttr('style');
+					$('.content-r-s-box .contents-item').last().detach().prependTo('.content-r-s-box .contents-list');
+				}
+			})
+		})
 	</script>
 </body>
 </html>
