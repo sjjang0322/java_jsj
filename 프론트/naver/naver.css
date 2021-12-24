@@ -88,8 +88,7 @@
 	height: 100%;
 	position:relative;	
 	padding: 0 30px;
-	margin: 0 auto;
-	
+	margin: 0 auto;	
 }
 .menu-container{	
 	float: left;	
@@ -106,6 +105,7 @@
 .greens > .nav:first-child{
 	margin: 0;
 }
+
 /* 메뉴 기본 폰트 */
 .nav_link{
 	color: #03c75a;
@@ -165,6 +165,41 @@
 	margin-right: 2px;
 	vertical-align: top;
 }
+/* 선택 메뉴 */
+.menu-container .myselect{
+	letter-spacing: -1px;	
+	float: left;
+	font-size: 15px;
+	line-height: 30px;
+	font-weight: 700;
+	color: #000000;	
+	display: none;
+}
+/* 선택 메뉴 셀 */
+.menu-container .myselect .sel{
+	float: left;
+	background-color: #f7f9fa;
+	border: 1px solid #dae1e6;
+	border-radius: 2px;
+	width: 68px; height: 28px;
+	margin-left: 8px;
+	cursor: default;
+}
+.menu-container .myselect .sel:first-child{
+	margin-left: 12px;
+}
+/* 선택 메뉴 셀 온 */
+.menu-container .myselect .sel.on{
+	background-color: #fff;
+	border-color: #19ce60;
+}
+/* 선택 메뉴 셀 필 */
+.menu-container .myselect .filled{
+	border: none;
+	background: none;
+	width: auto;
+	cursor: pointer;
+}
 /* 더보기 메뉴 */
 .btn_more{
 	float: left;
@@ -195,10 +230,32 @@
 .btn_more.on::after{
 	background-position: -70px -296px;
 }
+/* 버튼박스 */
+.menu-container .btn-box{
+	position: absolute;
+	top: 0; right: 0; width: 270px;
+	padding: 11px 0; background-color: #fff; text-align: right;
+	z-index: 10;
+	font-size: 12px;
+	line-height: 16px; height: 30px;
+	display: none;
+	margin-right: 30px;
+}
+/* 버튼링크 */
+.menu-container .btn-box a{
+	display: inline-block; padding: 7px 13px 5px;
+	margin-left: 3px;
+	background-color: #fff; border: 1px solid #dae1e6;
+	border-radius: 15px;
+}
+.menu-container .btn-box .save{
+	background-color: #19ce60;
+	border-color: #00c73c;
+	color: #fff;
+}
 /* 더보기 박스 */
-.menu-box .more-box{
-	position: absolute;	top: 52px; right: 0; left: 0; display: none;
-	height: 500px;
+.menu-box .more-box{	
+	display: none;
 	padding: 20px 30px 22px; border-top: 1px solid #e4e8eb;
 	box-shadow: 0 4px 4px 0 rgb(0, 0, 0 / 12%);
 	z-index: 4; background: #fff;
@@ -212,20 +269,21 @@
 	border-top: 1px solid #e4e8eb;
 	box-shadow: 0 4px 4px 0 rgb(0 0 0 / 12%);
 	z-index: 1;
+	letter-spacing: -.25px;
 }
 /* 서비스 박스 */
 .menu-box .more-box .service-container .service-box{
 	overflow: hidden;
 	width: 1128px; margin: 0 auto;
-	border: 1px solid #e4e8eb;
-	border-width: 0 1px;
+	border-right: 1px solid #e4e8eb;	
+	display: flex;
 }
 /* 서비스 리스트 */
-.menu-box .more-box .service-container .service-list{
-	float: left;
+.menu-box .more-box .service-container .service-list{	
 	border-left: 1px solid #e4e8eb;
 	padding: 0 14px 0 15px;
 	margin: 0;
+	width: 100%;
 }
 /* 서비스 타이틀 */
 .menu-box .more-box .service-container .service-list .service-title{
@@ -239,11 +297,19 @@
 	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;	
 	font-size: 13px;
 	line-height: 26px;
-	color: #202020;
-	
+	color: #202020;	
 }
-
-
+.menu-box .more-box .service-container .service-list .service-link:hover{
+	cursor: default;
+}
+.menu-box .more-box .service-container .service-list .service-link.live:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+/* 서비스 체크박스 */
+.menu-box .more-box .service-container .service-list .service-data input{
+	display: none;	
+}
 
 /* 컨텐츠 박스 */
 .content-box{
