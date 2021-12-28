@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>스크롤 이벤트 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		*{padding: 0; margin: 0;}
+		.container{
+			overflow: scroll;
+		}
+		.box1{ height: 100vh; background-color: yellow;}
+		.box2{ height: 100vh; background-color: red;}
+		.box3{ height: 100vh; background-color: green;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<div class="box3"></div>
+	</div>
+	<script>
+		var lastScrollTop = 0;
+		var scrollOk = false;
+		$(function(){
+			$(window).scroll(function(e){
+				scrollOk = true;
+			});
+			setInterval(function(){
+				if(scrollOk){
+					setScroll(30);
+					scrollOk = false;
+				}
+			}, 250);
+		})
+		function setScroll(delta){
+			// 현재 스크롤 위치
+			var nowScrollTop = $(window).scrollTop();
+			// 한 박스씩 이동할거기 때문에 한 박스의 높이
+			var height = $('.box1').height();
+			if(Math.abs(lastScrollTop-nowScrollTop)<delta){
+				return;
+			}
+			// 아래로
+			if(lastScrollTop > nowScrollTop){
+				$(window).scrollTop(lastScrollTop-height);
+				lastScrollTop -= height;
+			}else{
+				$(window).scrollTop(lastScrollTop+height);
+				lastScrollTop += height;
+			}
+		}
+	</script>
+</body>
+</html>
