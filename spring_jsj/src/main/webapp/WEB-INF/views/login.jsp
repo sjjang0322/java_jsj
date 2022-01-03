@@ -38,13 +38,13 @@
 	<div class="container">
 		<h1 class="text-center">회원가입</h1>
 		<form action="/spring/login" method="post">
-			<div class="form-group">			  
-			  <input type="text" class="form-control" id="id">
+			<div class="form-group">
+			  <input type="text" class="form-control" name="id">
 			</div>
-			<div class="form-group">			  
-			  <input type="password" class="form-control" id="pw">
+			<div class="form-group">
+			  <input type="password" class="form-control" name="pw">
 			</div>
-			<button type="submit" class="btn btn-outline-success col-12">로그인</button>
+			<button class="btn btn-outline-success col-12">로그인</button>
 		</form>
 	</div>
 		
