@@ -21,7 +21,7 @@
 	</style>
 </head>
 <body>
-	<form action="<%=request.getContextPath() %>/signup" method="post"">
+	<form action="<%=request.getContextPath() %>/signup" method="post">
 		<input type="text" name="me_id" id="id" placeholder="아이디"> <br>
 		<input type="password" name="me_pw" id="pw" placeholder="비밀번호"> <br>
 		<input type="password" name="pw2" id="pw2" placeholder="비밀번호 확인"> <br>
@@ -31,13 +31,13 @@
 		<input type="radio" name="me_gender" id="man">남자
 		<input type="radio" name="me_gender" id="woman">여자 <br>
 		생년월일 <br>
-		<input type="text" id="birth"> <br>
+		<input type="text" name="birthday" id="birthday"> <br>
 		주소 <br>
 		<input type="text" id="sample6_postcode" placeholder="우편번호">
 		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 		<input type="text" id="sample6_address" placeholder="주소"><br>
 		<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-		<input type="text" id="me_address">
+		<input type="text" id="me_address" style="display : block">		
 		 <br>
 		<input type="checkbox" name="terms" id="terms">약관 동의 <br>
 		<button type="submit" class="submit">회원가입</button>		
@@ -46,8 +46,8 @@
 	<script>
 		$(function(){
 			// datepicker
-			$( "#birth" ).datepicker();
-			$( "#birth" ).datepicker("option", "dateFormat", "yy-mm-dd");
+			$( "#birthday" ).datepicker();
+			$( "#birthday" ).datepicker("option", "dateFormat", "yy-mm-dd");
 			
 			/* 조건 변수 */
 			// 공란이 있음
@@ -73,41 +73,32 @@
 			$('.submit').click(function(){
 				isBlank=false;
 				if($('#id').val()==''){
-					consol.log("아이디가 빈칸");
 					isBlank=true;
 				}
 				if($('#pw').val()==''){
-					consol.log("비밀번호가 빈칸");
 					isBlank=true;
-				}
+				}				
 				if($('#name').val()==''){
-					consol.log("이름이 빈칸");
 					isBlank=true;
 				}
 				if($('#phone').val()==''){
-					consol.log("전화번호가 빈칸");
 					isBlank=true;
 				}
-				if(!$('input[name=gender]').prop('checked')){
-					consol.log("성별이 빈칸");
+				if(!$('input[name=me_gender]').prop('checked')){
 					isBlank=true;
 				}
-				if($('#birth').val()==''){
-					consol.log("생일이 빈칸");
+				if($('#birthday').val()==''){
 					isBlank=true;
 				}
 				if($('#sample6_postcode').val()==''){
-					consol.log("우편번호가 빈칸");
 					isBlank=true;
 				}
 				if($('#sample6_address').val()==''){
-					consol.log("주소가 빈칸");
 					isBlank=true;
 				}
 				if($('#sample6_detailAddress').val()==''){
-					consol.log("상세주소가 빈칸");
 					isBlank=true;
-				}				
+				}
 				
 				console.log(isBlank);
 				if(isBlank){
@@ -121,9 +112,10 @@
 				if(!isAgree){
 					alert('약관에 동의하지 않았습니다.');
 					return false;
-				}
-				$('#me_address').val().set('#sample6_address' + '#sample6_detailAddress');
-				return true;
+				}			
+				
+				
+				return false;
 			})
 
 
@@ -171,6 +163,6 @@
 				}
 			}).open();
 		}	
-	</script>
+	</script>	
 </body>
 </html>
