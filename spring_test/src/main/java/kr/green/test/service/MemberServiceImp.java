@@ -1,5 +1,7 @@
 package kr.green.test.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,13 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		MemberVO user = memberDao.getMember(member.getMe_id());
 		System.out.println(user);
+		return null;
+	}
+
+	@Override
+	public MemberVO signup(MemberVO member) {
+		
+		System.out.println(member);
 		return null;
 	}
 

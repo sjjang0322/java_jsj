@@ -1,4 +1,4 @@
-package kr.green.test.vo;
+package kr.green.test1.vo;
 
 import java.util.Date;
 
@@ -10,8 +10,6 @@ public class MemberVO {
 	private Date me_birth;
 	private String me_address;
 	private String me_phone;
-	
-
 	public String getMe_id() {
 		return me_id;
 	}
@@ -59,5 +57,6 @@ public class MemberVO {
 		return "MemberVO [me_id=" + me_id + ", me_pw=" + me_pw + ", me_name=" + me_name + ", me_gender=" + me_gender
 				+ ", me_birth=" + me_birth + ", me_address=" + me_address + ", me_phone=" + me_phone + "]";
 	}
+	
 	
 }

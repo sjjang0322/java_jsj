@@ -5,5 +5,7 @@ import kr.green.test.vo.MemberVO;
 public interface MemberService {
 
 	MemberVO login(MemberVO member);
+
+	MemberVO signup(MemberVO member);
 	
 }
