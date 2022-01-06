@@ -1,168 +1,165 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>회원가입</title>
-	<script src="../js/jquery.min.js"></script>
-	<!-- datepicker -->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">  
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-	<!-- 주소입력 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">	
+	<!-- date picker -->
+	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+	<!-- 우편번호 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-	
 	<style>
 
 	</style>
 </head>
 <body>
-	<form action="<%=request.getContextPath() %>/signup" method="post">
-		<input type="text" name="me_id" id="id" placeholder="아이디"> <br>
-		<input type="password" name="me_pw" id="pw" placeholder="비밀번호"> <br>
-		<input type="password" name="pw2" id="pw2" placeholder="비밀번호 확인"> <br>
-		<input type="text" name="me_name" id="name" placeholder="이름"> <br>
-		<input type="text" name="me_phone" id="phone" placeholder="전화번호"> <br>
-		성별 <br>
-		<input type="radio" name="me_gender" id="man">남자
-		<input type="radio" name="me_gender" id="woman">여자 <br>
-		생년월일 <br>
-		<input type="text" name="birthday" id="birthday"> <br>
-		주소 <br>
-		<input type="text" id="sample6_postcode" placeholder="우편번호">
-		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-		<input type="text" id="sample6_address" placeholder="주소"><br>
-		<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-		<input type="text" id="me_address" style="display : block">		
-		 <br>
-		<input type="checkbox" name="terms" id="terms">약관 동의 <br>
-		<button type="submit" class="submit">회원가입</button>		
+	<form class="container signup body" action="<%=request.getContextPath()%>/signup" method="post">
+		<h1 class="title text-center">회원가입</h1>
+		<div class="box" style="height: 100px; border: 1px solid black;">약관내용</div>
+		<div class="form-group">
+			<div class="form-check-inline">
+				<label class="form-check-label">
+					<input type="checkbox" class="form-check-input" name="agree">동의
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="아이디" name="me_id" value="${user.me_id}")>
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" placeholder="비밀번호" name="me_pw" value="${user.me_pw}">
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" placeholder="비밀번호확인" name="pw2">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="이름" name="me_name" value="${user.me_name}">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="전화번호" name="me_phone" value="${user.me_phone}">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="생년월일" name="me_birth" id="birth" value="${user.me_phone}">
+		</div>
+		<div class="form-group">
+			<div class="form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="me_gender" value="남성">남성
+				</label>
+			</div>
+			<div class="form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="me_gender" value="여성">여성
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-inline mb-2">
+				<input type="text" id="postcode" placeholder="우편번호" class="form-control col-6">
+				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="form-control col-6">
+			</div>
+			<input type="text" id="address" placeholder="주소" class="form-control mb-2">
+			<input type="text" id="detailAddress" placeholder="상세주소" class="form-control mb-2">
+			<input type="hidden" name="me_address">
+		</div>
+		<button class="btn btn-outline-success col-12">회원가입</button>
 	</form>
-	
 	<script>
-		$(function(){
-			// datepicker
-			$( "#birthday" ).datepicker();
-			$( "#birthday" ).datepicker("option", "dateFormat", "yy-mm-dd");
-			
-			/* 조건 변수 */
-			// 공란이 있음
-			isBlank = true;
-			// 비밀번호 불일치
-			isPass = false;
-			// 약관 미동의
-			isAgree = false;
-			
-			// 비밀번호 입력시
-			$('input[type=password]').change(function(){
-				if($('#pw').val()==$('#pw2').val()){
-					isPass=true;
-				}
-			})
-
-			// 약관 동의 클릭
-			$('#terms').click(function(){
-				isAgree = $('#terms').prop('checked');
-			})
-
-			// 회원가입 클릭
-			$('.submit').click(function(){
-				isBlank=false;
-				if($('#id').val()==''){
-					isBlank=true;
-				}
-				if($('#pw').val()==''){
-					isBlank=true;
-				}				
-				if($('#name').val()==''){
-					isBlank=true;
-				}
-				if($('#phone').val()==''){
-					isBlank=true;
-				}
-				if(!$('input[name=me_gender]').prop('checked')){
-					isBlank=true;
-				}
-				if($('#birthday').val()==''){
-					isBlank=true;
-				}
-				if($('#sample6_postcode').val()==''){
-					isBlank=true;
-				}
-				if($('#sample6_address').val()==''){
-					isBlank=true;
-				}
-				if($('#sample6_detailAddress').val()==''){
-					isBlank=true;
-				}
-				
-				console.log(isBlank);
-				if(isBlank){
-					alert('빈칸이 있습니다.');
-					return false;
-				}
-				if(!isPass){
-					alert('비밀번호가 일치하지 않습니다.');
-					return false;
-				}
-				if(!isAgree){
-					alert('약관에 동의하지 않았습니다.');
-					return false;
-				}			
-				
-				
+		$('form').submit(function(){
+			var id = $('[name=me_id]').val().trim();
+			var pw = $('[name=me_pw]').val().trim();
+			var pw2 = $('[name=pw2]').val().trim();
+			var name = $('[name=me_name]').val().trim();
+			var phone = $('[name=me_phone]').val().trim();
+			var birth = $('[name=me_birth]').val().trim();
+			var genderObj = $('[name=me_gender]:checked');
+			var gender = genderObj.length == 0 ? '' : genderObj.val();
+			var isAgree = $('[name=agree]').is(':checked');
+			//동의에 체크되지 않으면
+			if(!isAgree){
+				alert('동의에 체크해야합니다.');
+				$('[name=agree]').focus();
 				return false;
-			})
-
-
-
-
+			}
+			if(id == ''){
+				alert('아이디를 입력하세요.');
+				$('[name=me_id]').focus();
+				return false;
+			}
+			if(pw == ''){
+				alert('비밀번호를 입력하세요.');
+				$('[name=me_pw]').focus();
+				return false;
+			}
+			if(pw2 != pw){
+				alert('비밀번호가 일치하지 않습니다.');
+				$('[name=pw2]').focus();
+				return false;
+			}
+			if(name == ''){
+				alert('이름을 입력하세요.');
+				$('[name=me_name]').focus();
+				return false;
+			}
+			if(phone == ''){
+				alert('전화번호를 입력하세요.');
+				$('[name=me_phone]').focus();
+				return false;
+			}
+			if(birth == ''){
+				alert('생일을 입력하세요.');
+				$('[name=me_birth]').focus();
+				return false;
+			}
+			if(gender == ''){
+				alert('성별을 선택하세요.');
+				$('[name=me_gender]').focus();
+				return false;
+			}
+			var address = $('#address').val() + ' ' +$('#detailAddress').val();
+			$('[name=me_address]').val(address);
 		});
-		// 주소입력
-		function sample6_execDaumPostcode() {
+
+		$('#birth').datepicker();
+		$('#birth').datepicker('option','dateFormat', 'yy-mm-dd');
+
+		function execDaumPostcode() {
 			new daum.Postcode({
 				oncomplete: function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 					var addr = ''; // 주소 변수
 					var extraAddr = ''; // 참고항목 변수
-
-					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
 					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-							addr = data.roadAddress;
+						addr = data.roadAddress;
 					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-							addr = data.jibunAddress;
+						addr = data.jibunAddress;
 					}
 
 					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
 					if(data.userSelectedType === 'R'){
-							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-							if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-									extraAddr += data.bname;
-							}
-							// 건물명이 있고, 공동주택일 경우 추가한다.
-							if(data.buildingName !== '' && data.apartment === 'Y'){
-									extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-							}
-
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+								extraAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if(data.buildingName !== '' && data.apartment === 'Y'){
+								extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						}
 					
 					} 
-
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('sample6_postcode').value = data.zonecode;
-					document.getElementById("sample6_address").value = addr;
+					document.getElementById('postcode').value = data.zonecode;
+					document.getElementById("address").value = addr;
 					// 커서를 상세주소 필드로 이동한다.
-					document.getElementById("sample6_detailAddress").focus();
+					document.getElementById("detailAddress").focus();
 				}
 			}).open();
-		}	
-	</script>	
+    }
+	</script>
 </body>
 </html>
