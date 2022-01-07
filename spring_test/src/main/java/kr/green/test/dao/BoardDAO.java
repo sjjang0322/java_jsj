@@ -13,5 +13,7 @@ public interface BoardDAO {
 	List<BoardVO> getBoardList(@Param("type")String type);
 
 	BoardVO getBoard(@Param("bd_num")Integer bd_num);
+
+	void deleteBoard(@Param("bd_num")Integer bd_num);
 	
 }
