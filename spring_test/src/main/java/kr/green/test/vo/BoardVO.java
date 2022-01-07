@@ -46,6 +46,11 @@ public class BoardVO {
 	public Date getBd_up_date() {
 		return bd_up_date;
 	}
+	public String getBd_up_date_str() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String str = format.format(bd_up_date);
+		return str;
+	}
 	public void setBd_up_date(Date bd_up_date) {
 		this.bd_up_date = bd_up_date;
 	}

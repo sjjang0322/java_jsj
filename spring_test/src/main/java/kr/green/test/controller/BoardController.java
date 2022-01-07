@@ -52,7 +52,7 @@ public class BoardController {
 	public ModelAndView boardDetail(ModelAndView mv, Integer bd_num) {
 		mv.setViewName("/board/detail");
 		//게시글 번호 확인
-		//System.out.println("게시글 번호 : " + bd_num);
+		System.out.println("게시글 번호 : " + bd_num);
 		//게시글 = boardService.게시글가져오기(게시글번호);
 		BoardVO board = boardService.getBoard(bd_num);
 		//가져온 게시글 확인
@@ -72,6 +72,25 @@ public class BoardController {
 		//서비스에게 기시글 번호와 로그인한 유저 정보를 주면서 게시글 삭제하라고 시킴
 		boardService.deleteBoard(bd_num, user);
 		mv.setViewName("redirect:/board/list");
+		return mv;
+	}
+	
+	@RequestMapping(value="/modify",method=RequestMethod.GET)
+	public ModelAndView boardModifyGet(ModelAndView mv, Integer bd_num) {
+		mv.setViewName("/board/modify");
+		BoardVO board = boardService.getBoard(bd_num);
+		mv.addObject("board",board);
+		return mv;
+	}
+	
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {		
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		board.setBd_me_id(user.getMe_id());
+		board.setBd_type("일반");
+		System.out.println(board);
+		boardService.modifyBoard(board, user);
+		mv.setViewName("/board/modify");
 		return mv;
 	}
 }

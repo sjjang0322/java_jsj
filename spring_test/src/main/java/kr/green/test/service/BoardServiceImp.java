@@ -69,4 +69,16 @@ public class BoardServiceImp implements BoardService {
 		boardDao.updateBoard(board);
 		*/
 	}
+
+	@Override
+	public void modifyBoard(BoardVO board, MemberVO user) {
+		//가져온 게시글이 null이면 수정할 필요 없음
+		if(board == null)
+			return;
+		//게시글 작성자와 로그인한 회원 아이디가 같은지 확인하여 다르면 수정할 필요 없음
+		if(!board.getBd_me_id().equals(user.getMe_id()))
+			return;
+		//게시글 수정
+		boardDao.updateBoard(board.getBd_num());
+	}
 }
