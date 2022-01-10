@@ -20,14 +20,12 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="kr.green.test.*" />
-	
+	<!-- 타일즈 ViewResolver 등록 및 우선순위 1등으로 설정 -->
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 	    <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	    <beans:property name="order" value="1" /><!-- 순서를 우선으로 지정 -->
 	</beans:bean>
-	     
+    <!-- 타일즈 환경 설정파일 지정 -->
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 	    <beans:property name="definitions">
 	        <beans:list>
@@ -36,32 +34,8 @@
 	    </beans:property>
 	</beans:bean>
 
-
-	<beans:bean id="loginInterceptor" 
-		class="kr.green.test.interceptor.LoginInterceptor">
-	</beans:bean>
-	<beans:bean id="memberInterceptor" 
-		class="kr.green.test.interceptor.MemberInterceptor">
-	</beans:bean>
-	<beans:bean id="guestInterceptor" 
-		class="kr.green.test.interceptor.GuestInterceptor">
-	</beans:bean>
-	<interceptors>
-	    <!-- 등록된 인터셉터가 어떤 URL에 동작하는지를 설정 -->
-	    <interceptor>
-	        <mapping path="/login"/>
-	        <beans:ref bean="loginInterceptor"/>
-   		</interceptor>
-   		<interceptor>
-	        <mapping path="/board/register"/>
-	        <mapping path="/board/modify"/>
-	        <mapping path="/board/delete"/>
-	        <beans:ref bean="memberInterceptor"/>
-   		</interceptor>
-   		<interceptor>
-	        <mapping path="/login"/>
-	        <mapping path="/signup"/>	        
-	        <beans:ref bean="guestInterceptor"/>
-   		</interceptor>
-	</interceptors>
+	<context:component-scan base-package="kr.green.green.*" />
+	
+	
+	
 </beans:beans>
