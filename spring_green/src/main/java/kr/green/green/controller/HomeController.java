@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.green.service.MemberService;
+import kr.green.green.vo.MemberVO;
 
 /**
  * Handles requests for the application home page.
@@ -48,9 +49,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView loginPost(ModelAndView mv) {
+	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
 		mv.setViewName("/member/login");	
-		
+		MemberVO user = memberService.login(member);
 		return mv;
 	}
 	
