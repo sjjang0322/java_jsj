@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.MemberVO;
 
 public interface BoardDAO {
 
@@ -16,8 +17,8 @@ public interface BoardDAO {
 
 	void deleteBoard(@Param("bd_num")Integer bd_num);
 
-	
+	void getBoard(@Param("bd_num")Integer bd_num, @Param("bd_user")MemberVO user);
 
+	void updateBoard(@Param("board")BoardVO dbBoard);
 
-	
 }

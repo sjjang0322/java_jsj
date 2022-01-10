@@ -18,7 +18,7 @@
 				<input type="text" class="form-control" name="bd_me_id" readonly value="${board.bd_me_id}">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="bd_reg_date" readonly value="최초 작성 : ${board.bd_reg_date_str} 최근 수정 : ${board_bd_up_date_str}">
+				<input type="text" class="form-control" name="bd_reg_date" readonly value="최초 작성 : ${board.bd_reg_date_str} 최근 수정 : ${board.bd_up_date_str}">
 			</div>
 			<div class="form-group">
 				<textarea class="form-control" name="bd_content" rows="10" readonly>${board.bd_content}</textarea>
