@@ -31,9 +31,6 @@ public class HomeController {
 	public ModelAndView openTilesView(ModelAndView mv) throws Exception{
 	    mv.setViewName("/main/home");
 	    mv.addObject("setHeader", "타일즈");
-	    //아래 코드는 연동 확인후 지울 코드
-	    MemberVO user = memberService.test("qwer");
-	    System.out.println(user);
 	    return mv;
 	}
 
@@ -48,23 +45,42 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
-		mv.setViewName("/member/login");	
+	public ModelAndView loginPost(ModelAndView mv, MemberVO user) {
 		
+		MemberVO loginUser = memberService.login(user);
+		mv.addObject("user",loginUser);
+		if(loginUser == null)
+			mv.setViewName("redirect:/login");	
+		else
+			mv.setViewName("redirect:/");
 		return mv;
 	}
 	
 	
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public ModelAndView signupGet(ModelAndView mv) {
-		mv.setViewName("/member/signup");		
+	public ModelAndView signupGet(ModelAndView mv, MemberVO user) {
+		
+		mv.setViewName("/member/signup");
+		mv.addObject("user",user);
+		return mv;
+	}
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {		
+		
+		if(memberService.signup(user)) {
+			mv.setViewName("redirect:/");
+		}else {
+			mv.addObject("user",user);
+			mv.setViewName("redirect:/signup");
+		}				
 		return mv;
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logoutGet(ModelAndView mv) {
-		mv.setViewName("redirect:/");		
+	public ModelAndView logoutGet(ModelAndView mv, HttpServletRequest request) {
+		mv.setViewName("redirect:/");	
+		request.getSession().removeAttribute("user");
 		return mv;
 	}
 	
