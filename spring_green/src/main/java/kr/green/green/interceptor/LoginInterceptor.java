@@ -10,7 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import kr.green.green.vo.MemberVO;
 
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+public class LoginInterceptor extends HandlerInterceptorAdapter  {
 	@Override
 	public void postHandle(
 	    HttpServletRequest request, 
@@ -20,7 +20,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    throws Exception {
 	    ModelMap modelMap = modelAndView.getModelMap();
 	    MemberVO user = (MemberVO)modelMap.get("user");
-
 	    if(user != null) {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("user", user);

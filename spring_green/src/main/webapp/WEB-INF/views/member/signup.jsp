@@ -7,11 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>회원가입</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">	
-	<!-- date picker -->
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-	<!-- 우편번호 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<style>
 
@@ -29,22 +27,19 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="아이디" name="me_id" value="${user.me_id}")>
+			<input type="text" class="form-control" placeholder="아이디" name="me_id" value="${user.me_id}">
 		</div>
 		<div class="form-group">
 			<input type="password" class="form-control" placeholder="비밀번호" name="me_pw" value="${user.me_pw}">
 		</div>
 		<div class="form-group">
-			<input type="password" class="form-control" placeholder="비밀번호확인" name="pw2">
+			<input type="password" class="form-control" placeholder="비밀번호확인" name="me_pw2">
 		</div>
 		<div class="form-group">
 			<input type="text" class="form-control" placeholder="이름" name="me_name" value="${user.me_name}">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="전화번호" name="me_phone" value="${user.me_phone}">
-		</div>
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="생년월일" name="me_birth" id="birth" value="${user.me_phone}">
+			<input type="text" class="form-control" placeholder="생년월일" name="me_birth" id="birth">
 		</div>
 		<div class="form-group">
 			<div class="form-check-inline">
@@ -67,15 +62,17 @@
 			<input type="text" id="detailAddress" placeholder="상세주소" class="form-control mb-2">
 			<input type="hidden" name="me_address">
 		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="전화번호(-를 포함하여 입력하세요.)" name="me_phone">
+		</div>
 		<button class="btn btn-outline-success col-12">회원가입</button>
 	</form>
 	<script>
 		$('form').submit(function(){
 			var id = $('[name=me_id]').val().trim();
 			var pw = $('[name=me_pw]').val().trim();
-			var pw2 = $('[name=pw2]').val().trim();
+			var pw2 = $('[name=me_pw2]').val().trim();
 			var name = $('[name=me_name]').val().trim();
-			var phone = $('[name=me_phone]').val().trim();
 			var birth = $('[name=me_birth]').val().trim();
 			var genderObj = $('[name=me_gender]:checked');
 			var gender = genderObj.length == 0 ? '' : genderObj.val();
@@ -98,17 +95,12 @@
 			}
 			if(pw2 != pw){
 				alert('비밀번호가 일치하지 않습니다.');
-				$('[name=pw2]').focus();
+				$('[name=me_pw2]').focus();
 				return false;
 			}
 			if(name == ''){
 				alert('이름을 입력하세요.');
 				$('[name=me_name]').focus();
-				return false;
-			}
-			if(phone == ''){
-				alert('전화번호를 입력하세요.');
-				$('[name=me_phone]').focus();
 				return false;
 			}
 			if(birth == ''){
