@@ -9,10 +9,14 @@ import kr.green.green.vo.MemberVO;
 @Service
 public class MemberServiceImp implements MemberService {
 
+	@Autowired
+	MemberDAO memberDao;
+
 	@Override
-	public MemberVO login(MemberVO member) {
-		
-		return null;
+	public MemberVO test(String id) {		
+		return memberDao.test(id);
 	}
+	
+
  
 }

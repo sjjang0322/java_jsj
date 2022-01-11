@@ -11,6 +11,8 @@ public class MemberVO {
 	private Date me_birth;
 	private String me_address;
 	private String me_phone;
+	
+
 	public String getMe_id() {
 		return me_id;
 	}
@@ -38,13 +40,14 @@ public class MemberVO {
 	public Date getMe_birth() {
 		return me_birth;
 	}
-	public String getMe_birth_str() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String str = format.format(me_birth);
-		return str;
-	}
-	public void setMe_birth(Date me_birth) {
-		this.me_birth = me_birth;
+	public void setMe_birth(String me_birth) {
+		SimpleDateFormat format;
+		try {
+			format = new SimpleDateFormat("yyyy-MM-dd");
+			this.me_birth = format.parse(me_birth);			
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	public String getMe_address() {
 		return me_address;

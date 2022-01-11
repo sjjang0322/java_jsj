@@ -27,19 +27,18 @@ public class HomeController {
     @Autowired
     MemberService memberService;
 
-	@RequestMapping(value= {"/main/home","/home.do"})
+	@RequestMapping(value= "/")
 	public ModelAndView openTilesView(ModelAndView mv) throws Exception{
 	    mv.setViewName("/main/home");
 	    mv.addObject("setHeader", "타일즈");
+	    //아래 코드는 연동 확인후 지울 코드
+	    MemberVO user = memberService.test("qwer");
+	    System.out.println(user);
 	    return mv;
 	}
 
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView homeGet(ModelAndView mv) {
-		mv.setViewName("/main/home");		
-		return mv;
-	}
+
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView loginGet(ModelAndView mv) {
@@ -51,7 +50,7 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
 		mv.setViewName("/member/login");	
-		MemberVO user = memberService.login(member);
+		
 		return mv;
 	}
 	

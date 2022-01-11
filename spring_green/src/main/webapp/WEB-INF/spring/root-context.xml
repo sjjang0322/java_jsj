@@ -17,7 +17,7 @@
       class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 	    <property name="url"
-	              value="jdbc:mysql://localhost:3306/spring?useSSL=false&amp;serverTimezone=UTC">
+	              value="jdbc:mysql://localhost:3306/community?useSSL=false&amp;serverTimezone=Asia/Seoul">
 	    </property>
 	    <property name="username" value="root"></property>
 	    <property name="password" value="cjgreen"></property>
@@ -26,7 +26,7 @@
 	    <property name="dataSource" ref="dataSource" />
 	    <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
 	</bean>
-	<mybatis-spring:scan base-package="kr.green.spring.dao"/>
+	<mybatis-spring:scan base-package="kr.green.green.dao"/>
 
 </beans>
   

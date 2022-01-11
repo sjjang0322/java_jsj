@@ -4,6 +4,6 @@ import kr.green.green.vo.MemberVO;
 
 public interface MemberService {
 
-	MemberVO login(MemberVO member);
+	MemberVO test(String id);
     
 }
