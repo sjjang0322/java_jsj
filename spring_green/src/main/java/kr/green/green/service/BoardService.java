@@ -8,4 +8,6 @@ public interface BoardService {
 
 	List<BoardVO> getBoardList(String type);
 
+	BoardVO getBoardDetail(Integer bd_num);
+
 }

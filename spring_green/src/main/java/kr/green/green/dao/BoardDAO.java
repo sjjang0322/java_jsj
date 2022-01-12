@@ -12,5 +12,7 @@ public interface BoardDAO {
 
 	List<BoardVO> selectBoardList(@Param("type")String type);
 
+	BoardVO selectBoardDetail(@Param("bd_num")Integer bd_num);
+
 
 }
