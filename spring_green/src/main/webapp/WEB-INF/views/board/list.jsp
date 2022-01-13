@@ -31,6 +31,12 @@
 			  	    </c:forEach>
 				</tbody>
 			</table>
+			<c:if test="${user!=null}">
+				<a href="<%=request.getContextPath()%>/board/register">
+					<button class="btn btn-outline-success">글쓰기</button>
+				</a>
+			</c:if>
+			
 		</div>
 	</div>
 </body>

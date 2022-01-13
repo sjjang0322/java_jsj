@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.green.vo.BoardVO;
+import kr.green.green.vo.MemberVO;
 import kr.green.green.dao.BoardDAO;
 
 
@@ -22,7 +23,15 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public BoardVO getBoardDetail(Integer bd_num) {
+		if(bd_num == null || bd_num <= 0)
+			return null;			
 		return boardDao.selectBoardDetail(bd_num);
+	}
+
+	@Override
+	public void registerBoard(BoardVO board, MemberVO user) {		
+		boardDao.registerBoard(board);
+		return;
 	}
 	
 	

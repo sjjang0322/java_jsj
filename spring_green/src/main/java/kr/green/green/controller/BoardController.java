@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.green.service.BoardService;
 import kr.green.green.vo.BoardVO;
+import kr.green.green.vo.MemberVO;
 
 @Controller
 @RequestMapping(value="/board")
@@ -38,4 +39,23 @@ public class BoardController {
 	    return mv;
 	}
 	
+	@RequestMapping(value= "/register", method=RequestMethod.GET)
+	public ModelAndView registerGet(ModelAndView mv){
+		mv.setViewName("/board/register");
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/register", method=RequestMethod.POST)
+	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest request){
+		//System.out.println(board);		
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		board.setBd_me_id(user.getMe_id());
+		board.setBd_type("일반");
+		boardService.registerBoard(board,user);
+		//System.out.println(user);
+		mv.setViewName("redirect:/board/list");
+	    return mv;
+	}
+	
+
 }

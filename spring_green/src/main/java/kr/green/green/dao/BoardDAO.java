@@ -14,5 +14,7 @@ public interface BoardDAO {
 
 	BoardVO selectBoardDetail(@Param("bd_num")Integer bd_num);
 
+	void registerBoard(@Param("board")BoardVO board);
+
 
 }
