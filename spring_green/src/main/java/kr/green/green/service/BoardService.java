@@ -11,6 +11,8 @@ public interface BoardService {
 
 	BoardVO getBoardDetail(Integer bd_num);	
 
-	void registerBoard(BoardVO board, MemberVO user);
+	void registerBoard(BoardVO board);
+
+	void modifyBoard(BoardVO board, MemberVO user);
 
 }

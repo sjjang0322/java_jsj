@@ -29,8 +29,20 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void registerBoard(BoardVO board, MemberVO user) {		
+	public void registerBoard(BoardVO board) {		
 		boardDao.registerBoard(board);
+		return;
+	}
+
+	@Override
+	public void modifyBoard(BoardVO board, MemberVO user) {
+		
+		BoardVO bd_board = boardDao.selectBoardDetail(board.getBd_num());
+		if(bd_board == null)
+			return;
+		if(!bd_board.getBd_me_id().equals(user.getMe_id()))
+			return;
+		boardDao.modifyBoard(board);
 		return;
 	}
 	

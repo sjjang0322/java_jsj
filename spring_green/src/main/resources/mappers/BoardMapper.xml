@@ -30,4 +30,11 @@
   			'N' 
   			from board;
 	</insert>
+	<update id="modifyBoard">
+		update board set
+	  		bd_title = #{board.bd_title},
+  			bd_content = #{board.bd_content},
+  			bd_up_date = now()
+		where bd_num = #{board.bd_num}
+	</update>
 </mapper>

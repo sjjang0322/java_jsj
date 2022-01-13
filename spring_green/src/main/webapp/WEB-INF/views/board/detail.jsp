@@ -7,8 +7,8 @@
 	<title>Home</title>
 </head>
 <body>
-	<div class="body">
-		<form class="container">
+	<div class="body container">
+		<form>
 			<h1>게시글</h1>
 			<div class="form-group">			  
 			  <input type="text" class="form-control" name="title" value="제목 : ${board.bd_title}" readonly>
@@ -26,16 +26,16 @@
 			</c:if>
 			<div class="form-group">			  
 			  <textarea class="form-control" rows="20" id="content" readonly>${board.bd_content}</textarea>
-			</div>
-			<c:if test="${board.bd_me_id == user.me_id}">
-				<a href="<%=request.getContextPath()%>/board/modify?num=${board.bd_num}">	
-					<button class="btn btn-outline-success">수정</button>
-				</a>
-				<a href="<%=request.getContextPath()%>/board/delete?num=${board.bd_num}">	
-					<button class="btn btn-outline-success">삭제</button>
-				</a>
-			</c:if>
+			</div>			
 		</form>
+		<c:if test="${board.bd_me_id == user.me_id}">
+			<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">	
+				<button class="btn btn-outline-success">수정</button>
+			</a>
+			<a href="<%=request.getContextPath()%>/board/delete?bd_num=${board.bd_num}">	
+				<button class="btn btn-outline-success">삭제</button>
+			</a>
+		</c:if>
 	</div>
 </body>
 </html>
