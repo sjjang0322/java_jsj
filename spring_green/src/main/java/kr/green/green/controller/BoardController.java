@@ -81,6 +81,23 @@ public class BoardController {
 	    return mv;
 	}
 	
+	@RequestMapping(value= "/delete", method=RequestMethod.GET)
+	public ModelAndView deleteGet(ModelAndView mv, BoardVO board, HttpServletRequest request){		
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");	
+		System.out.println(user);
+		System.out.println(board);
+		if(user != null && board != null && user.getMe_id().equals(board.getBd_me_id())) {
+			System.out.println("삭제 시작");
+			boardService.deleteBoard(board.getBd_num(),user);
+			mv.setViewName("redirect:/board/list");
+		}else {
+			System.out.println("삭제 안시작");			
+			mv.addObject("bd_num",board.getBd_num());
+			mv.setViewName("redirect:/board/detail");
+		}
+	    return mv;
+	    
+	}
 	
 
 }

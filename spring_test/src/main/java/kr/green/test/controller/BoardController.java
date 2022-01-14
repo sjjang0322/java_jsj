@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.test.service.BoardService;
+import kr.green.test.utils.UploadFileUtils;
 import kr.green.test.vo.BoardVO;
 import kr.green.test.vo.MemberVO;
 
@@ -23,7 +25,7 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping(value="/list")
-	public ModelAndView boardList(ModelAndView mv) {
+	public ModelAndView boardList(ModelAndView mv) {		
 		//등록된 모든 게시글을 보는 작업
 		List<BoardVO> list = boardService.getBoardList("일반");
 		mv.addObject("list", list);
@@ -38,12 +40,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {		
+	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request, List<MultipartFile> files) {		
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		board.setBd_me_id(user.getMe_id());
 		board.setBd_type("일반");
 		System.out.println(board);
-		boardService.registerBoard(board);
+		boardService.registerBoard(board, files);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}

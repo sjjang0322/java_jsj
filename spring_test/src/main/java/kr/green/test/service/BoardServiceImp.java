@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.test.dao.BoardDAO;
 import kr.green.test.vo.BoardVO;
@@ -17,14 +18,15 @@ public class BoardServiceImp implements BoardService {
 	BoardDAO boardDao;
 
 	@Override
-	public void registerBoard(BoardVO board) {
+	public void registerBoard(BoardVO board, List<MultipartFile> files) {
 		if(board == null 
 			|| board.getBd_title() == null
 			|| board.getBd_content() == null
 			|| board.getBd_me_id() == null)
 			return;
+		//Mapper 수정
 		boardDao.insertBoard(board);
-		
+		//첨부파일 업로드및 DB에 저장
 	}
 
 	@Override

@@ -9,10 +9,16 @@
 <body>
 	<div class="body container">
 		<h1>게시글 수정</h1>
-		<form action="<%=request.getContextPath()%>/board/modify" method="post">
+		<form action="<%=request.getContextPath()%>/board/modify" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<input type="text" class="form-control" name="bd_title" value="${board.bd_title}">
 			</div>
+		    <div class="form-group">		     
+		    	<label>첨부파일(최대 3개)</label>   
+		        <input type="file" class="form-control" name="bd_file"/>
+		        <input type="file" class="form-control" name="bd_file"/>
+		        <input type="file" class="form-control" name="bd_file"/>
+		    </div>
 			<div class="form-group">
 				<textarea class="form-control" name="bd_content" rows="10" >${board.bd_content}</textarea>
 			</div>

@@ -19,5 +19,9 @@ public interface BoardDAO {
 
 	void modifyBoard(@Param("board")BoardVO board);
 
+	void deleteBoard(@Param("bd_num")Integer bd_num);
+
+	List<BoardVO> getAllBoardList();
+
 
 }
