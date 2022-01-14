@@ -3,7 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.test.dao.BoardDAO">
-  <insert id="insertBoard">
+  <insert id="insertBoard" 
+  	useGeneratedKeys="true" 
+  	keyProperty="board.bd_num"
+  	parameterType="kr.green.test.vo.BoardVO"
+  	>
   	insert into 
   		board(bd_title, bd_content, bd_reg_date, bd_type,
   			bd_me_id, bd_ori_num, bd_del)
@@ -37,4 +41,12 @@
 	
   </update>
   
+  <insert id="insertFile">
+  	insert into file(fi_ori_name, fi_name, fi_bd_num)
+  		values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_bd_num} )
+  </insert>
+  
+  <select id="selectFileList" resultType="kr.green.test.vo.FileVO">
+  	select * from file where fi_bd_num = #{bd_num}
+  </select>
 </mapper>

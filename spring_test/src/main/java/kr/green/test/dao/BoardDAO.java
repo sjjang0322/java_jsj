@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
 
 public interface BoardDAO {
@@ -20,5 +21,9 @@ public interface BoardDAO {
 	void getBoard(@Param("bd_num")Integer bd_num, @Param("bd_user")MemberVO user);
 
 	void updateBoard(@Param("board")BoardVO dbBoard);
+
+	void insertFile(@Param("file")FileVO fileVo);
+
+	List<FileVO> selectFileList(@Param("bd_num")Integer bd_num);
 
 }

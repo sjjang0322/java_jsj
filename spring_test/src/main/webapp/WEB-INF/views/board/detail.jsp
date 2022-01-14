@@ -17,8 +17,24 @@
 			<div class="form-group">
 				<input type="text" class="form-control" name="bd_me_id" readonly value="${board.bd_me_id}">
 			</div>
-			<div class="form-group">
-				<input type="text" class="form-control" name="bd_reg_date" readonly value="최초 작성 : ${board.bd_reg_date_str} 최근 수정 : ${board.bd_up_date_str}">
+			<div class="form-group">			  
+				<input type="text" class="form-control" name="reg_date" value="작성일 : ${board.bd_reg_date_str}" readonly>
+			</div>
+			<c:if test="${board.bd_up_date!=null}">
+				<div class="form-group">			  
+				  <input type="text" class="form-control" name="up_date" value="최종 수정일 : ${board.bd_up_date_str}" readonly>
+				</div>
+			</c:if>
+			<div class="form-group">			  
+				<c:if test="${files != null && files.size() != 0 }">
+					<label>첨부파일</label>
+					<c:forEach items="${files}" var="file">						
+						<a href="<%=request.getContextPath()%>/board/download?fileName=${file.fi_name}" class="form-control">${file.fi_ori_name}</a>
+					</c:forEach>
+				</c:if>
+				<c:if test="${files == null || files.size() == 0 }">
+					<label>첨부파일 없음</label>
+				</c:if>
 			</div>
 			<div class="form-group">
 				<textarea class="form-control" name="bd_content" rows="10" readonly>${board.bd_content}</textarea>

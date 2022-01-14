@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.test.dao.BoardDAO;
+import kr.green.test.utils.UploadFileUtils;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
 
 @Service
@@ -16,9 +18,11 @@ public class BoardServiceImp implements BoardService {
 	
 	@Autowired
 	BoardDAO boardDao;
-
+	//업로드할 폴더 경로. 환경에 따라 바꿔줘야함.
+	String uploadPath = "D:\\JAVA_JSJ\\upload";
+	
 	@Override
-	public void registerBoard(BoardVO board, List<MultipartFile> files) {
+	public void registerBoard(BoardVO board, List<MultipartFile> files) throws Exception {
 		if(board == null 
 			|| board.getBd_title() == null
 			|| board.getBd_content() == null
@@ -26,7 +30,28 @@ public class BoardServiceImp implements BoardService {
 			return;
 		//Mapper 수정
 		boardDao.insertBoard(board);
-		//첨부파일 업로드및 DB에 저장
+		System.out.println(board);
+		if(files == null) {
+//			System.out.println("null?????");
+			return;
+		}
+		for(MultipartFile tmpFile : files) {
+//			System.out.println("실행?");
+			//첨부파일 업로드및 DB에 저장
+			//첨부파일이 있고, 첨부파일 이름이 1글자 이상인 경우에만 업로드
+			if(tmpFile != null && tmpFile.getOriginalFilename().length() != 0) {
+				//서버에 업로드
+				String path = UploadFileUtils.uploadFile(
+					uploadPath, tmpFile.getOriginalFilename(), tmpFile.getBytes());
+				//db에 저장
+				FileVO fileVo = 
+						new FileVO(tmpFile.getOriginalFilename(), path, board.getBd_num());
+//				System.out.println(fileVo);
+				boardDao.insertFile(fileVo);
+			}
+		}
+	
+		
 	}
 
 	@Override
@@ -102,6 +127,13 @@ public class BoardServiceImp implements BoardService {
 		
 		//다오에게 수정된 게시글 정보를 주면서 업데이트 하라고 시킴
 		boardDao.updateBoard(dbBoard);
+	}
+
+	@Override
+	public List<FileVO> getFileList(Integer bd_num) {
+		if(bd_num == null || bd_num <= 0)
+			return null;
+		return boardDao.selectFileList(bd_num);
 	}
 	
 }

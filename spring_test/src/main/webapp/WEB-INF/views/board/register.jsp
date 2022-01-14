@@ -15,9 +15,9 @@
 			</div>
 		    <div class="form-group">	
 		    	<label>첨부파일(최대 3개)</label>	        
-		        <input type="file" class="form-control" name="bd_file"/>
-		        <input type="file" class="form-control" name="bd_file"/>
-		        <input type="file" class="form-control" name="bd_file"/>
+		        <input type="file" class="form-control" name="files"/>
+		        <input type="file" class="form-control" name="files"/>
+		        <input type="file" class="form-control" name="files"/>
 		    </div>
 			<div class="form-group">
 				<textarea class="form-control" name="bd_content" placeholder="내용" rows="10"></textarea>

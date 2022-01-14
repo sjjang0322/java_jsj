@@ -1,19 +1,27 @@
 package kr.green.test.controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.test.service.BoardService;
-import kr.green.test.utils.UploadFileUtils;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
 
 //게시글 url을 담당하는 컨트롤러. /board/xxx을 담당
@@ -40,11 +48,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request, List<MultipartFile> files) {		
+	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request, List<MultipartFile> files) throws Exception {		
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		board.setBd_me_id(user.getMe_id());
 		board.setBd_type("일반");
-		System.out.println(board);
+//		System.out.println(board);
 		boardService.registerBoard(board, files);
 		mv.setViewName("redirect:/board/list");
 		return mv;
@@ -57,10 +65,12 @@ public class BoardController {
 		System.out.println("게시글 번호 : " + bd_num);
 		//게시글 = boardService.게시글가져오기(게시글번호);
 		BoardVO board = boardService.getBoard(bd_num);
+		List<FileVO> files = boardService.getFileList(bd_num);
 		//가져온 게시글 확인
 		//System.out.println(board);
 		//화면에 게시글을 전달
 		mv.addObject("board", board);
+		mv.addObject("files", files);
 		return mv;
 	}
 	
@@ -117,5 +127,29 @@ public class BoardController {
 		mv.addObject("bd_num",board.getBd_num());		
 		mv.setViewName("redirect:/board/detail");
 		return mv;
+	}
+	@ResponseBody
+	@RequestMapping("/download")
+	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
+		String uploadPath = "D:\\JAVA_JSJ\\upload";
+		InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    try{
+	        String FormatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	        HttpHeaders headers = new HttpHeaders();
+	        in = new FileInputStream(uploadPath+fileName);
+
+	        fileName = fileName.substring(fileName.indexOf("_")+1);
+	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+	        headers.add("Content-Disposition",  "attachment; filename=\"" 
+				+ new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+	        entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in),headers,HttpStatus.CREATED);
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+	    }finally {
+	        in.close();
+	    }
+	    return entity;
 	}
 }
