@@ -99,6 +99,8 @@ public class BoardServiceImp implements BoardService {
 		board.setBd_del_date(new Date());
 		boardDao.updateBoard(board);
 		*/
+		List<FileVO> fileList = boardDao.selectFileList(board.getBd_num());
+		deleteFile(fileList);
 	}
 
 
