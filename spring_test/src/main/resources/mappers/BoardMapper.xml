@@ -47,6 +47,13 @@
   </insert>
   
   <select id="selectFileList" resultType="kr.green.test.vo.FileVO">
-  	select * from file where fi_bd_num = #{bd_num}
+  	select * from file where fi_bd_num = #{bd_num} and (fi_del != 'Y' || fi_del is null)
   </select>
+  
+  <update id="deleteFile">
+  	update file set
+  		fi_del = 'Y',
+  		fi_del_date = now()
+	where fi_num = #{fi_num}
+  </update>
 </mapper>

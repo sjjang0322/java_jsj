@@ -81,6 +81,7 @@ public class BoardController {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		BoardVO board = boardService.getBoardDetail(bd_num);
 		if(user != null || board != null || user.getMe_id().equals(board.getBd_me_id())) {
+			
 			mv.addObject("board", board);
 			mv.setViewName("/board/modify");
 		}else {
