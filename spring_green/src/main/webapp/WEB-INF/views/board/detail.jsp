@@ -19,6 +19,12 @@
 			<div class="form-group">			  
 			  <input type="text" class="form-control" name="reg_date" value="작성일 : ${board.bd_reg_date_str}" readonly>
 			</div>
+			<div class="form-group">			
+				<label>첨부 파일</label>
+				<c:forEach items="${fileList}" var="file">  
+					<a class="form-control" href="<%=request.getContextPath()%>/board/download?fileName=${file.fi_name}">${file.fi_ori_name }</a>
+				</c:forEach>
+			</div>
 			<c:if test="${board.bd_up_date!=null}">
 				<div class="form-group">			  
 				  <input type="text" class="form-control" name="up_date" value="최종 수정일 : ${board.bd_up_date_str}" readonly>

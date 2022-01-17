@@ -9,7 +9,7 @@
 	<select id="selectBoardDetail" resultType="kr.green.green.vo.BoardVO">
 		select * from board where bd_num = #{bd_num} and bd_del = 'N'
 	</select>
-	<insert id="registerBoard" useGeneratedKeys="true" keyProperty="${board.bd_num}" parameterType="kr.green.green.vo.BoardVO">
+	<insert id="registerBoard" useGeneratedKeys="true" keyProperty="board.bd_num" parameterType="kr.green.green.vo.BoardVO">
 		insert into
 			board(
 				bd_title, 
@@ -50,4 +50,7 @@
 		insert into	file(fi_ori_name, fi_name, fi_bd_num)
 			values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_bd_num})
 	</insert>
+	<select id="selectFileList" resultType="kr.green.green.vo.FileVO">
+		select * from file where fi_bd_num = #{bd_num}
+	</select>
 </mapper>

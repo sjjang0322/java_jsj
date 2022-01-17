@@ -94,6 +94,13 @@ public class BoardServiceImp implements BoardService {
 
 		return boardDao.getAllBoardList();
 	}
+
+	@Override
+	public List<FileVO> getFileList(Integer bd_num) {
+		if(bd_num<=0 || bd_num == null)
+			return null;
+		return boardDao.selectFileList(bd_num);
+	}
 	
 	
 }
