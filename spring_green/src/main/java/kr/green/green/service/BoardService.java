@@ -2,6 +2,8 @@ package kr.green.green.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.MemberVO;
 
@@ -11,7 +13,7 @@ public interface BoardService {
 
 	BoardVO getBoardDetail(Integer bd_num);	
 
-	void registerBoard(BoardVO board);
+	void registerBoard(BoardVO board, List<MultipartFile> files);
 
 	void modifyBoard(BoardVO board, MemberVO user);
 

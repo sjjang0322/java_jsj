@@ -1,13 +1,17 @@
 package kr.green.green.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.green.vo.BoardVO;
+import kr.green.green.vo.FileVO;
 import kr.green.green.vo.MemberVO;
 import kr.green.green.dao.BoardDAO;
+import kr.green.green.utils.UploadFileUtils;
 
 
 @Service
@@ -18,6 +22,8 @@ public class BoardServiceImp implements BoardService {
 	
 	@Autowired
 	BoardService boardService;
+	
+	String uploadPath = "D:\\JAVA_JSJ\\upload";
 	
 	@Override
 	public List<BoardVO> getBoardList(String type) {		
@@ -32,9 +38,24 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void registerBoard(BoardVO board) {		
+	public void registerBoard(BoardVO board, List<MultipartFile> files) {		
 		boardDao.registerBoard(board);
-		return;
+		
+		if(files == null || files.size() == 0)
+			return;
+		for(MultipartFile tmpFile : files) {
+			if(tmpFile != null && tmpFile.getOriginalFilename().length() != 0) {
+				try {
+					String path = UploadFileUtils.uploadFile(uploadPath, tmpFile.getOriginalFilename(), tmpFile.getBytes());
+					FileVO file = new FileVO(tmpFile.getOriginalFilename(),path,board.getBd_num());
+					boardDao.insertFile(file);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return;		
 	}
 
 	@Override

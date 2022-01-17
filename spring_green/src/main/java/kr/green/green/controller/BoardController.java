@@ -1,13 +1,17 @@
 package kr.green.green.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.green.service.BoardService;
@@ -20,6 +24,8 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	
+
 	
 	@RequestMapping(value= "/list", method=RequestMethod.GET)
 	public ModelAndView listGet(ModelAndView mv){
@@ -46,16 +52,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value= "/register", method=RequestMethod.POST)
-	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest request){
+	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest request, List<MultipartFile> files) throws Exception {		
 		//System.out.println(board);		
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		board.setBd_me_id(user.getMe_id());
 		board.setBd_type("일반");
-		boardService.registerBoard(board);
+		boardService.registerBoard(board, files);
+		
 		//System.out.println(user);
 		mv.setViewName("redirect:/board/list");
 	    return mv;
 	}
+	
+
 	
 	@RequestMapping(value= "/modify", method=RequestMethod.GET)
 	public ModelAndView modifyGet(ModelAndView mv, Integer bd_num, HttpServletRequest request){
