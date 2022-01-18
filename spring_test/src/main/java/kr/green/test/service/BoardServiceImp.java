@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.test.dao.BoardDAO;
+import kr.green.test.pagination.Criteria;
 import kr.green.test.utils.UploadFileUtils;
 import kr.green.test.vo.BoardVO;
 import kr.green.test.vo.FileVO;
@@ -58,8 +59,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> getBoardList(String type) {
-		return boardDao.getBoardList(type);
+	public List<BoardVO> getBoardList(String type, Criteria cri) {
+		return boardDao.getBoardList(type, cri);
 	}
 
 	@Override
@@ -228,5 +229,10 @@ public class BoardServiceImp implements BoardService {
 				boardDao.deleteFile(tmpFileVo.getFi_num());
 			}
 		}
+	}
+
+	@Override
+	public int getTotalCount(String type) {
+		return boardDao.selectCountBoard(type);
 	}
 }
