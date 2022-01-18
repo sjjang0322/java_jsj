@@ -17,7 +17,9 @@
   </insert>
   
   <select id="getBoardList" resultType="kr.green.test.vo.BoardVO">
-  	select * from board where bd_type = #{type} and bd_del = 'N' order by bd_num desc
+  	select * from board 
+  		where bd_type = #{type} and bd_del = 'N' and bd_title like concat('%',#{cri.search},'%') 
+  		order by bd_num desc
   		limit #{cri.pageStart}, #{cri.perPageNum}
   </select>
   
@@ -59,6 +61,6 @@
   </update>
   
   <select id="selectCountBoard" resultType="int">
-  	select count(*) from board where bd_type = #{type} and bd_del = 'N'
+  	select count(*) from board where bd_type = #{type} and bd_del = 'N' and bd_title like concat('%',#{cri.search},'%') 
   </select>
 </mapper>

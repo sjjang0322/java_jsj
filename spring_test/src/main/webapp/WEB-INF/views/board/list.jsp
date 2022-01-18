@@ -11,6 +11,12 @@
 <body>
 	<div class="body">
 		<h1>게시글</h1>
+		<form class="input-group mb-3" action="<%=request.getContextPath()%>/board/list">
+			<input type="text" class="form-control" name="search" placeholder="검색어를 입력하세요" value="${pm.criteria.search}">
+			<div class="input-group-append">
+				<button class="btn btn-success" type="submit">검색</button>	
+			</div>
+		</form>
 		<table class="table table-dark table-hover">
 		    <thead>
 		      <tr>
@@ -39,24 +45,24 @@
 		<ul class="pagination justify-content-center">
 			<c:if test="${pm.prev}">
 				<li class="page-item">
-			  		<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page-1}">이전</a>
+			  		<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page-1}&search=${pm.criteria.search}">이전</a>
 		  		</li>
 	  		</c:if>
 			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 				<c:if test="${i != pm.criteria.page}">
 					<li class="page-item">
-						<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${i}">${i}</a>
+						<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${i}&search=${pm.criteria.search}">${i}</a>
 					</li>
 				</c:if>
 				<c:if test="${i == pm.criteria.page}">		
 					<li class="page-item active">
-						<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${i}">${i}</a>
+						<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${i}&search=${pm.criteria.search}">${i}</a>
 					</li>
 				</c:if>		
 			</c:forEach>		
 			<c:if test="${pm.next}">
 				<li class="page-item">
-					<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page+1}">다음</a>
+					<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page+1}&search=${pm.criteria.search}">다음</a>
 				</li>
 			</c:if>
 		</ul>
