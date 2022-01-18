@@ -29,6 +29,13 @@
 			<c:if test="${bd_ori_num != null}">
 				<input type="hidden" name="bd_ori_num" value="${bd_ori_num}">
 			</c:if>			
+			<c:if test="${bd_type == null}">
+				<input type="hidden" name="bd_type" value="일반">
+			</c:if>			
+			<c:if test="${bd_type != null}">
+				<input type="hidden" name="bd_type" value="${bd_type}">
+			</c:if>			
+			
 			<button class="btn btn-outline-success col-12">등록</button>
 		</form>
 	</div>
