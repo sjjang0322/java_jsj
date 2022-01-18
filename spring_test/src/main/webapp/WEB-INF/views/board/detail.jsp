@@ -37,7 +37,7 @@
 				</c:if>
 			</div>
 			<div class="form-group">
-				<textarea class="form-control" name="bd_content" rows="10" readonly>${board.bd_content}</textarea>
+				<div class="form-control" style="min-height:300px; height:auto;">${board.bd_content}</div>
 			</div>
 			<c:if test="${user != null && user.me_id == board.bd_me_id}">
 				<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
