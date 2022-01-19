@@ -81,7 +81,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/detail")
 	public ModelAndView boardDetail(ModelAndView mv, Integer bd_num) {
-		mv.setViewName("/board/detail");
+		
 		//게시글 번호 확인
 		System.out.println("게시글 번호 : " + bd_num);
 		//게시글 = boardService.게시글가져오기(게시글번호);
@@ -93,6 +93,7 @@ public class BoardController {
 		//화면에 게시글을 전달
 		mv.addObject("board", board);
 		mv.addObject("files", files);
+		mv.setViewName("/board/detail");
 		return mv;
 	}
 	

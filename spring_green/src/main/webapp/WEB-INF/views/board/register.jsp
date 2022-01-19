@@ -16,9 +16,9 @@
 			</div>
 		    <div class="form-group">
 		        <label>첨부 파일</label>
-		        <input type="file" class="form-control" name="files">
-		        <input type="file" class="form-control" name="files">
-		        <input type="file" class="form-control" name="files">
+		        <input type="file" class="form-control" name="files2">
+		        <input type="file" class="form-control" name="files2">
+		        <input type="file" class="form-control" name="files2">
 		    </div>
 			<div class="form-group">
 				<label>내용</label>			  

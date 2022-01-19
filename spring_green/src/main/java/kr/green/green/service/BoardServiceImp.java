@@ -1,6 +1,8 @@
 package kr.green.green.service;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void modifyBoard(BoardVO board, MemberVO user) {
+	public void modifyBoard(BoardVO board, MemberVO user, List<MultipartFile> files, Integer[] fileNums) {
 		
 		BoardVO bd_board = boardDao.selectBoardDetail(board.getBd_num());
 		if(bd_board == null)
@@ -67,11 +69,37 @@ public class BoardServiceImp implements BoardService {
 		if(!bd_board.getBd_me_id().equals(user.getMe_id()))
 			return;
 		boardDao.modifyBoard(board);
+
+		//해당 게시글 번호와 일치하는 첨부파일 전체를 가져옴
+		List<FileVO> fileList = boardDao.selectFileList(board.getBd_num());
+		List<FileVO> remainFileList = new ArrayList<FileVO>();
+ 		//가져온 첨부파일전체에서 fileNums에 일치하는 번호가 있으면 remainFileList에 추가
+		//유지해야할 첨부파일이 있는경우
+		if(fileNums != null && fileNums.length != 0) {
+			for(FileVO tmp : fileList) {
+				for(Integer tmpNum: fileNums) {
+					if(tmp.getFi_num() == tmpNum) {
+						remainFileList.add(tmp);
+					}
+				}
+			}
+			//게시글의 전체 첨부파일중 유지해야할 첨부파일을 제외한 첨부파일 만듬
+			fileList.removeAll(remainFileList);
+		}
+
+		
+		deleteFile(fileList);
+		uploadFile(files, board.getBd_num());
+		
+		
+		
 		return;
 	}
 
+
+
 	@Override
-	public void deleteBoard(Integer bd_num, MemberVO user) {
+	public void deleteBoard(Integer bd_num, MemberVO user, List<MultipartFile> files2, Integer[] fileNums) {
 //		System.out.println("삭제 임플 시작");		
 		BoardVO bd_board = boardDao.selectBoardDetail(bd_num);
 //		System.out.println(list);
@@ -86,6 +114,8 @@ public class BoardServiceImp implements BoardService {
 //			System.out.println("삭제 다오 시작");
 			boardDao.deleteBoard(bd_num);
 		}
+		List<FileVO> fileList = boardDao.selectFileList(bd_board.getBd_num());
+		deleteFile(fileList);
 		return;
 	}
 
@@ -102,5 +132,36 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectFileList(bd_num);
 	}
 	
-	
+	private void uploadFile(List<MultipartFile> files, Integer bd_num) {
+		System.out.println(files);
+		if(files == null)
+			return;
+		for(MultipartFile tmpFile : files) {
+			if(tmpFile != null && tmpFile.getOriginalFilename().length() != 0) {
+				try {
+					String path = UploadFileUtils.uploadFile(
+						uploadPath, tmpFile.getOriginalFilename(), tmpFile.getBytes());
+					FileVO fileVo = 
+							new FileVO(tmpFile.getOriginalFilename(), path, bd_num);
+					boardDao.insertFile(fileVo);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+
+	private void deleteFile(List<FileVO> fileList) {
+		//실제 서버에서 삭제
+		if(fileList != null && fileList.size()!=0) {
+			for(FileVO tmp : fileList) {
+				String fileName = tmp.getFi_name().replace("/",File.separator);
+				File file = new File(uploadPath + fileName);
+				boardDao.deleteFile2(tmp);
+				if(file.exists()) {
+					file.delete();
+				}
+			}
+		}
+	}
 }
