@@ -31,4 +31,6 @@ public interface BoardDAO {
 
 	int selectCountBoard(@Param("cri")Criteria cri);
 
+	void updateViews(@Param("bd_num")Integer bd_num);
+
 }

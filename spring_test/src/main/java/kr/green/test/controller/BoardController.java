@@ -2,6 +2,7 @@ package kr.green.test.controller;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,10 +63,19 @@ public class BoardController {
 	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request, List<MultipartFile> files2) throws Exception {		
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		board.setBd_me_id(user.getMe_id());		
-//		System.out.println(board);
-		boardService.registerBoard(board, files2);
-		mv.addObject("type", board.getBd_type());
-		mv.setViewName("redirect:/board/list");
+		List<String> authorityAdmin = new ArrayList<String>();
+		authorityAdmin.add("관리자");
+		authorityAdmin.add("슈퍼 관리자");
+		//회원 권한이 회원인 경우
+		if(board.getBd_type().equals("공지") &&
+		   authorityAdmin.indexOf(user.getMe_authority()) < 0) {
+			mv.addObject("type", "공지");
+			mv.setViewName("redirect:/board/list");
+		}else {
+			boardService.registerBoard(board, files2);
+			mv.addObject("type", board.getBd_type());
+			mv.setViewName("redirect:/board/list");
+		}
 		return mv;
 	}
 	
@@ -77,6 +87,7 @@ public class BoardController {
 		//게시글 = boardService.게시글가져오기(게시글번호);
 		BoardVO board = boardService.getBoard(bd_num);
 		List<FileVO> files = boardService.getFileList(bd_num);
+		boardService.updateViews(bd_num);
 		//가져온 게시글 확인
 		//System.out.println(board);
 		//화면에 게시글을 전달
@@ -141,12 +152,15 @@ public class BoardController {
 		
 		//화면에서 수정한 게시글 정보가 넘어오는지 확인
 		System.out.println("게시글 : " + board);
+		
 		//서비스에게 게시글 정보를 주면서 업데이트 하라고 시킴
-		//서비스.게시글업데이트(게시글정보)
+		//서비스.게시글업데이트(게시글정보)		
 		boardService.updateBoard(board, files2, fileNums);
 		//게시글 번호를 넘겨줌
 		mv.addObject("bd_num",board.getBd_num());		
-		mv.setViewName("redirect:/board/detail");
+		mv.setViewName("redirect:/board/detail");			
+	
+
 		return mv;
 	}
 	@ResponseBody
