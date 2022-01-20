@@ -104,13 +104,14 @@ public class BoardController {
 	    return mv;
 	}
 	
-	@RequestMapping(value= "/delete", method=RequestMethod.POST)
-	public ModelAndView deletePost(ModelAndView mv, BoardVO board, HttpServletRequest request,
+	@RequestMapping(value= "/delete", method=RequestMethod.GET)
+	public ModelAndView deleteGet(ModelAndView mv, BoardVO board, HttpServletRequest request,
 			List<MultipartFile> files2, Integer [] fileNums){		
-		MemberVO user = (MemberVO) request.getSession().getAttribute("user");	
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		BoardVO board2 = boardService.getBoardDetail(board.getBd_num());
 		System.out.println(user);
-		System.out.println(board);
-		if(user != null && board != null && user.getMe_id().equals(board.getBd_me_id())) {
+		System.out.println(board2);
+		if(user != null && board != null && user.getMe_id().equals(board2.getBd_me_id())) {
 			System.out.println("삭제 시작");
 			boardService.deleteBoard(board.getBd_num(),user, files2, fileNums);
 			mv.setViewName("redirect:/board/list");

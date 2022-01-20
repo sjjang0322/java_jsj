@@ -113,9 +113,12 @@ public class BoardServiceImp implements BoardService {
 		if(user != null && user.getMe_id().equals(bd_board.getBd_me_id())) {
 //			System.out.println("삭제 다오 시작");
 			boardDao.deleteBoard(bd_num);
+			//첨부파일 삭제하기 위해서 해당 게시글과 일치하는 첨부파일들을 가져옴
+			List<FileVO> fileList = boardDao.selectFileList(bd_num);
+			
+			deleteFile(fileList);
 		}
-		List<FileVO> fileList = boardDao.selectFileList(bd_board.getBd_num());
-		deleteFile(fileList);
+		
 		return;
 	}
 
