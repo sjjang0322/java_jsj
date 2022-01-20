@@ -10,7 +10,12 @@
 	<div class="body">
 		<div class="container">
 			<h1>게시글 목록</h1>
-			
+			<form class="input-group mb-3" action="<%=request.getContextPath()%>/board/list" method="get">
+			  <input type="text" class="form-control" placeholder="검색할 제목을 입력하세요" name="search" value="${pm.criteria.search}">
+			  <div class="input-group-append">
+			    <button class="btn btn-success" type="submit">검색</button>
+			  </div>
+			</form>
 			<table class="table table-dark table-hover">
 				<thead>
 					<tr>
@@ -37,6 +42,19 @@
 				</a>
 			</c:if>
 			
+			<ul class="pagination justify-content-center" >			    
+		        <li class="page-item <c:if test="${!pm.prev }">disabled</c:if>">
+		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.startPage-1}&search=${pm.criteria.search}&type=${pm.criteria.type}">Previous</a>
+		        </li>		    
+			    <c:forEach begin="${pm.startPage }" end="${pm.endPage}" var="index">
+			        <li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>">
+			            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&search=${pm.criteria.search}&type=${pm.criteria.type}">${index}</a>
+			        </li>
+			    </c:forEach>			    
+		        <li class="page-item <c:if test="${!pm.next}">disabled</c:if>">
+		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.endPage+1}&search=${pm.criteria.search}&type=${pm.criteria.type}">Next</a>
+		        </li>			    
+			</ul>
 		</div>
 	</div>
 </body>

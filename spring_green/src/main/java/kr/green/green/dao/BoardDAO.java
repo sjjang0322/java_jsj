@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.green.green.pagination.Criteria;
 import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.FileVO;
 import kr.green.green.vo.MemberVO;
@@ -12,7 +13,7 @@ import kr.green.green.vo.MemberVO;
 
 public interface BoardDAO {
 
-	List<BoardVO> selectBoardList(@Param("type")String type);
+	List<BoardVO> selectBoardList(@Param("type")String type, @Param("cri")Criteria cri);
 
 	BoardVO selectBoardDetail(@Param("bd_num")Integer bd_num);
 
@@ -31,6 +32,10 @@ public interface BoardDAO {
 	void deleteFile(@Param("fi_num")int fi_num);
 
 	void deleteFile2(@Param("file")FileVO tmp);
+
+	int getTotalCount(@Param("cri")Criteria cri);
+
+
 
 
 }

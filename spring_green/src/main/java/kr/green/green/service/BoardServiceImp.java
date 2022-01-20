@@ -13,6 +13,7 @@ import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.FileVO;
 import kr.green.green.vo.MemberVO;
 import kr.green.green.dao.BoardDAO;
+import kr.green.green.pagination.Criteria;
 import kr.green.green.utils.UploadFileUtils;
 
 
@@ -28,8 +29,8 @@ public class BoardServiceImp implements BoardService {
 	String uploadPath = "D:\\JAVA_JSJ\\upload";
 	
 	@Override
-	public List<BoardVO> getBoardList(String type) {		
-		return boardDao.selectBoardList(type);
+	public List<BoardVO> getBoardList(String type, Criteria cri) {		
+		return boardDao.selectBoardList(type, cri);
 	}
 
 	@Override
@@ -167,4 +168,11 @@ public class BoardServiceImp implements BoardService {
 			}
 		}
 	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {		
+		return boardDao.getTotalCount(cri);
+	}
+
+
 }

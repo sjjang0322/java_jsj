@@ -2,6 +2,7 @@ package kr.green.green.controller;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.green.pagination.Criteria;
+import kr.green.green.pagination.PageMaker;
 import kr.green.green.service.BoardService;
 import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.FileVO;
@@ -34,9 +37,16 @@ public class BoardController {
 
 	
 	@RequestMapping(value= "/list", method=RequestMethod.GET)
-	public ModelAndView listGet(ModelAndView mv){
-		List<BoardVO> list = boardService.getBoardList("일반");
+	public ModelAndView listGet(ModelAndView mv, Criteria cri, String search){
+		System.out.println(cri);
+		cri.setPerPageNum(2);
+		//System.out.println(cri);		
+		List<BoardVO> list = boardService.getBoardList("일반", cri);
 		//System.out.println(list);
+		int totalCount = boardService.getTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 5, cri);		
+		System.out.println(pm);
+		mv.addObject("pm",pm);
 		mv.addObject("list", list)
 			.setViewName("/board/list");
 	    return mv;
