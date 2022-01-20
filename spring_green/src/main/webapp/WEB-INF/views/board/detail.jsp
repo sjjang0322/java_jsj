@@ -41,7 +41,11 @@
 			<a href="<%=request.getContextPath()%>/board/delete?bd_num=${board.bd_num}">	
 				<button class="btn btn-outline-success">삭제</button>
 			</a>
-		</c:if>
+		</c:if>		
+		<a href="<%=request.getContextPath()%>/board/register?bd_ori_num=${board.bd_ori_num}">	
+			<button class="btn btn-outline-success">답변</button>
+		</a>
+		
 	</div>
 </body>
 </html>

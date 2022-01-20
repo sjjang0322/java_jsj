@@ -10,6 +10,9 @@
 	<div class="body">
 		<form class="container" action="<%=request.getContextPath()%>/board/register" method="post" enctype="multipart/form-data">
 			<h1>글쓰기</h1>
+			<c:if test="${bd_ori_num != null}">
+				<input type="hidden" name="bd_ori_num" value="${bd_ori_num}">
+			</c:if>
 			<div class="form-group">			  
 				<label>제목</label>
 				<input type="text" class="form-control" name="bd_title" placeholder="제목">

@@ -65,7 +65,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value= "/register", method=RequestMethod.GET)
-	public ModelAndView registerGet(ModelAndView mv){		
+	public ModelAndView registerGet(ModelAndView mv, Integer bd_ori_num){
+		mv.addObject("bd_ori_num", bd_ori_num);
 		mv.setViewName("/board/register");
 	    return mv;
 	}
