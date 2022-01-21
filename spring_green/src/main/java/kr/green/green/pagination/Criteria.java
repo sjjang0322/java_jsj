@@ -20,12 +20,12 @@ public class Criteria {
 		return (this.page -1) * perPageNum;
 	}
 
-	public String getTitle() {
-		if(type=="일반")
+	public String getTypeTitle() {
+		if(type.equals("일반"))
 			return "게시글";
-		if(type=="공지")
+		if(type.equals("공지"))
 			return "공지사항";
-		if(type=="qna")
+		if(type.equals("qna"))
 			return "QnA";
 		return "";
 	}

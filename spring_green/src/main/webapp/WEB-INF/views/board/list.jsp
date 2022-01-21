@@ -9,9 +9,10 @@
 <body>
 	<div class="body">
 		<div class="container">
-			<h1>${pm.criteria.title}</h1>
+			<h1>${pm.criteria.typeTitle}</h1>
 			<form class="input-group mb-3" action="<%=request.getContextPath()%>/board/list" method="get">
 			  <input type="text" class="form-control" placeholder="검색할 제목을 입력하세요" name="search" value="${pm.criteria.search}">
+			  <input type="hidden" name="type" value="${pm.criteria.type}">
 			  <div class="input-group-append">
 			    <button class="btn btn-success" type="submit">검색</button>
 			  </div>
@@ -23,6 +24,7 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,14 +38,15 @@
 					        	<td><a href="<%=request.getContextPath()%>/board/detail?bd_num=${board.bd_num}">└답변:${board.bd_title}</a></td>
 					        </c:if>
 					        <td>${board.bd_me_id}</td>
-					        <td>${board.bd_reg_date_str}</td>				        
+					        <td>${board.bd_reg_date_str}</td>
+					        <td>${board.bd_views}</td>				        
 				  	    </tr>
 			  	    </c:forEach>
 				</tbody>
 			</table>
 			<c:if test="${user!=null}">
 				<c:if test="${pm.criteria.type!='공지'||user.me_authority!='회원'}">
-					<a href="<%=request.getContextPath()%>/board/register">
+					<a href="<%=request.getContextPath()%>/board/register?type=${pm.criteria.type}">
 						<button class="btn btn-outline-success">글쓰기</button>
 					</a>
 				</c:if>

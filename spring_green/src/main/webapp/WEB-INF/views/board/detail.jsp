@@ -36,7 +36,7 @@
 				</div>
 			</c:if>
 			<div class="form-group">			  
-			  <textarea class="form-control" rows="20" id="content" readonly>${board.bd_content}</textarea>
+			  <div class="form-control" id="content" style="height: auto; min-height: 400px">${board.bd_content}</div>
 			</div>			
 		</form>
 		<c:if test="${board.bd_me_id == user.me_id}">
@@ -53,5 +53,6 @@
 			</a>
 		</c:if>
 	</div>
+
 </body>
 </html>
