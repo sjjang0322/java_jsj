@@ -11,7 +11,7 @@ import kr.green.green.vo.MemberVO;
 
 public interface BoardService {
 
-	List<BoardVO> getBoardList(String type, Criteria cri);
+	List<BoardVO> getBoardList(Criteria cri);
 
 	BoardVO getBoardDetail(Integer bd_num);	
 

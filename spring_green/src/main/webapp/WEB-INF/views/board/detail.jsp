@@ -9,7 +9,12 @@
 <body>
 	<div class="body container">
 		<form>
-			<h1>게시글</h1>
+			<c:if test="${board.bd_type == '공지'}">
+				<h1>공지사항 상세</h1>
+			</c:if>
+			<c:if test="${board.bd_type == '일반'}">
+				<h1>게시글 상세</h1>
+			</c:if>
 			<div class="form-group">			  
 			  <input type="text" class="form-control" name="title" value="제목 : ${board.bd_title}" readonly>
 			</div>
@@ -42,10 +47,11 @@
 				<button class="btn btn-outline-success">삭제</button>
 			</a>
 		</c:if>		
-		<a href="<%=request.getContextPath()%>/board/register?bd_ori_num=${board.bd_ori_num}">	
-			<button class="btn btn-outline-success">답변</button>
-		</a>
-		
+		<c:if test="${board.bd_type == '일반' }">
+			<a href="<%=request.getContextPath()%>/board/register?bd_ori_num=${board.bd_ori_num}">	
+				<button class="btn btn-outline-success">답변</button>
+			</a>
+		</c:if>
 	</div>
 </body>
 </html>

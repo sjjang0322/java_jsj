@@ -9,7 +9,8 @@
 <body>
 	<div class="body">
 		<form class="container" action="<%=request.getContextPath()%>/board/modify" method="post" enctype="multipart/form-data">
-			<h1>게시글 수정 </h1>
+			<h1>게시글 수정</h1>
+			<input type="hidden" name="bd_type" value="${board.bd_type}">
 			<div class="form-group">	
 				<label>제목</label>		  
 				<input type="text" class="form-control" name="bd_title" value="${board.bd_title}">

@@ -29,19 +29,21 @@ public class BoardServiceImp implements BoardService {
 	String uploadPath = "D:\\JAVA_JSJ\\upload";
 	
 	@Override
-	public List<BoardVO> getBoardList(String type, Criteria cri) {		
-		return boardDao.selectBoardList(type, cri);
+	public List<BoardVO> getBoardList(Criteria cri) {		
+		return boardDao.selectBoardList(cri);
 	}
 
 	@Override
 	public BoardVO getBoardDetail(Integer bd_num) {
 		if(bd_num == null || bd_num <= 0)
-			return null;			
+			return null;		
+		boardDao.updateViews(bd_num);
 		return boardDao.selectBoardDetail(bd_num);
 	}
 
 	@Override
 	public void registerBoard(BoardVO board, List<MultipartFile> files) {		
+		
 		boardDao.registerBoard(board);
 		
 		if(files == null || files.size() == 0)
@@ -69,6 +71,7 @@ public class BoardServiceImp implements BoardService {
 			return;
 		if(!bd_board.getBd_me_id().equals(user.getMe_id()))
 			return;
+		
 		boardDao.modifyBoard(board);
 
 		//해당 게시글 번호와 일치하는 첨부파일 전체를 가져옴
@@ -111,6 +114,7 @@ public class BoardServiceImp implements BoardService {
 		}
 		if(bd_board == null)
 			return;
+		
 		if(user != null && user.getMe_id().equals(bd_board.getBd_me_id())) {
 //			System.out.println("삭제 다오 시작");
 			boardDao.deleteBoard(bd_num);

@@ -16,15 +16,21 @@
 	      	<li class="nav-item">
 	        	<a class="nav-link" href="<%=request.getContextPath()%>/login">로그인</a>
 	      	</li>	      	
-      	</c:if>
-      	<c:if test="${user != null }">
+	      	</c:if>
+	      	<c:if test="${user != null }">
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/logout">로그아웃</a>
+		      	</li> 
+	      	</c:if>  
 	      	<li class="nav-item">
-	        	<a class="nav-link" href="<%=request.getContextPath()%>/logout">로그아웃</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=공지">공지사항</a>
 	      	</li> 
-      	</c:if>  
-      	<li class="nav-item">
-	        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시글</a>
-      	</li> 
+	      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=일반">게시글</a>
+	      	</li> 
+	      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=qna">QnA</a>
+	      	</li> 
     	</ul>
 		</div> 
 	</div> 

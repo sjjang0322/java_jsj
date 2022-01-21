@@ -12,8 +12,7 @@ public class Criteria {
 
 	public Criteria() {
 		this.page = 1;
-		this.perPageNum = 10;
-		this.type = "일반";
+		this.perPageNum = 10;		
 		this.search = "";
 	}	
 

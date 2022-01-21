@@ -9,7 +9,12 @@
 <body>
 	<div class="body">
 		<div class="container">
-			<h1>게시글 목록</h1>
+			<c:if test="${ pm.criteria.type == '일반'}">
+				<h1>게시글 목록</h1>
+			</c:if>
+			<c:if test="${ pm.criteria.type == '공지'}">
+				<h1>공지사항</h1>
+			</c:if>
 			<form class="input-group mb-3" action="<%=request.getContextPath()%>/board/list" method="get">
 			  <input type="text" class="form-control" placeholder="검색할 제목을 입력하세요" name="search" value="${pm.criteria.search}">
 			  <div class="input-group-append">
@@ -23,6 +28,7 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,15 +42,18 @@
 					        	<td><a href="<%=request.getContextPath()%>/board/detail?bd_num=${board.bd_num}">└답변:${board.bd_title}</a></td>
 					        </c:if>
 					        <td>${board.bd_me_id}</td>
-					        <td>${board.bd_reg_date_str}</td>				        
+					        <td>${board.bd_reg_date_str}</td>
+					        <td>${board.bd_views}</td>				        
 				  	    </tr>
 			  	    </c:forEach>
 				</tbody>
 			</table>
 			<c:if test="${user!=null}">
-				<a href="<%=request.getContextPath()%>/board/register">
-					<button class="btn btn-outline-success">글쓰기</button>
-				</a>
+				<c:if test="${pm.criteria.type!='공지'||user.me_authority !='회원' }">
+					<a href="<%=request.getContextPath()%>/board/register?type=${pm.criteria.type}">
+						<button class="btn btn-outline-success">글쓰기</button>
+					</a>
+				</c:if>
 			</c:if>
 			
 			<ul class="pagination justify-content-center" >			    
