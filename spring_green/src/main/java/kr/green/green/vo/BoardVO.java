@@ -31,7 +31,15 @@ public class BoardVO {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		return format.format(bd_del_date);
 	}
-	
+	public String getTitle() {
+		if(bd_type=="일반")
+			return "게시글";
+		if(bd_type=="공지")
+			return "공지사항";
+		if(bd_type=="qna")
+			return "QnA";
+		return "";
+	}
 	public boolean isAccessAuthority(String authority) {
 		if(bd_type.equals("일반")||bd_type.equals("qna"))
 			return true;
