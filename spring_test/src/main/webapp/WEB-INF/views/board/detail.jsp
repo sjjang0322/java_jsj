@@ -38,7 +38,7 @@
 			</div>
 			<div class="form-group">
 				<div class="form-control" style="min-height:300px; height:auto;">${board.bd_content}</div>
-			</div>
+			</div>			
 			<c:if test="${user != null && user.me_id == board.bd_me_id}">
 				<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
 					<button class="btn btn-outline-success">수정</button>
@@ -52,10 +52,65 @@
 					<button class="btn btn-outline-success">답변</button>
 				</a>
 			</c:if>
+			<div class="comment-list mt-3">
+				comment-list
+			</div>
+			<div class="comment-pagination mt-3">
+				comment-pagination
+			</div>
+			<div class="comment-box mt-3">
+				<div class="input-group mb-3">
+					<textarea class="form-control text-comment" placeholder="댓글입력"></textarea>
+					<div class="input-group-append">
+						<button class="btn btn-success btn-comment">등록</button>
+					</div>
+				</div>
+			</div>
 		</c:if>
 		<c:if test="${board == null}">
 			<h1>없는 게시글 이거나 삭제된 게시글 입니다.</h1>
 		</c:if>
 	</div>	
+	<script>
+		$(function(){			
+			$('.btn-comment').click(function(){
+				var user = '${user}';				
+				if(user == ''){
+					alert('로그인 후 댓글 등록이 가능합니다.')
+					return;
+				}
+				//댓글내용 가져오기
+				var co_contents = $('.text-comment').val();
+				//게시글 번호를 가져오기
+				var co_bd_num = '${board.bd_num}';
+				//댓글 원본 번호(나중에)
+				
+				var comment = {
+					co_contents : co_contents,
+					co_bd_num : co_bd_num
+				}
+				
+			    $.ajax({
+			        async:false,
+			        type:'POST',
+			        data:JSON.stringify(comment),
+			        url:"<%=request.getContextPath()%>/comment/insert",
+			        dataType:"json",
+			        contentType:"application/json; charset=UTF-8",	        
+			        success : function(res){
+			    		if(res == true){
+			    			$('.text-comment').val('');
+			    			alert('댓글 등록이 완료되었습니다.');
+			    			//새로운 댓글들을 가져옴
+			    		}else{
+			    			alert('댓글 등록에 실패했습니다.');
+			    		}
+			        }
+			    });
+			});
+		});
+		
+		
+	</script>
 </body>
 </html>
