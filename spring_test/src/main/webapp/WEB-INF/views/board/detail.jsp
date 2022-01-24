@@ -49,11 +49,16 @@
 			</c:if>				
 			<c:if test="${board.bd_type != '공지' && board.bd_num == board.bd_ori_num}">
 				<a href="<%=request.getContextPath()%>/board/register?bd_ori_num=${board.bd_num}">
-					<button class="btn btn-outline-success">답변</button>
+					<button class="btn btn-outline-success">답글</button>
 				</a>
 			</c:if>
 			<div class="comment-list mt-3">
-				comment-list
+				<div class="comment-box">
+					<div class="co_me_id">asdf</div>
+					<div class="co_contents mt-2">댓글 내용</div>
+					<div class="co_reg_date mt-2">2022-01-24</div>
+					<button class="btn-reply-comment btn btn-outline-success mt-2">답글</button>
+				</div>
 			</div>
 			<div class="comment-pagination mt-3">
 				comment-pagination
@@ -85,6 +90,12 @@
 				var co_bd_num = '${board.bd_num}';
 				//댓글 원본 번호(나중에)
 				
+				if(co_contents == ''){
+					alert('댓글 내용을 입력하세요.');
+					return;
+				}
+				
+				
 				var comment = {
 					co_contents : co_contents,
 					co_bd_num : co_bd_num
@@ -102,6 +113,8 @@
 			    			$('.text-comment').val('');
 			    			alert('댓글 등록이 완료되었습니다.');
 			    			//새로운 댓글들을 가져옴
+			    			var co_bd_num = '${board.bd_num}';
+			    			readComment(co_bd_num);
 			    		}else{
 			    			alert('댓글 등록에 실패했습니다.');
 			    		}
@@ -109,8 +122,50 @@
 			    });
 			});
 		});
+		var co_bd_num = '${board.bd_num}';
+		readComment(co_bd_num);
 		
+		//Date 객체를 yyyy-MM-dd hh:mm형태의 문자열로 변환하는 함수
+		function getDateStr(date){
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var day = date.getDate();
+			var hour = date.getHours();
+			var minute = date.getMinutes();
+			return year + "-" + month + "-" + day + "-" + hour + ":" + minute; 
+		}
 		
+		function createCommentStr(co_me_id, co_contents, co_reg_date){
+			return '<div class="comment-box">' +
+				'<div class="co_me_id">'+co_me_id+'</div>' +
+				'<div class="co_contents mt-2">'+co_contents+'</div>' +
+				'<div class="co_reg_date mt-2">'+co_reg_date+'</div>' +
+				'<button class="btn-reply-comment btn btn-outline-success mt-2">대댓글</button>' + 
+				'<hr>'
+			'</div>'
+		}
+		
+		function readComment(co_bd_num){
+			if(co_bd_num != ''){
+				$.ajax({
+					async:false,
+			        type:'get',	        
+			        url:"<%=request.getContextPath()%>/comment/list?co_bd_num="+co_bd_num,
+			        dataType:"json",
+			        success : function(res){
+			            console.log(res);
+			            var str = '';
+			            for(tmp of res){
+			            	var date = new Date(tmp.co_reg_date);
+			            	str += 
+			            		createCommentStr(tmp.co_me_id, tmp.co_contents, getDateStr(date));
+			            }
+			            $('.comment-list').html(str);
+			        }
+				});
+				
+			}
+		}
 	</script>
 </body>
 </html>

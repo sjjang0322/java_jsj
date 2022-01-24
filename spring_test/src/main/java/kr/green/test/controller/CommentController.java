@@ -1,5 +1,7 @@
 package kr.green.test.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,11 @@ public class CommentController {
 		}
 		
 		return "false";
+	}
+	
+	@RequestMapping(value = "/comment/list")
+	public List<CommentVO> commentList(Integer co_bd_num) {
+		System.out.println(co_bd_num);
+		return commentService.selectCommentList(co_bd_num);
 	}
 }
