@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.test.dao.CommentDAO;
+import kr.green.test.pagination.Criteria;
 import kr.green.test.vo.CommentVO;
 import kr.green.test.vo.MemberVO;
 
@@ -26,10 +27,28 @@ public class CommentServiceImp implements CommentService{
 	}
 
 	@Override
-	public List<CommentVO> selectCommentList(Integer co_bd_num) {
-		if(co_bd_num == null || co_bd_num <= 0)
+	public List<CommentVO> selectCommentList(Integer co_bd_num, Criteria cri) {
+		if(co_bd_num == null || co_bd_num <= 0 || cri==null)
 			return null;
-		return commentDao.selectCommentList(co_bd_num);
+		return commentDao.selectCommentList(co_bd_num, cri);
+	}
+
+	@Override
+	public int selectTotalCount(Integer co_bd_num, Criteria cri) {
+		if(co_bd_num == null || co_bd_num <= 0) 
+			return 0;
+		return commentDao.selectTatalCountComment(co_bd_num, cri);
+	}
+
+	@Override
+	public String deleteComment(Integer co_num, MemberVO user) {
+		if(co_num == null || co_num <= 0 || user == null)
+			return "false";
+		CommentVO comment = commentDao.selectComment(co_num);
+		if(comment==null || !comment.getCo_me_id().equals(user.getMe_id()))
+			return "false";
+		commentDao.deleteComment(co_num);
+		return "true";
 	}
 	
 }
