@@ -39,7 +39,7 @@ public class PageMaker {
 		//startPage가 1페이지이면 이전 버튼을 비활성화
 		//prev = startPage == 1 ? false : true;
 		//위 설정에서 다음 버튼은 마지막 페이지에서만 비활성화 시키면 됨
-		next = criteria.getPage() == tempEndPage? false : true;
+		next = (criteria.getPage() == tempEndPage || tempEndPage == 0)? false : true;
 		//next = endPage * criteria.getPerPageNum() >= totalCount ? false:true;
 		
 	}
