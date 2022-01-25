@@ -60,9 +60,10 @@ public class CommentController {
 	@RequestMapping(value = "/comment/modify")
 	public String commentModify(@RequestBody CommentVO comment, HttpServletRequest request) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
-		System.out.println(comment);
-		System.out.println(user);
+
 		return commentService.updateComment(comment, user);
 	}
+	
+
 
 }

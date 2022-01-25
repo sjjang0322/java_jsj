@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/comment.js"></script>
 </head>
 <body>
 	<div class="body container">
@@ -83,7 +84,9 @@
 		</c:if>
 	</div>	
 	<script>
-	
+		commentService.setContextPath('<%=request.getContextPath()%>');
+		console.log(commentService);
+		
 		//등록 버튼(댓글등록)을 클릭
 		$(function(){			
 			$('.btn-comment').click(function(){
@@ -113,32 +116,19 @@
 					co_bd_num : co_bd_num
 				}
 				//댓글을 등록하기 위해 ajax로 서버에 데이터를 전송
-			    $.ajax({
-			    	//동기화 : 다 끝날때까지 기다림
-			        async:false,
-			        type:'POST',
-			        //서버로 보낸 객체가 VO에 잘 담기게 하기 위해 변형
-			        data:JSON.stringify(comment),
-			        url:"<%=request.getContextPath()%>/comment/insert",
-			        //서버에서 보낸 데이터의 타입
-			        dataType:"json",
-			        //화면이 서버로 보낸 데이터의 타입
-			        contentType:"application/json; charset=UTF-8",
-			        //ajax 성공시
-			        success : function(res){
-			        	//댓글 등록에 성공하면
-			    		if(res == true){
-			    			//입력한 댓글을 지워줌
-			    			$('.text-comment').val('');
-			    			alert('댓글 등록이 완료되었습니다.');
-			    			//새로고침(전체가 아닌 댓글부분만)을 하여 1페이지에 맞는 댓글을 새로 가져옴
-			    			var co_bd_num = '${board.bd_num}';
-			    			readComment(co_bd_num,1);			    			
-			    		}else{
-			    			alert('댓글 등록에 실패했습니다.');
-			    		}
-			        }
-			    });
+				commentService.ajaxPostJsonToJson('/comment/insert', comment, function(res){
+					//댓글 등록에 성공하면
+		    		if(res == true){
+		    			//입력한 댓글을 지워줌
+		    			$('.text-comment').val('');
+		    			alert('댓글 등록이 완료되었습니다.');
+		    			//새로고침(전체가 아닌 댓글부분만)을 하여 1페이지에 맞는 댓글을 새로 가져옴
+		    			var co_bd_num = '${board.bd_num}';
+		    			readComment(co_bd_num,1);			    			
+		    		}else{
+		    			alert('댓글 등록에 실패했습니다.');
+		    		}
+				})			    
 			});
 		});
 		
@@ -158,19 +148,11 @@
 			var co_num = $(this).data('num');
 			//삭제할 댓글 번호가 있는경우만 삭제
 			if(co_num != ''){
-				$.ajax({
-					async:false,
-					//삭제할 댓글 번호는 url에 노출되도 큰 문제가 없음. 그래서 get으로 보냄
-			        type:'get',	        
-			        url:"<%=request.getContextPath()%>/comment/delete?co_num=" + co_num,
-			        dataType:"json",
-			        success : function(res){
-			        	//삭제가 완료되면 댓글을 새로 고침(1페이지)
-			            var co_bd_num = '${board.bd_num}';
-			            readComment(co_bd_num, 1);
-			        }
-				});
-				
+				commentService.delete('/comment/delete?co_num='+co_num, function(res){
+		        	//삭제가 완료되면 댓글을 새로 고침(1페이지)
+		            var co_bd_num = '${board.bd_num}';
+		            readComment(co_bd_num, 1);
+				});			
 			}
 		})
 		//댓글 수정버튼
@@ -184,11 +166,15 @@
 				$(this).parent().children('button').show();
 				//등록 버튼을 없앰(댓글 수정을 위한 등록 버튼)
 				$(this).siblings('.btn-mod-comment2').remove();
+				//답글 등록버튼 없앰
+				$(this).siblings('.btn-reply-comment2').remove();
 				//textarea태그를 제거(수정하기 위한 입력창)
 				$(this).remove();
 			});
-			//댓글 내용을 가져옴(수정 전). textarea태그 안에 넣어주기 위해
+			//댓글 내용을 가져옴(수정 전). textarea태그 안에 넣어주기 위해	
 			var contents = $(this).siblings('.co_contents').text();
+		
+			
 			//textarea태그를 꾸며주기 위한 html
 			var str = 
 				'<div class="form-group co_contents2 mt-2">'+ 
@@ -196,7 +182,7 @@
 				'</div>';
 			//등록 버튼을 위한 html(수정 완료를 위한 버튼)
 			var btnStr = 
-				'<button class="btn-mod-comment2 btn btn-outline-warning ml-2">등록</button>'
+				'<button class="btn-mod-comment2 btn btn-outline-warning ml-2">수정 등록</button>'
 			//기존 댓글을 감춤
 			$(this).siblings('.co_contents').hide();
 			//답글, 수정, 삭제 버튼을 감춤
@@ -218,28 +204,85 @@
 					co_num : co_num,
 					co_contents : co_contents
 			}
-			
-			$.ajax({
-		        async:false,
-		        type:'POST',
-		        data:JSON.stringify(comment),
-		        url:"<%=request.getContextPath()%>/comment/modify",
-		        dataType:"json",
-		        contentType:"application/json; charset=UTF-8",	        
-		        success : function(res){
-		        	//수정에 성공하면
-		        	if(res){
-			            var page = $('.comment-pagination .active').text();
-			            var co_bd_num = '${board.bd_num}';
-			            //댓글 다시불러오기
-			    		readComment(co_bd_num,page);		
-		        	}else{
-		        		alert('댓글 수정이 실패했습니다.');
-		        	}
-		        }
-		    });
-			
+			commentService.modify('/comment/modify', comment, function(res){
+				//수정에 성공하면
+	        	if(res){
+		            var page = $('.comment-pagination .active').text();
+		            var co_bd_num = '${board.bd_num}';
+		            //댓글 다시불러오기
+		    		readComment(co_bd_num,page);		
+	        	}else{
+	        		alert('댓글 수정이 실패했습니다.');
+	        	}
+			});			
 		});
+		
+		//답글 버튼 클릭
+		$(document).on('click','.btn-reply-comment', function(){
+			var co_num = $(this).data('num');
+			var id = '${user.me_id}';
+			if(id == ''){
+				alert('답글은 로그인한 회원만 작성가능합니다.');
+				return;
+			}
+				
+			//이전 답글창 제거
+			$('.co_contents2').each(function(){
+				//수정하기전 댓글을 다시 보여줌
+				$(this).siblings('.co_contents').show();
+				//답변, (수정, 삭제)버튼을 보여줌
+				$(this).parent().children('button').show();
+				//등록 버튼을 없앰(댓글 수정을 위한 등록 버튼)
+				$(this).siblings('.btn-mod-comment2').remove();
+				//답글 등록버튼 없앰
+				$(this).siblings('.btn-reply-comment2').remove();
+				//textarea태그를 제거(수정하기 위한 입력창)
+				$(this).remove();
+			});
+			
+			//답글창 추가
+			//textarea태그를 꾸며주기 위한 html
+			var str = 
+				'<div class="form-group co_contents2 mt-2">'+ 
+					'<textarea class="form-control"></textarea>'+
+				'</div>';
+			//등록 버튼을 위한 html(답글 등록을 위한 버튼)
+			var btnStr = 
+				'<button class="btn-reply-comment2 btn btn-outline-warning ml-2">대댓글 등록</button>';
+			//textarea태그를 아이디 밑에 배치
+			$(this).siblings('.co_reg_date').after(str);
+			//등록버튼을 날짜 밑에 배치
+			$(this).siblings('hr').after(btnStr);		
+			//답글, (수정, 삭제) 버튼을 감춤
+			$('.btn-reply-comment2').siblings('button').hide();
+		});
+		
+		//대댓글 등록 버튼 클릭
+		$(document).on('click', '.btn-reply-comment2', function(){
+			//원래 댓글 번호, 내용, 게시글 번호			
+			var co_contents = $('.co_contents2 textarea').val();
+			var co_ori_num = $(this).siblings('.btn-reply-comment').data('num');
+			var co_bd_num = '${board.bd_num}';
+			
+			var comment = {
+					co_contents : co_contents,
+					co_ori_num : co_ori_num,
+					co_bd_num : co_bd_num
+			};
+			commentService.insert('/comment/insert', comment, function(res){
+				//대댓글 등록에 성공하면
+	        	if(res){
+		            var page = $('.comment-pagination .active').text();
+		            var co_bd_num = '${board.bd_num}';
+		            //댓글 다시불러오기
+		    		readComment(co_bd_num,page);		
+	        	}else{
+	        		alert('대댓글 등록에 실패했습니다.');
+	        	}
+			});
+		});
+		
+		
 		
 		
 		//화면 로딩 후 댓글과 댓글 페이지네이션 배치
@@ -271,10 +314,16 @@
 			var str = 
 			'<div class="comment-box">' +
 				'<input type="hidden" name="co_num" value="'+comment.co_num+'">'+
-				'<div class="co_me_id">'+comment.co_me_id+'</div>' +
-				'<div class="co_contents mt-2">'+comment.co_contents+'</div>' +
-				'<div class="co_reg_date mt-2">'+co_reg_date+'</div>' +
-				'<button class="btn-reply-comment btn btn-outline-danger">대댓글</button>';
+				'<div class="co_me_id">'+comment.co_me_id+'</div>';
+				
+				if(comment.co_num == comment.co_ori_num)
+					str += '<div class="co_contents mt-2">'+comment.co_contents+'</div>';
+				else
+					str += '<span>└대댓글 : </span><span class="co_contents mt-2">'+comment.co_contents+'</span>';
+				str +=	'<div class="co_reg_date mt-2">'+co_reg_date+'</div>';
+				
+				if(comment.co_num == comment.co_ori_num)
+				str += '<button class="btn-reply-comment btn btn-outline-danger" data-num="'+comment.co_num+'">대댓글</button>';
 				if('${user.me_id}' == comment.co_me_id){
 					str += 
 						'<button class="btn-mod-comment btn btn-outline-warning ml-2" data-num="'+comment.co_num+'">수정</button>' +
@@ -288,35 +337,26 @@
 		function readComment(co_bd_num, page){
 			//게시글 번호가 없으면 
 			if(co_bd_num != ''){
-				$.ajax({
-					async:false,
-					//get방식으로 url에 정보를 다 포함해서 내보냄
-			        type:'get',	        
-			        url:"<%=request.getContextPath()%>/comment/list?co_bd_num=" + co_bd_num + '&page=' + page,
-	        		//서버에서 보낸 데이터의 타입
-			        dataType:"json",
-			        //ajax가 성공적으로 완료되면 서버에서 보낸 댓글 리스트와 페이지메이커를 res에 담음
-			        success : function(res){
-						//res.list : 댓글 리스트(페이지 번호에 맞는)
-		        		//res.pm : 댓글의 페이지 메이커
-			            var str = '';
-						//댓글을 하나씩 가져와서 html로 이루어진 문자열을 만든 후 이어 붙임
-			            for(tmp of res.list){			       
-			            	//정수로 넘어온 댓글 날짜를 날짜타입으로 변환
-			            	var date = new Date(tmp.co_reg_date);
-			            	//댓글정보를 html로 만들어진 문자열로 만든 후 이어 붙임
-			            	str += 
-			            		createCommentStr(tmp, getDateStr(date));
-			            }
-						//html로 된 댓글들을 지정된 위치에 배치
-			            $('.comment-list').html(str);
-						//서버에서 보낸 페이지메이커를 이용하여 html로 이루어진 페이지네이션을 만듬
-			            var paginationStr = createCommentPagination(res.pm);
-						//만들어진 html 페이지네이션을 배치
-			            $('.comment-pagination').html(paginationStr);
-			        }
-				});
-				
+				var url = '/comment/list?co_bd_num=' + co_bd_num + '&page=' + page;
+				commentService.list(url, function(res){
+					//res.list : 댓글 리스트(페이지 번호에 맞는)
+	        		//res.pm : 댓글의 페이지 메이커
+		            var str = '';
+					//댓글을 하나씩 가져와서 html로 이루어진 문자열을 만든 후 이어 붙임
+		            for(tmp of res.list){			       
+		            	//정수로 넘어온 댓글 날짜를 날짜타입으로 변환
+		            	var date = new Date(tmp.co_reg_date);
+		            	//댓글정보를 html로 만들어진 문자열로 만든 후 이어 붙임
+		            	str += 
+		            		createCommentStr(tmp, getDateStr(date));
+		            }
+					//html로 된 댓글들을 지정된 위치에 배치
+		            $('.comment-list').html(str);
+					//서버에서 보낸 페이지메이커를 이용하여 html로 이루어진 페이지네이션을 만듬
+		            var paginationStr = createCommentPagination(res.pm);
+					//만들어진 html 페이지네이션을 배치
+		            $('.comment-pagination').html(paginationStr);
+				});				
 			}
 		}
 		function createCommentPagination(pm){
@@ -337,6 +377,7 @@
 			str += '</ul>';
 			return str;
 		}
+
 	</script>
 </body>
 </html>
