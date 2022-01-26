@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/comment.js"></script>
 </head>
 <body>
 	<div class="body container">
@@ -67,7 +67,8 @@
 	</div>
 	<script>
 		var contextPath = '<%=request.getContextPath()%>';
-		
+		commentService.setContextPath(contextPath);
+		console.log(commentService.name);
 		$('#comment-submit').click(function(){
 			var co_contents = $('[name=co_contents]').val();
 			var bd_num = $('[name=bd_num]').val();
@@ -82,22 +83,15 @@
 					co_me_id : co_me_id
 			}
 			console.log(comment);
-		
-		    $.ajax({
-		        async:false,
-		        type:'POST',
-		        data:JSON.stringify(comment),
-		        url:contextPath + '/comment/register',
-		        contentType:"application/json; charset=UTF-8",
-		        success : function(res){
-		            if(res){
-		            	alert('댓글 등록이 완료 되었습니다.')
-		            	$('[name=co_contents]').val('');
-		            }else{
-		            	alert('댓글 등록에 실패 했습니다.');
-		            }
-		        }
-		    });
+			
+			commentService.insert(comment, '/comment/register',function(res){
+				if(res){
+	            	alert('댓글 등록이 완료 되었습니다.')
+	            	$('[name=co_contents]').val('');
+	            }else{
+	            	alert('댓글 등록에 실패 했습니다.');
+	            }	
+			});
 		})
 	</script>
 </body>
