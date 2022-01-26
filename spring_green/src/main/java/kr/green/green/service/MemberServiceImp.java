@@ -47,4 +47,15 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		return dbUser;
 	}
+
+	@Override
+	public boolean isDuplicated(String id) {
+		//중복이면 true 아니면 false
+		System.out.println(id);
+		MemberVO user = memberDao.selectMember(id);
+		System.out.println(user);
+		if(memberDao.selectMember(id) == null)
+			return false;
+		return true;
+	}
 }

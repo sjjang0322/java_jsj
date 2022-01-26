@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.green.service.MemberService;
@@ -60,5 +61,13 @@ public class HomeController {
 	    mv.setViewName("redirect:/");
 	    return mv;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value ="/idduplicated")
+	public String idduplicated(String id){
+		System.out.println(id);
+	    if(memberService.isDuplicated(id))
+	    	return "true";
+	    return "false";
+	}
 }

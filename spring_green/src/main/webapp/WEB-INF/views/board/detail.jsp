@@ -24,6 +24,9 @@
 			<div class="form-group">			  
 			  <input type="text" class="form-control" name="reg_date" value="작성일 : ${board.bd_reg_date_str}" readonly>
 			</div>
+			<div class="form-group">			  
+			  <input type="hidden" class="form-control" name="bd_num" value="${board.bd_num}" readonly>
+			</div>
 			<div class="form-group">			
 				<label>첨부 파일</label>
 				<c:forEach items="${fileList}" var="file">  
@@ -52,7 +55,50 @@
 				<button class="btn btn-outline-success">답변</button>
 			</a>
 		</c:if>
+		<div class="mt-3">
+			댓글 리스트
+		</div>
+		<div class="input-group mb-3">
+		  <textarea class="form-control" rows="3" name="co_contents"></textarea>
+		  <div class="input-group-append">
+		    <button class="btn btn-success" id="comment-submit">댓글 등록</button>
+		  </div>
+		</div>
 	</div>
-
+	<script>
+		var contextPath = '<%=request.getContextPath()%>';
+		
+		$('#comment-submit').click(function(){
+			var co_contents = $('[name=co_contents]').val();
+			var bd_num = $('[name=bd_num]').val();
+			var co_me_id = '${user.me_id}';
+			if(co_me_id == ''){
+				alert('로그인 후 이용가능합니다.');
+				return;
+			}
+			var comment = {
+					co_contents : co_contents,
+					co_bd_num : bd_num,
+					co_me_id : co_me_id
+			}
+			console.log(comment);
+		
+		    $.ajax({
+		        async:false,
+		        type:'POST',
+		        data:JSON.stringify(comment),
+		        url:contextPath + '/comment/register',
+		        contentType:"application/json; charset=UTF-8",
+		        success : function(res){
+		            if(res){
+		            	alert('댓글 등록이 완료 되었습니다.')
+		            	$('[name=co_contents]').val('');
+		            }else{
+		            	alert('댓글 등록에 실패 했습니다.');
+		            }
+		        }
+		    });
+		})
+	</script>
 </body>
 </html>

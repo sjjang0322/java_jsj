@@ -28,6 +28,7 @@
 		</div>
 		<div class="form-group">
 			<input type="text" class="form-control" placeholder="아이디" name="me_id" value="${user.me_id}">
+			<button id="idDuplicated" class="btn btn-outline-info" type="button">중복확인</button>			
 		</div>
 		<div class="form-group">
 			<input type="password" class="form-control" placeholder="비밀번호" name="me_pw" value="${user.me_pw}">
@@ -68,6 +69,8 @@
 		<button class="btn btn-outline-success col-12">회원가입</button>
 	</form>
 	<script>
+		var idCheck = false;	
+	
 		$('form').submit(function(){
 			var id = $('[name=me_id]').val().trim();
 			var pw = $('[name=me_pw]').val().trim();
@@ -86,6 +89,11 @@
 			if(id == ''){
 				alert('아이디를 입력하세요.');
 				$('[name=me_id]').focus();
+				return false;
+			}
+			if(!idCheck){
+				alert('아이디 중복 확인을 하세요')
+				$('#idDuplicated').focus();
 				return false;
 			}
 			if(pw == ''){
@@ -151,7 +159,30 @@
 					document.getElementById("detailAddress").focus();
 				}
 			}).open();
-    }
+    	}
+		
+		$('#idDuplicated').click(function(){
+		    var id = $('[name=me_id]').val();
+			$.ajax({
+		        async:false,
+		        type:'get',
+		        url:'<%=request.getContextPath()%>/idduplicated?id='+id,
+		        success : function(res){
+		        	if(res == 'true'){
+		        		alert('이미 사용중인 아이디입니다.');		        		
+		        	}
+		        	else{
+		        		alert('사용 가능한 아이디입니다.');
+		        		idCheck = true;
+		        	}
+		        }
+		    });
+		    
+		})
+		
+		$('[name=me_id]').change(function(){
+			idCheck=false;
+		})
 	</script>
 </body>
 </html>
