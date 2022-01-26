@@ -5,7 +5,8 @@
 <mapper namespace="kr.green.green.dao.CommentDAO">
 	<insert id="insertComment">
 		insert into comment(co_bd_num, co_me_id, co_contents, co_ori_num)
-		select #{comment.co_bd_num},
+		select 
+			#{comment.co_bd_num},
 			#{comment.co_me_id},
 			#{comment.co_contents},
 			ifnull(max(co_num),0)+1
