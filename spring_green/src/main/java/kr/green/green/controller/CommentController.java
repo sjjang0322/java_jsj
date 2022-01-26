@@ -30,9 +30,12 @@ public class CommentController {
 	}
 	
 	@RequestMapping(value ="/list", method=RequestMethod.GET)
-	public Map<String, Object> commentList(Integer page, Integer bd_num){		
+	public Map<String, Object> commentList(Integer page, Integer bd_num){	
+		System.out.println(page);
+		System.out.println(bd_num);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CommentVO> list = commentService.selectComment(bd_num);
+		System.out.println(list);
 		map.put("list", list);
 		return map;
 	}

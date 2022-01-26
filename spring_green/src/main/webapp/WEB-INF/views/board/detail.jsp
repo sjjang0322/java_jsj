@@ -115,19 +115,6 @@
 			if(co_bd_num <= 0 || co_bd_num == null){
 				return;
 			}
-			$.ajax({
-		        async:false,
-		        type:'get',
-		        data:{co_bd_num : co_bd_num},
-		        url:"<%=request.getContextPath()%>/comment/list",
-		        success : function(res){
-		        	var str = '';
-		            for(tmp of res.list){
-		            	str += createCommentStr(tmp);
-		            }		            
-		            $('.comment-list').html(str);
-		        }
-		    });
 			
 			
 			$.ajax({
@@ -135,7 +122,12 @@
 		        type:'get',		        
 		        url:contextPath+"/comment/list?page=1&bd_num="+'${board.bd_num}',
 		        success : function(res){
+		        	var str = '';
 		        	console.log(res);
+		            for(tmp of res.list){
+		            	str += createCommentStr(tmp);
+		            }		            
+		            $('.comment-list').html(str);
 		        }
 		    });
 		}
