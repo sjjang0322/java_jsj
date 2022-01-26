@@ -12,4 +12,9 @@
 			ifnull(max(co_num),0)+1
 		from comment
 	</insert>
+	<select id="selectComment" resultType="kr.green.green.vo.CommentVO">
+		select * from comment
+			where co_bd_num = #{co_bd_num} and co_del = 'N'
+			order by co_num asc
+	</select>
 </mapper>
