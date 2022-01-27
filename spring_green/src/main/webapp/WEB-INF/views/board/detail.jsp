@@ -123,9 +123,10 @@
 		        url:contextPath+"/comment/list?page=1&bd_num="+'${board.bd_num}',
 		        success : function(res){
 		        	var str = '';
+		        	var me_id = '${user.me_id}'
 		        	console.log(res);
 		            for(tmp of res.list){
-		            	str += createCommentStr(tmp);
+		            	str += createCommentStr(tmp, me_id);
 		            }		            
 		            $('.comment-list').html(str);
 		        }

@@ -34,7 +34,7 @@ public class CommentController {
 		System.out.println(page);
 		System.out.println(bd_num);
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<CommentVO> list = commentService.selectComment(bd_num);
+		List<CommentVO> list = commentService.selectCommentList(bd_num);
 		System.out.println(list);
 		map.put("list", list);
 		return map;

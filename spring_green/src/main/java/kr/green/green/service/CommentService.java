@@ -9,7 +9,7 @@ public interface CommentService {
 
 	boolean registerComment(CommentVO comment, MemberVO user);
 
-	List<CommentVO> selectComment(Integer co_bd_num);
+	List<CommentVO> selectCommentList(Integer co_bd_num);
 
 	
 }

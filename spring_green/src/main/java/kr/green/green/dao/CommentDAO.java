@@ -10,7 +10,7 @@ public interface CommentDAO {
 
 	void insertComment(@Param("comment")CommentVO comment);
 
-	List<CommentVO> selectComment(@Param("co_bd_num")Integer co_bd_num);
+	List<CommentVO> selectCommentList(@Param("co_bd_num")Integer co_bd_num);
 
 	
 }
