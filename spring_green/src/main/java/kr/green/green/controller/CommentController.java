@@ -53,7 +53,7 @@ public class CommentController {
 		return map;
 	}
 	
-	@RequestMapping(value ="/delete", method=RequestMethod.POST)
+	@RequestMapping(value ="/delete", method=RequestMethod.GET)
 	public boolean commentDelete(Integer co_num, HttpServletRequest request){
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		System.out.println(co_num);

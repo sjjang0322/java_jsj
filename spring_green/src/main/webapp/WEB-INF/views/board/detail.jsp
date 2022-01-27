@@ -108,10 +108,15 @@
 				commentService.insert(comment, '/comment/register',insertSuccess);
 			})
 		
-			$(document).on('click', '.comment-pagination .page-item', function(){			
+			$(document).on('click', '.comment-pagination .page-item', function(){	
+				if($(this).hasClass('disabled')){
+					return;
+				}
 				var page = $(this).data('page');
 				var co_bd_num = '${board.bd_num}';
 				readComment(co_bd_num, page);
+				var listUrl = '/comment/list?page='+page+'&bd_num='+'${board.bd_num}'+'&bd_type='+'${board.bd_type}';			
+				commentService.list(listUrl,listSuccess);
 			});
 			
 			$(document).on('click', '.btn-del-comment', function(){			
@@ -145,7 +150,7 @@
 				(date.getMonth()+1) + "-" +
 				date.getDate() + "-" +
 				date.getHours() + ":" +
-				date.getMinute();
+				date.getMinutes();
 		}
 		
 		function commentInit(){
@@ -187,7 +192,7 @@
 		        	var me_id = '${user.me_id}'
 		        	console.log(res);
 		            for(tmp of res.list){
-		            	str += createCommentStr(tmp, me_id);
+		            	str += createComment(tmp, me_id);
 		            }		            
 		            $('.comment-list').html(str);
 		            
@@ -197,7 +202,7 @@
 		    });
 		}
 		
-		function createCommentStr(comment, me_id){
+		function createComment(comment, me_id){
 			var co_reg_date = getDateToString(new Date(comment.co_reg_date));
 			var str =
 				'<div class="comment-box clearfix">';
@@ -254,7 +259,7 @@
 		    }
 		    $('.comment-list').html(str);
 		    
-		    var paginationStr = createPagenation(res.pm);
+		    var paginationStr = createPagination(res.pm);
 		    $('.comment-pagination').html(paginationStr);
 		}
 		
