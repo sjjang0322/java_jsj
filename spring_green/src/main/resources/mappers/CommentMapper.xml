@@ -15,6 +15,15 @@
 	<select id="selectCommentList" resultType="kr.green.green.vo.CommentVO">
 		select * from comment
 			where co_bd_num = #{co_bd_num} and co_del = 'N'
-			order by co_num asc
+			order by co_ori_num desc, co_num asc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="countCommentList" resultType="int">
+		select count(*) from comment
+			where co_bd_num = #{bd_num} and co_del = 'N'
+	</select>
+	<select id="selectComment" resultType="kr.green.green.vo.CommentVO">
+		select * from comment
+			where co_num = #{co_num}
 	</select>
 </mapper>
