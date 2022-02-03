@@ -11,9 +11,11 @@
 		<form>
 			<c:if test="${board.bd_type == '공지'}">
 				<h1>공지사항 상세</h1>
+				
 			</c:if>
 			<c:if test="${board.bd_type == '일반'}">
 				<h1>게시글 상세</h1>
+				
 			</c:if>
 			<div class="form-group">			  
 			  <input type="text" class="form-control" name="title" value="제목 : ${board.bd_title}" readonly>
@@ -75,7 +77,7 @@
 		</div>
 		<hr class="mt-3">
 		<div class="input-group mt-3 mb-3">
-		  <textarea class="form-control" rows="3" name="co_contents"></textarea>
+		  <textarea class="form-control text-comment" rows="3" name="co_contents"></textarea>
 		  <div class="input-group-append">
 		    <button class="btn btn-success" id="comment-submit">댓글 등록</button>
 		  </div>
@@ -105,7 +107,19 @@
 					return;
 				}
 				
-				commentService.insert(comment, '/comment/register',insertSuccess);
+				commentService.insert(comment, '/comment/register',function(res){
+					//댓글 등록에 성공하면
+		    		if(res == true){
+		    			//입력한 댓글을 지워줌
+		    			$('.text-comment').val('');
+		    			alert('댓글 등록이 완료되었습니다.');
+		    			//새로고침(전체가 아닌 댓글부분만)을 하여 1페이지에 맞는 댓글을 새로 가져옴
+		    			var co_bd_num = '${board.bd_num}';
+		    			readComment(co_bd_num,1);			    			
+		    		}else{
+		    			alert('댓글 등록에 실패했습니다.');
+		    		}
+				});
 			})
 		
 			$(document).on('click', '.comment-pagination .page-item', function(){	
@@ -134,15 +148,50 @@
 				var textarea 
 					= '<textarea class="form-control co_contents2">'+text+'</textarea>';
 				$(this).siblings('.co_contents').after(textarea);
+				var co_num = $(this).data('num');
 				var button
-					= '<button class="btn btn-outline-info btn-mod-insert">댓글 수정</button>';
+					= '<button class="btn btn-outline-info btn-mod-insert" data-num="'+ co_num +'">댓글 수정</button>';
 				$(this).siblings('.co_reg_date').after(button);
 			});
+			//댓글 수정 등록 버튼 클릭 이벤트
+			$(document).on('click', '.btn-mod-insert', function(){
+				var co_contents = $('.co_contents2').val();
+				var co_num = $(this).data('num');				
+				var comment = {
+						co_contents : co_contents,
+						co_num : co_num
+				}
+				commentService.modify(comment, '/comment/register', registerSuccess);
+			})
 			
+			$(document).on('click', '.btn-reply-comment', function(){			
+				commentInit();
+				var co_num = $(this).data('num');
+				var str = '<textarea class="form-control co_contents2" rows="3"></textarea>';				
+				var buttonStr = '<button class="btn btn-outline-success btn-rep-insert" data-num="'+ co_num +'">답글 등록</button>';
+				$(this).parent().children('button').hide();
+				$(this).parent().append(str);
+				$(this).parent().append(buttonStr);				
+			});			
 			
+			$(document).on('click', '.btn-rep-insert', function(){
+				var co_contents = $('.co_contents2').val();
+				var co_ori_num = $(this).data('num');
+				var co_bd_num = '${board.bd_num}';
+				var co_me_id = '${user.me_id}';
+				var comment = {
+						co_contents : co_contents,
+						co_ori_num : co_ori_num,
+						co_bd_num : co_bd_num,
+						co_me_id : co_me_id
+				}
+				console.log(comment);
+				commentService.reply(comment, '/comment/register', insertSuccess);
+			});
 			
+			//댓글 불러오기
 			var listUrl = '/comment/list?page=1&bd_num='+'${board.bd_num}'+'&bd_type='+'${board.bd_type}';			
-			commentService.list(listUrl,listSuccess);
+			commentService.list(listUrl,listSuccess);			
 		});
 		
 		function getDateToString(date){
@@ -157,10 +206,13 @@
 			$('.comment-box').each(function(){
 				$(this).find('.co_contents2').remove();
 				$(this).find('.btn-mod-insert').remove();
+				$(this).find('.btn-rep-insert').remove();
 				$(this).find('button').show();
 				$(this).find('.cocontents').show();
 			});
 		}
+		
+
 		
 		function deleteSuccess(res){
 			if(res){
@@ -216,7 +268,7 @@
 						'<div class="co_contents mt-2">'+comment.co_contents+'</div>'+
 						'<div class="co_reg_date mt-2"> 작성시간'+co_reg_date+'</div>';
 			if(comment.co_ori_num == comment.co_num)
-			str+=		'<button class="btn-reply-comment btn btn-outline-success mt-2 mr-2">답글</button>';
+			str+=		'<button class="btn-reply-comment btn btn-outline-success mt-2 mr-2" data-num="'+comment.co_num+'">답글</button>';
 			if(comment.co_me_id == me_id){
 			str+=		'<button class="btn-mod-comment btn btn-outline-info mt-2 mr-2" data-num="'+comment.co_num+'">수정</button>'+
 						'<button class="btn-del-comment btn btn-outline-warning mt-2 mr-2" data-num="'+comment.co_num+'">삭제</button>';
@@ -266,13 +318,28 @@
 		function insertSuccess(res){
 			if(res){
             	alert('댓글 등록이 완료 되었습니다.')
-            	$('[name=co_contents]').val('');	            	
-            	var listUrl = '/comment/list?page=1&bd_num='+'${board.bd_num}';
+            	$('[name=co_contents]').val('');	     
+            	var bd_type = '${board.bd_type}'
+            	var bd_num = '${board.bd_num}'
+            	var listUrl = '/comment/list?page=1&bd_num='+bd_num+'&bd_type='+bd_type;
             	commentService.list(listUrl,listSuccess)
             }else{
             	alert('댓글 등록에 실패 했습니다.');
             }
 		}
+		
+		function modifySuccess(res){
+			if(res){
+				var bd_type = '${board.bd_type}'
+				var page = $('.comment-pagination .active').data('page');
+				var listUrl = '/comment/list?page='+page+'&bd_num='+'${board.bd_num}&bd_type='+bd_type;
+	        	commentService.list(listUrl,listSuccess);
+			}
+		}
+		
+
+		
+		
 	</script>
 </body>
 </html>

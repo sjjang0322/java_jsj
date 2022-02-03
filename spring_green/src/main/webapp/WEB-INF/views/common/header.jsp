@@ -9,7 +9,17 @@
   	</button>
   	<div class="collapse navbar-collapse" id="collapsibleNavbar">
     	<ul class="navbar-nav">
-    		<c:if test="${user == null }">
+    		 
+	      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=공지">공지사항</a>
+	      	</li> 
+	      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=일반">게시글</a>
+	      	</li> 
+	      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=qna">QnA</a>
+	      	</li> 
+	      	<c:if test="${user == null }">
 	      	<li class="nav-item">
 	        	<a class="nav-link" href="<%=request.getContextPath()%>/signup">회원가입</a>
 	      	</li>
@@ -21,16 +31,7 @@
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/logout">로그아웃</a>
 		      	</li> 
-	      	</c:if>  
-	      	<li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=공지">공지사항</a>
-	      	</li> 
-	      	<li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=일반">게시글</a>
-	      	</li> 
-	      	<li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list?type=qna">QnA</a>
-	      	</li> 
+	      	</c:if> 
     	</ul>
 		</div> 
 	</div> 

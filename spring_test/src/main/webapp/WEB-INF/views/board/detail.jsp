@@ -115,8 +115,9 @@
 					co_contents : co_contents,
 					co_bd_num : co_bd_num
 				}
+				console.log(comment);
 				//댓글을 등록하기 위해 ajax로 서버에 데이터를 전송
-				commentService.ajaxPostJsonToJson('/comment/insert', comment, function(res){
+				commentService.insert('/comment/insert', comment, function(res){
 					//댓글 등록에 성공하면
 		    		if(res == true){
 		    			//입력한 댓글을 지워줌

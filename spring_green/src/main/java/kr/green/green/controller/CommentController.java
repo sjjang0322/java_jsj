@@ -60,4 +60,12 @@ public class CommentController {
 		System.out.println(user);
 		return commentService.deleteComment(co_num, user);
 	}
+	
+	@RequestMapping(value ="/modify", method=RequestMethod.POST)
+	public boolean commentModify(@RequestBody CommentVO comment, HttpServletRequest request){
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		return commentService.modifyComment(comment, user);
+	}
+	
+
 }

@@ -10,7 +10,8 @@
 <body>
 	<div class="body">
 		<h1>메인입니다.</h1>
-		${user}
+		<input id="input" type="text">
+		<button id="btn">확인</button>
 	</div>
 </body>
 <script>
@@ -69,6 +70,16 @@
 	            console.log('pw : ' + res.data.pw);
 	        }
 	    });
+	});
+	
+	var idRegex = /^[A-z]\w{4,7}$/g;
+	$('#btn').click(function(){
+		var id = $('#input').val();
+		if(idRegex.test(id)){
+			alert('정규표현식에 맞습니다.');
+		}else{
+			alert('정규표현식에 맞지 않습니다.');
+		}
 	});
 </script>
 </html>

@@ -13,7 +13,14 @@
 	  
 	  <ul class="navbar-nav">
 	  	<!-- 로그인되어있지 않으면 =>세션에 user가 없으면 -->
-	  	<c:if test="${user == null}">		  	
+	  	
+	    <li class="nav-item">
+	      <a class="nav-link" href="<%=request.getContextPath() %>/board/list?type=공지">공지사항</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="<%=request.getContextPath() %>/board/list">게시글</a>
+	    </li>
+	    <c:if test="${user == null}">		  	
 		    <li class="nav-item">
 		      <a class="nav-link" href="<%=request.getContextPath() %>/login">로그인</a>
 		    </li>
@@ -26,12 +33,6 @@
 		      <a class="nav-link" href="<%=request.getContextPath() %>/logout">로그아웃</a>
 		    </li>
 	    </c:if>
-	    <li class="nav-item">
-	      <a class="nav-link" href="<%=request.getContextPath() %>/board/list?type=공지">공지사항</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="<%=request.getContextPath() %>/board/list">게시글</a>
-	    </li>
 	  </ul>
 	</nav>
 </body>
