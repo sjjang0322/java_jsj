@@ -155,5 +155,14 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.selectMemberBySessionId(me_session_id);
 	}
 
-
+	@Override
+	public void paramTest() {
+		MemberVO user = new MemberVO();
+		user.setMe_id("qwe");
+		MemberVO user1 = memberDao.paramTest1(user);
+		MemberVO user2 = memberDao.paramTest2(user);
+		System.out.println("방법1(param붙임) : " + user1);
+		System.out.println("방법1(param안붙임) : " + user2);
+		
+	}
 }

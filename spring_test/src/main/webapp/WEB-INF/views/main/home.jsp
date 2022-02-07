@@ -8,10 +8,16 @@
 	<title>Home</title>
 </head>
 <body>
-	<div class="body">
-		<h1>메인입니다.</h1>
-		<input id="input" type="text">
-		<button id="btn">확인</button>
+	<div class="body container">
+		<select class="main-category">
+			<option>선택</option>
+		</select>
+		<select class="middle-category">
+			<option>선택</option>
+		</select>
+		<select class="sub-category">
+			<option>선택</option>
+		</select>
 	</div>
 </body>
 <script>

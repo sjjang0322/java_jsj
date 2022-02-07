@@ -20,6 +20,8 @@ public interface MemberDAO {
 
 	MemberVO selectMemberBySessionId(@Param("me_session_id")String me_session_id);
 
-
+	MemberVO paramTest1(@Param("user")MemberVO user);
+	
+	MemberVO paramTest2(MemberVO user);
 	
 }

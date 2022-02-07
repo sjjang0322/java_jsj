@@ -35,6 +35,11 @@
   	select * from member 
   		where me_session_id = #{me_session_id} and me_session_limit > now()
   </select>
-
+  <select id="paramTest1" resultType = "kr.green.test.vo.MemberVO">
+  	select * from member where me_id = #{user.me_id}
+  </select>
+  <select id="paramTest2" resultType = "kr.green.test.vo.MemberVO">
+  	select * from member where me_id = #{me_id}
+  </select>
   
 </mapper>
