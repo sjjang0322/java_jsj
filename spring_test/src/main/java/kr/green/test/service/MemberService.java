@@ -11,5 +11,11 @@ public interface MemberService {
 	boolean idDuplicated(String id);
 
 	String findPw(MemberVO member);
+
+	void updateAutoLogin(MemberVO user);
+
+	MemberVO selectMemberBySessionId(String value);
+
+	
 	
 }

@@ -10,4 +10,31 @@
   	insert into member(me_id, me_pw, me_name, me_gender, me_birth, me_address, me_phone)
   	 values(#{user.me_id},#{user.me_pw},#{user.me_name},#{user.me_gender},#{user.me_birth},#{user.me_address},#{user.me_phone})
   </insert>
+  <update id="updateMember">
+  	update member set
+  		me_pw = #{user.me_pw},
+  		me_name = #{user.me_name},
+  		me_gender = #{user.me_gender},
+  		me_birth = #{user.me_birth},
+  		me_address = #{user.me_address},
+  		me_phone = #{user.me_phone},
+  		me_authority = #{user.me_authority}
+	where me_id = #{user.me_id}
+  		
+  </update>
+  <select id="selectMemberList" resultType="kr.green.test.vo.MemberVO">
+  	select * from member where me_authority != '슈퍼 관리자'
+  </select>
+  <update id="updateAutoLogin">
+  	update member set
+		me_session_id = #{user.me_session_id},
+		me_session_limit = #{user.me_session_limit}
+	where me_id = #{user.me_id}
+  </update>
+  <select id="selectMemberBySessionId" resultType="kr.green.test.vo.MemberVO">
+  	select * from member 
+  		where me_session_id = #{me_session_id} and me_session_limit > now()
+  </select>
+
+  
 </mapper>

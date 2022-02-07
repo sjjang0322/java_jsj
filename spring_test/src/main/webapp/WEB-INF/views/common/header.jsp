@@ -33,6 +33,11 @@
 		      <a class="nav-link" href="<%=request.getContextPath() %>/logout">로그아웃</a>
 		    </li>
 	    </c:if>
+	    <c:if test="${user.me_authority == '슈퍼 관리자' }">
+	    	<li class="nav-item">
+		      <a class="nav-link" href="<%=request.getContextPath() %>/admin/member/list">회원관리</a>
+		    </li>
+	    </c:if>
 	  </ul>
 	</nav>
 </body>

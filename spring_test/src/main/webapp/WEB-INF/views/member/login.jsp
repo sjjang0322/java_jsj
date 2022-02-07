@@ -18,9 +18,12 @@
 				</div>
 				<div class="form-group">
 				  <input type="password" class="form-control" name="me_pw">
-				 </div>
-				  <button class="btn btn-outline-success col-12">로그인</button>
-			</form>
+				 </div>				 
+				 <button class="btn btn-outline-success col-12">로그인</button>
+				 <label>
+					<input type="checkbox" name="me_auto_login" value="ok">자동 로그인				
+				</label>
+			</form>			
 		</div>
 	</div>
 </body>

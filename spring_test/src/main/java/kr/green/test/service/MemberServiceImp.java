@@ -141,4 +141,19 @@ public class MemberServiceImp implements MemberService {
 		}
 		return newPw;
 	}
+
+	@Override
+	public void updateAutoLogin(MemberVO user) {
+		if(user == null)
+			return;
+		memberDao.updateAutoLogin(user);
+	}
+
+	@Override
+	public MemberVO selectMemberBySessionId(String me_session_id) {
+		
+		return memberDao.selectMemberBySessionId(me_session_id);
+	}
+
+
 }

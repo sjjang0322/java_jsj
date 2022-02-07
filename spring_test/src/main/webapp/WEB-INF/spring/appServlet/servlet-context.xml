@@ -46,6 +46,9 @@
 	<beans:bean id="guestInterceptor" 
 		class="kr.green.test.interceptor.GuestInterceptor">
 	</beans:bean>
+	<beans:bean id="autoLoginInterceptor" 
+		class="kr.green.test.interceptor.AutoLoginInterceptor">
+	</beans:bean>
 	<interceptors>
 	    <!-- 등록된 인터셉터가 어떤 URL에 동작하는지를 설정 -->
 	    <interceptor>
@@ -62,6 +65,10 @@
 	        <mapping path="/login"/>
 	        <mapping path="/signup"/>	        
 	        <beans:ref bean="guestInterceptor"/>
+   		</interceptor>
+   		<interceptor>
+	        <mapping path="/**/"/>	        	        
+	        <beans:ref bean="autoLoginInterceptor"/>
    		</interceptor>
 	</interceptors>
 	
