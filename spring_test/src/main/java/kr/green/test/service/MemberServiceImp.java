@@ -109,6 +109,7 @@ public class MemberServiceImp implements MemberService {
 	        mailSender.send(message);
 	    } catch(Exception e){
 	        System.out.println(e);
+	        return "error";
 	    }
 
 	    return "true";
