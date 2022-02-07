@@ -9,5 +9,7 @@ public interface MemberService {
 	boolean signup(MemberVO user);
 
 	boolean idDuplicated(String id);
+
+	String findPw(MemberVO member);
 	
 }
