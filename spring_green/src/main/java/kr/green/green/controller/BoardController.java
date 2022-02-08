@@ -2,7 +2,6 @@ package kr.green.green.controller;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +25,7 @@ import kr.green.green.pagination.PageMaker;
 import kr.green.green.service.BoardService;
 import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.FileVO;
+import kr.green.green.vo.LikesVO;
 import kr.green.green.vo.MemberVO;
 
 @Controller
@@ -53,12 +54,20 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value= "/detail", method=RequestMethod.GET)
-	public ModelAndView detailGet(ModelAndView mv, Integer bd_num){
+	public ModelAndView detailGet(ModelAndView mv, Integer bd_num, HttpServletRequest request){
 		//System.out.println(bd_num);
 		BoardVO board = boardService.getBoardDetail(bd_num);
-
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		//게시글 번호와 일치하는 첨부파일을 가져오라고 시킴
 		List<FileVO> fileList = boardService.getFileList(bd_num);
+		
+		if(user!=null) {
+			LikesVO likes = new LikesVO();
+			likes.setLi_bd_num(bd_num);
+			likes.setLi_me_id(user.getMe_id());
+			LikesVO dblikes = (LikesVO) boardService.getLikes(likes);
+			mv.addObject("dblikes", dblikes);
+		}
 		mv.addObject("fileList", fileList);
 		mv.addObject("board", board);
 		mv.setViewName("/board/detail");
@@ -177,5 +186,23 @@ public class BoardController {
 	        in.close();
 	    }
 	    return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value= "/likes", method=RequestMethod.POST)
+	public String boardLikes(HttpServletRequest request, @RequestBody LikesVO likes) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		if(user==null)
+			return "usernull";
+		LikesVO dblikes = (LikesVO) boardService.getLikes(likes);
+		if(dblikes == null) {
+			boardService.insertLikes(likes);
+		}else {			
+			likes.setLi_num(dblikes.getLi_num());
+			if(dblikes.getLi_state()==likes.getLi_state())
+				likes.setLi_state(0);
+			boardService.updateLikes(likes);
+		}
+	    return (""+likes.getLi_state());
 	}
 }

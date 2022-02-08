@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.FileVO;
+import kr.green.green.vo.LikesVO;
 import kr.green.green.vo.MemberVO;
 import kr.green.green.dao.BoardDAO;
 import kr.green.green.pagination.Criteria;
@@ -176,6 +177,25 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int getTotalCount(Criteria cri) {		
 		return boardDao.getTotalCount(cri);
+	}
+
+	@Override
+	public LikesVO getLikes(LikesVO likes) {
+		return boardDao.getLikes(likes);
+	}
+
+	@Override
+	public void insertLikes(LikesVO likes) {
+		if(likes==null)
+			return;
+		boardDao.insertLikes(likes);
+	}
+
+	@Override
+	public void updateLikes(LikesVO likes) {
+		if(likes==null)
+			return;
+		boardDao.updateLikes(likes);
 	}
 
 

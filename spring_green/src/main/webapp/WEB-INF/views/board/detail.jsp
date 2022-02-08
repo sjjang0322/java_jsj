@@ -44,6 +44,10 @@
 			  <div class="form-control" id="content" style="height: auto; min-height: 400px">${board.bd_content}</div>
 			</div>			
 		</form>
+		<div class="likes-btn-box mb-2">
+			<button class="btn btn-outline-success btn-up" data-value="1">추천</button>
+			<button class="btn btn-outline-danger btn-down" data-value="-1">비추천</button>
+		</div>
 		<c:if test="${board.bd_me_id == user.me_id}">
 			<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">	
 				<button class="btn btn-outline-success">수정</button>
@@ -192,6 +196,54 @@
 			//댓글 불러오기
 			var listUrl = '/comment/list?page=1&bd_num='+'${board.bd_num}'+'&bd_type='+'${board.bd_type}';			
 			commentService.list(listUrl,listSuccess);			
+		});
+		
+
+		$('.likes-btn-box .btn').click(function(){
+			var li_me_id = '${user.me_id}';
+			var li_bd_num = '${board.bd_num}';
+			var li_state = $(this).data('value');
+			var likes = {
+					li_me_id : li_me_id,
+					li_bd_num : li_bd_num,
+					li_state : li_state
+			}
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+			}else{
+				$(this).parent().children().removeClass('active');
+				$(this).addClass('active');
+			}
+			$.ajax({
+		        async:false,
+		        type:'POST',
+		        data:JSON.stringify(likes),
+		        url: '<%=request.getContextPath()%>/board/likes',
+		        contentType:"application/json; charset=UTF-8",
+		        success : function(res){
+					if(res==1){
+						alert('추천하였습니다.');
+					}else if(res==-1){
+						alert('비추천하였습니다.')
+					}else if(res==0){
+						if(li_state==1)
+							alert('추천을 취소했습니다.')
+						else
+							alert('비추천을 취소했습니다.')
+					}else{
+						alert('로그인이 필요합니다.')
+					}
+		        }
+			});
+		});
+		
+		$(function(){
+			if(${dblikes!=null}){
+				if(${dblikes.li_state==1})
+					$('.btn-up').addClass('active');
+				else if(${dblikes.li_state==-1})
+					$('.btn-down').addClass('active');
+			}
 		});
 		
 		function getDateToString(date){
