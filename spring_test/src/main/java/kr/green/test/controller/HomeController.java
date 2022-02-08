@@ -1,6 +1,9 @@
 package kr.green.test.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import kr.green.test.service.MemberService;
+import kr.green.test.vo.MainCategoryVO;
 import kr.green.test.vo.MemberVO;
+import kr.green.test.vo.MiddleCategoryVO;
+import kr.green.test.vo.SubCategoryVO;
 
 //@controller가 있어야 URL을 분석하여 처리
 @Controller
@@ -130,5 +136,33 @@ public class HomeController {
 		memberService.paramTest();
 		mv.setViewName("/main/home");
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/maincategory")
+	public Map<String,Object> maincategory() {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		List<MainCategoryVO> list = memberService.selectMainCategory();
+		
+		map.put("list", list);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/middlecategory")
+	public Map<String,Object> middlecategory(Integer mi_ma_num) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		List<MiddleCategoryVO> list = memberService.selectMiddleCategory(mi_ma_num);
+		map.put("list", list);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/subcategory")
+	public Map<String,Object> subcategory(Integer su_mi_num) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		List<SubCategoryVO> list = memberService.selectSubCategory(su_mi_num);
+		map.put("list", list);
+		return map;
 	}
 }

@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.green.test.vo.MainCategoryVO;
 import kr.green.test.vo.MemberVO;
+import kr.green.test.vo.MiddleCategoryVO;
+import kr.green.test.vo.SubCategoryVO;
 
 public interface MemberDAO {
 
@@ -23,5 +26,11 @@ public interface MemberDAO {
 	MemberVO paramTest1(@Param("user")MemberVO user);
 	
 	MemberVO paramTest2(MemberVO user);
+
+	List<MainCategoryVO> selectMainCategory();
+
+	List<MiddleCategoryVO> selectMiddleCategory(@Param("mi_ma_num")Integer mi_ma_num);
+
+	List<SubCategoryVO> selectSubCategory(@Param("su_mi_num")Integer su_mi_num);
 	
 }

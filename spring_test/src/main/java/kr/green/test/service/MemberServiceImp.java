@@ -1,5 +1,7 @@
 package kr.green.test.service;
 
+import java.util.List;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.test.dao.MemberDAO;
+import kr.green.test.vo.MainCategoryVO;
 import kr.green.test.vo.MemberVO;
+import kr.green.test.vo.MiddleCategoryVO;
+import kr.green.test.vo.SubCategoryVO;
 
 
 @Service
@@ -164,5 +169,24 @@ public class MemberServiceImp implements MemberService {
 		System.out.println("방법1(param붙임) : " + user1);
 		System.out.println("방법1(param안붙임) : " + user2);
 		
+	}
+
+	@Override
+	public List<MainCategoryVO> selectMainCategory() {
+		return memberDao.selectMainCategory();
+	}
+
+	@Override
+	public List<MiddleCategoryVO> selectMiddleCategory(Integer mi_ma_num) {
+		if(mi_ma_num <= 0|| mi_ma_num == null)
+			return null;
+		return memberDao.selectMiddleCategory(mi_ma_num);
+	}
+
+	@Override
+	public List<SubCategoryVO> selectSubCategory(Integer su_mi_num) {
+		if(su_mi_num <= 0|| su_mi_num == null)
+			return null;
+		return memberDao.selectSubCategory(su_mi_num);
 	}
 }
