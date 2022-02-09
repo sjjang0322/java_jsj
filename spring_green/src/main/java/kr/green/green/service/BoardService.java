@@ -33,4 +33,6 @@ public interface BoardService {
 	void insertLikes(LikesVO likes);
 
 	void updateLikes(LikesVO likes);
+
+	String views(LikesVO likes, MemberVO user);
 }

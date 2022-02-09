@@ -205,4 +205,11 @@ public class BoardController {
 		}
 	    return (""+likes.getLi_state());
 	}
+	
+	@ResponseBody
+	@RequestMapping(value= "/likes/views", method=RequestMethod.POST)
+	public String boardLikesViews(HttpServletRequest request, @RequestBody LikesVO likes) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+	    return boardService.views(likes,user);
+	}
 }
