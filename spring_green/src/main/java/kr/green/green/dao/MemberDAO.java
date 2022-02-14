@@ -10,4 +10,14 @@ public interface MemberDAO {
 
 	MemberVO selectMember(@Param("me_id")String me_id);
 
+	void updateMember(@Param("user")MemberVO user);
+
+	void updateMemberPassword(@Param("user")MemberVO user);
+
+	void updateMemberAddress(@Param("user")MemberVO user);
+	
+	String findId(@Param("user")MemberVO user);
+
+	MemberVO findPw(@Param("user")MemberVO user);
+
 }

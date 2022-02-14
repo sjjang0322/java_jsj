@@ -401,10 +401,10 @@
 	        contentType:"application/json; charset=UTF-8",
 	        success : function(res){
 				$('.btn-up')
-					.addClass('btn-outline-primary');
-					.removeClass('btn-primary')
+					.addClass('btn-outline-primary')
+					.removeClass('btn-primary');
 				$('.btn-down')
-					.addClass('btn-outline-danger');
+					.addClass('btn-outline-danger')
 					.removeClass('btn-danger');
 				if(res == -1){
 					$('.btn-down')

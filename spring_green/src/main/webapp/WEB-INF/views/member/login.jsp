@@ -19,6 +19,8 @@
 			</div>
 			<button class="btn btn-outline-success col-12">로그인</button>
 		</form>
+		<a href="<%=request.getContextPath()%>/member/find">아이디/비밀번호 찾기</a>
+			
 	</div>
 </div>
 </body>

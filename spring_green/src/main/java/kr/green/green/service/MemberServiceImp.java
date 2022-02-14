@@ -58,4 +58,63 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		return true;
 	}
+
+	@Override
+	public boolean modify(MemberVO user) {
+		if(user==null || user.getMe_birth()==null || user.getMe_gender()==null || user.getMe_id()==null || user.getMe_name()==null
+				|| user.getMe_phone()==null)
+			return false;
+		memberDao.updateMember(user);
+		if(!user.getMe_pw().equals("")&&user.getMe_pw()!=null) {
+			String encPw = passwordEncoder.encode(user.getMe_pw());
+			user.setMe_pw(encPw);
+			memberDao.updateMemberPassword(user);
+		}
+		if(!user.getMe_address().equals(" ")&&user.getMe_address()!=null) {
+			memberDao.updateMemberAddress(user);
+		}
+		return true;
+	}
+
+	@Override
+	public MemberVO loadUser(MemberVO user) {
+		if(user==null||user.getMe_id()==null) {
+			return null;
+		}
+		MemberVO dbUser = memberDao.selectMember(user.getMe_id());
+		return dbUser;
+	}
+
+	@Override
+	public String findId(MemberVO user) {
+		if(user==null||user.getMe_name()==null||user.getMe_email()==null)
+			return null;		
+		return memberDao.findId(user);
+	}
+
+	@Override
+	public String findPw(MemberVO user) {
+		if(user==null||user.getMe_id()==null||user.getMe_email()==null)
+			return null;		
+		if(memberDao.findPw(user)==null)
+			return null;
+		MemberVO dbUser = (MemberVO)memberDao.findPw(user);
+		if(dbUser==null)
+			return null;
+		String pw = "";
+		for(int i=0;i<26;i++) {
+			int tmp = (int) (Math.random()*61);
+			if(tmp<10) {
+				pw += (char)(tmp+48);
+			} else if(tmp<36){
+				pw += (char)(tmp+65);
+			} else if(tmp<62){
+				pw += (char)(tmp+97);
+			}
+		}
+		String encPw = passwordEncoder.encode(pw);
+		user.setMe_pw(encPw);
+		memberDao.updateMemberPassword(user);
+		return pw;
+	}
 }

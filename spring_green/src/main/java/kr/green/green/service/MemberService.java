@@ -10,4 +10,14 @@ public interface MemberService {
 
 	boolean isDuplicated(String id);
 
+	boolean modify(MemberVO user);
+
+	MemberVO loadUser(MemberVO user);
+
+	String findId(MemberVO user);
+
+	String findPw(MemberVO user);
+
+	
+
 }
